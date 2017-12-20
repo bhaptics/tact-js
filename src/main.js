@@ -1,3 +1,3 @@
-import testModule from './test-file'
+import hapticPlayer from "./hapticPlayer";
 
-testModule.test();
+window.hapticPlayer = hapticPlayer;

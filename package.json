@@ -1,15 +1,15 @@
 {
-    "name": "boilerplate-babel-webpack",
-    "version": "1.0.4",
-    "description": "Starter with Babel.js and Webpack",
+    "name": "tact-js",
+    "version": "0.0.3",
+    "description": "haptic",
     "license": "MIT",
     "author": {
-        "name": "Piotr Kowalski",
-        "email": "piecioshka@gmail.com",
-        "url": "https://piecioshka.pl"
+        "name": "bHaptics Inc.",
+        "email": "developer@bhaptics.com",
+        "url": "http://bhaptics.com"
     },
     "scripts": {
-        "audit": "source-map-explorer public/dist/main.bundle.js",
+        "audit": "source-map-explorer public/dist/index.js",
         "clear": "rm -rf public/dist/",
         "clear:all": "rm -rf node_modules/ && npm run clear",
         "count": "find src -name '*.js' | xargs wc -l | sort -r",
@@ -25,16 +25,11 @@
         "webpack": "^2.3.2"
     },
     "keywords": [
-        "webpack",
-        "babel",
-        "starter",
-        "source map",
-        "explorer",
-        "count",
-        "loc"
+        "bhaptics",
+        "haptic"
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/piecioshka/boilerplate-babel-webpack"
+        "url": "https://github.com/bhaptics"
     }
 }

@@ -1,1 +1,144 @@
-<script src="dist/main.bundle.js"></script>
+<html>
+<head>
+    <script src="dist/main.bundle.js"></script>
+</head>
+<body>
+    <div>
+        <span>key</span>
+        <input type="text" value="key" id="key">
+    </div>
+    <div>
+        <span>position</span>
+        <select id="position">
+            <option>Left</option>
+            <option>Right</option>
+            <option>VestFront</option>
+            <option>VestBack</option>
+        </select>
+    </div>
+    <div>
+        <span>intensity</span>
+        <select id="intensity">
+            <option>0</option>
+            <option>10</option>
+            <option>20</option>
+            <option>30</option>
+            <option>40</option>
+            <option>50</option>
+            <option>60</option>
+            <option>70</option>
+            <option>80</option>
+            <option>90</option>
+            <option selected>100</option>
+        </select>
+    </div>
+    <div>
+        <span>duration (ms)</span>
+        <select id="duration">
+            <option>50</option>
+            <option>100</option>
+            <option>500</option>
+            <option selected>1000</option>
+            <option>3000</option>
+            <option selected>100</option>
+        </select>
+    </div>
+    <div>
+        <select id="index">
+            <option>0</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+            <option>10</option>
+            <option>11</option>
+            <option>12</option>
+            <option>13</option>
+            <option>14</option>
+            <option>15</option>
+            <option>16</option>
+            <option>17</option>
+            <option>18</option>
+            <option>19</option>
+        </select>
+        <input type="button" value="dot mode" onclick="onClickDotmode()">
+    </div>
+
+    <div>
+        <span>x</span>
+        <input id="x" type="number" value="0.5" min="0" max="1" step="0.1">
+        <span>y</span>
+        <input id="y" type="number" value="0.5"  min="0" max="1" step="0.1">
+        <input type="button" value="path mode" onclick="onClickPathmode()">
+    </div>
+    <script>
+        var player;
+        function onClickDotmode() {
+            if (!player) {
+                return;
+            }
+            var points = [{
+                Index : getIndex(),
+                Intensity : getIntensity()
+            }];
+            player.submitDot(getKey(), getPostion(), points, getDuration());
+        }
+
+        function onClickPathmode() {
+            if (!player) {
+                return;
+            }
+            var points = [{
+                Intensity : getIntensity(),
+                X : getX(),
+                Y : getY()
+            }];
+            player.submitPath(getKey(), getPostion(), points, getDuration());
+        }
+
+        function getKey() {
+            return document.getElementById("key").value;
+        }
+
+        function getPostion() {
+            return document.getElementById("position").value;
+        }
+
+        function getIndex() {
+            return parseInt(document.getElementById("index").value);
+        }
+
+        function getIntensity() {
+            return parseInt(document.getElementById("intensity").value);
+        }
+
+        function getDuration() {
+            return parseInt(document.getElementById("duration").value);
+        }
+
+        function getX() {
+            return parseFloat(document.getElementById("x").value);
+        }
+
+        function getY() {
+            return parseFloat(document.getElementById("y").value);
+        }
+
+        window.onload = function(e) {
+            player = new hapticPlayer();
+            player.on('change', function(msg) {
+                console.log(msg);
+            })
+
+        };
+    </script>
+</body>
+</html>
+
+
+
