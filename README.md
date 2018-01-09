@@ -28,6 +28,12 @@ player.submitDot('dot', 'Left', points, 1000);
 
 ```
 
+* es6 with node
+```javascript
+import hapticPlayer from 'tact-js';
+var player = new hapticPlayer();
+```
+
 
 ## Build
 ```
