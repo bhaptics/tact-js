@@ -1,37 +1,25 @@
+import EventEmitter from "./EventEmitter";
 
-let defaultURL= 'ws://localhost:15881/v2/feedbacks';
-let status = {
-    connecting : 'Connecting',
-    connected : 'Connected',
-    disconnect : 'Disconnected'
+let defaultURL= 'ws://127.0.0.1:15881/v2/feedbacks';
+
+const STATUS = {
+    CONNECTING : 'Connecting',
+    CONNECTED : 'Connected',
+    DISCONNECT : 'Disconnected'
 };
 
-export default class Tacsocket {
-    constructor() {
+
+export default class Tacsocket extends EventEmitter{
+    constructor(retryConnectTime) {
+        super();
         this.handlers = [];
         this.message = {};
         this.websocketClient;
-        this.currentStatus = status.disconnect;
+        this.DEFAULT_RETRY_CONNECT_TIME = 5000;
+        this.retryConnectTime = retryConnectTime || this.DEFAULT_RETRY_CONNECT_TIME;
+        this.currentStatus = STATUS.DISCONNECT;
         this.connect();
     }
-
-    publish(event, args) {
-        this.handlers.forEach((topic) => {
-            if (topic.event === event) {
-              topic.handler(args)
-            }
-        });
-    }
-
-    on (event, handler, context) {
-      if (typeof context === 'undefined') { context = handler; }
-      this.handlers.push({ event: event, handler: handler.bind(context) });
-
-        this.publish('change', {
-            status: this.currentStatus,
-            message: this.message
-        });
-    };
 
     connect() {
         try  {
@@ -42,8 +30,8 @@ export default class Tacsocket {
         }
 
         this.websocketClient.onopen = () => {
-            this.currentStatus = status.connected;
-            this.publish('change', {
+            this.currentStatus = STATUS.CONNECTED;
+            this.emit('change', {
                 status: this.currentStatus,
                 message: this.message
             });
@@ -55,25 +43,25 @@ export default class Tacsocket {
             }
 
             this.message = JSON.parse(result.data);
-            this.publish('change', {
+            this.emit('change', {
                 status: this.currentStatus,
                 message: this.message
             });
         };
 
         this.websocketClient.onclose = (event) => {
-            this.currentStatus = status.disconnect;
-            this.publish('change', {
+            this.currentStatus = STATUS.DISCONNECT;
+            this.emit('change', {
                 status: this.currentStatus,
                 message: this.message
             });
-            setTimeout(function(){
+            setTimeout(() => {
                 this.connect();
-            }, 5000);
+            }, this.retryConnectTime);
         };
 
-        this.currentStatus = status.connecting;
-        this.publish('change', {
+        this.currentStatus = STATUS.CONNECTING;
+        this.emit('change', {
             status: this.currentStatus,
             message: this.message
         });
@@ -88,7 +76,7 @@ export default class Tacsocket {
             return;
         }
 
-        if (this.currentStatus !== status.connected) {
+        if (this.currentStatus !== STATUS.CONNECTED) {
             return;
         }
 

@@ -1,7 +1,4 @@
-'use strict';
+import hapticPlayer from "./src/hapticPlayer";
 
-if (process.env.NODE_ENV === 'production') {
-    module.exports = require('./public/dist/main.bundle.js');
-} else {
-    module.exports = require('./public/dist/main.bundle.js');
-}
+export default hapticPlayer;
+window.hapticPlayer = hapticPlayer;

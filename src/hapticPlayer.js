@@ -1,30 +1,17 @@
 import Tacsocket from './Tacsocket';
+import EventEmitter from './EventEmitter';
 
-export default class hapticPlayer {
+export default class hapticPlayer extends EventEmitter{
     constructor() {
+        super();
         this.socket = new Tacsocket();
         this.handlers = [];
         this.message = {};
 
         this.socket.on('change', (message) => {
             this.message = message;
-            this._publish('change', this.message);
+            this.emit('change', this.message);
         });
-    }
-
-    _publish(event, args) {
-        this.handlers.forEach((topic) => {
-            if (topic.event === event) {
-                topic.handler(args)
-            }
-        });
-    }
-
-    on (event, handler, context) {
-        if (typeof context === 'undefined') { context = handler; }
-        this.handlers.push({ event: event, handler: handler.bind(context) });
-
-        this._publish('change', this.message);
     }
 
     turnOff(position) {
@@ -77,8 +64,10 @@ export default class hapticPlayer {
                 }
             }]
         };
-        this.socket.send(JSON.stringify(request, function(key, val) {
+        this.socket.send(JSON.stringify(request, (key, val) => {
             return val.toFixed ? Number(val.toFixed(3)) : val;
         }));
     };
 }
+
+

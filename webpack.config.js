@@ -2,18 +2,20 @@
 
 let path = require('path');
 var webpack = require('webpack')
+var PROD = process.argv.indexOf('-p') !== -1;
+console.log(PROD)
 
 module.exports = {
     entry: {
-        main: path.resolve('./src/main.js')
+        main: path.resolve('./index.js')
     },
 
     output: {
-        filename: '[name].bundle.js',
-        path: path.resolve('./public/dist')
+        path: path.resolve('./dist'),
+        filename: PROD ? 'tact.min.js' : 'tact.js'
     },
 
-    devtool: '#cheap-source-map',
+    devtool: '#source-map',
 
     module: {
         rules: [
@@ -23,5 +25,8 @@ module.exports = {
                 use: 'babel-loader'
             }
         ]
+    },
+    externals: {
+        window: 'window'
     }
 };

@@ -1,6 +1,6 @@
 <html>
 <head>
-    <script src="dist/main.bundle.js"></script>
+    <script src="dist/tact.js"></script>
 </head>
 <body>
     <div>
@@ -132,7 +132,7 @@
         window.onload = function(e) {
             player = new hapticPlayer();
             player.on('change', function(msg) {
-                console.log(msg);
+                console.log('changed from player', msg);
             })
 
         };
