@@ -4,6 +4,10 @@ Library for bHaptics Haptic Devices
 ### Prerequisite
 bHaptics Player has to be installed (window)
 
+
+### DEMO
+* https://elated-noyce-f0332a.netlify.com/
+
 ### Examples
 ```
 # Open samples/index.html directory in browser (Example code)
@@ -35,4 +39,5 @@ var points = [{
 }];
 tactJs.submitDot('dot', 'VestFront', points, 1000);
 ```
+
 
