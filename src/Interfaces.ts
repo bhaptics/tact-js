@@ -37,3 +37,4 @@ export enum ErrorCode {
   CONNECTION_NOT_ESTABLISHED,
   FAILED_TO_SEND_MESSAGE,
 }
+
