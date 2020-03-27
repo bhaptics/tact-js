@@ -5,13 +5,13 @@ Library for bHaptics Haptic Devices
 bHaptics Player has to be installed (window)
 
 
-### DEMO
+### Examples
 * https://elated-noyce-f0332a.netlify.com/
 
-### Examples
-```
-# Open samples/index.html directory in browser (Example code)
-```
+or 
+
+* Open samples/simple/index.html directory in browser (Example code)
+
 
 ### How to setup
 
@@ -79,11 +79,6 @@ var points = [{
 var durationMillis = 1000; // 1000ms
 const errorCode = tactJs.submitPath(key, position, points, durationMillis);
 ```
-* Error Code
-    * 0: SUCCESS
-    * 1: MESSAGE_NOT_DEFINED
-    * 2: CONNECTION_NOT_ESTABLISHED
-    * 3: FAILED_TO_SEND_MESSAGE
 
 
 3.1. Tact File - submitRegistered()
@@ -95,11 +90,6 @@ const errorCode = tactJs.submitPath(key, position, points, durationMillis);
 ```javascript
 const errorCode = tactJs.submitRegistered(key);
 ```
-* Error Code
-    * 0: SUCCESS
-    * 1: MESSAGE_NOT_DEFINED
-    * 2: CONNECTION_NOT_ESTABLISHED
-    * 3: FAILED_TO_SEND_MESSAGE
 
 3.2. Tact File - submitRegisteredWithRotationOption()
 
@@ -116,8 +106,8 @@ var rotationOption = {offsetAngleX: 180, offsetY: 0.2};
 var errorCode = tactJs.submitRegisteredWithRotationOption(key, rotationOption);
 ```
 
-* Error Code
-    * 0: SUCCESS
-    * 1: MESSAGE_NOT_DEFINED
-    * 2: CONNECTION_NOT_ESTABLISHED
-    * 3: FAILED_TO_SEND_MESSAGE
+### Error Code
+* 0(SUCCESS)
+* 1(MESSAGE_NOT_DEFINED) : Check if parameter is wrong or not 
+* 2: CONNECTION_NOT_ESTABLISHED : Check if the bhaptics player is running or not
+* 3: FAILED_TO_SEND_MESSAGE : Check if there is problem on sending message to the bhpatics player
