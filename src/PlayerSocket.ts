@@ -1,3 +1,5 @@
+import { ErrorCode } from './Interfaces'
+
 const DEFAULT_URL= 'ws://127.0.0.1:15881/v2/feedbacks?app_id=com.bhaptics.designer2&app_name=bHaptics Designer';
 
 export enum STATUS {
@@ -85,29 +87,32 @@ export default class PlayerSocket {
     });
   };
 
-  send = (message: string) => {
+  send = (message: string): ErrorCode => {
     if (message === undefined) {
-      return;
+      return ErrorCode.CONNECTION_NOT_ESTABLISHED;
     }
 
     if (!this.isTriggered) {
       this.isTriggered = true;
       this.connect();
-      return;
+      return ErrorCode.CONNECTION_NOT_ESTABLISHED;
     }
 
     if (this.websocketClient === undefined) {
-      return;
+      return ErrorCode.CONNECTION_NOT_ESTABLISHED;
     }
 
     if (this.currentStatus !== STATUS.CONNECTED) {
-      return;
+      return ErrorCode.CONNECTION_NOT_ESTABLISHED;
     }
 
     try {
       this.websocketClient.send(message);
+      return ErrorCode.SUCCESS;
     } catch (e) {
       // sending failed
+
+      return ErrorCode.FAILED_TO_SEND_MESSAGE;
     }
   }
 }

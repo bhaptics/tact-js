@@ -1,6 +1,13 @@
 
 import PlayerSocket, {Message} from './PlayerSocket';
-import { DotPoint, PathPoint, PositionType, RotationOption, ScaleOption } from './Interfaces'
+import {
+  DotPoint,
+  ErrorCode,
+  PathPoint,
+  PositionType,
+  RotationOption,
+  ScaleOption
+} from './Interfaces'
 
 class HapticPlayer {
   socket: PlayerSocket;
@@ -12,29 +19,29 @@ class HapticPlayer {
     this.socket.addListener(func);
   };
 
-  public turnOff = (position: PositionType) => {
+  public turnOff = (key: string) :ErrorCode => {
     const request = {
       Submit :[{
         Type : 'turnOff',
-        Key : position,
+        Key : key,
       }],
     };
-    this.socket.send(JSON.stringify(request));
+    return this.socket.send(JSON.stringify(request));
   };
 
-  public turnOffAll = () => {
+  public turnOffAll = () : ErrorCode => {
     const request = {
       Submit :[{
         Type : 'turnOffAll',
       }],
     };
-    this.socket.send(JSON.stringify(request));
+    return this.socket.send(JSON.stringify(request));
   };
 
   public submitDot = (key: string,
                       pos: PositionType,
                       dotPoints: DotPoint[],
-                      durationMillis: number) : void => {
+                      durationMillis: number) : ErrorCode => {
     const request = {
       Submit :[{
         Type : 'frame',
@@ -47,7 +54,7 @@ class HapticPlayer {
         },
       }],
     };
-    this.socket.send(JSON.stringify(request, (k, val) =>
+    return this.socket.send(JSON.stringify(request, (k, val) =>
       val.toFixed ? Number(val.toFixed(3)) : val
     ));
   };
@@ -55,7 +62,7 @@ class HapticPlayer {
   public submitPath = (key: string,
                 pos: PositionType,
                 pathPoints: PathPoint[],
-                durationMillis: number) => {
+                durationMillis: number) : ErrorCode => {
     const request = {
       Submit :[{
         Type : 'frame',
@@ -68,12 +75,12 @@ class HapticPlayer {
         },
       }],
     };
-    this.socket.send(JSON.stringify(request, (k, val) =>
+    return this.socket.send(JSON.stringify(request, (k, val) =>
       val.toFixed ? Number(val.toFixed(3)) : val
     ));
   }
 
-  public registerFile = (key: string, json: string) => {
+  public registerFile = (key: string, json: string) : ErrorCode => {
     const jsonData = JSON.parse(json);
     const project = jsonData["project"];
     const request = {
@@ -82,11 +89,10 @@ class HapticPlayer {
         project,
       }]
     };
-    this.socket.send(JSON.stringify(request));
-
+    return this.socket.send(JSON.stringify(request));
   }
 
-  public submitRegistered = (key: string) : void => {
+  public submitRegistered = (key: string) : ErrorCode => {
     const request = {
       Submit :[{
         Type : 'key',
@@ -94,10 +100,10 @@ class HapticPlayer {
       }],
     };
 
-    this.socket.send(JSON.stringify(request));
+    return this.socket.send(JSON.stringify(request));
   }
 
-  public submitRegisteredWithScaleOption = (key: string, scaleOption: ScaleOption) : void => {
+  public submitRegisteredWithScaleOption = (key: string, scaleOption: ScaleOption) : ErrorCode => {
     const request = {
       Submit :[{
         Type : 'key',
@@ -108,10 +114,10 @@ class HapticPlayer {
       }],
     };
 
-    this.socket.send(JSON.stringify(request));
+    return this.socket.send(JSON.stringify(request));
   }
 
-  public submitRegisteredWithRotationOption = (key: string, rotationOption: RotationOption) : void => {
+  public submitRegisteredWithRotationOption = (key: string, rotationOption: RotationOption) : ErrorCode => {
     const request = {
       Submit :[{
         Type : 'key',
@@ -122,7 +128,7 @@ class HapticPlayer {
       }],
     };
 
-    this.socket.send(JSON.stringify(request));
+    return this.socket.send(JSON.stringify(request));
   }
 }
 

@@ -29,3 +29,11 @@ export enum PositionType {
   ForearmL = 'ForearmL',
   ForearmR = 'ForearmR',
 }
+
+
+export enum ErrorCode {
+  SUCCESS,
+  MESSAGE_NOT_DEFINED,
+  CONNECTION_NOT_ESTABLISHED,
+  FAILED_TO_SEND_MESSAGE,
+}
