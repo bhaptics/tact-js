@@ -1,5 +1,4 @@
-
-import PlayerSocket, {Message} from './PlayerSocket';
+import PlayerSocket, { Message } from './PlayerSocket'
 import {
   DotPoint,
   ErrorCode,
@@ -42,6 +41,26 @@ class HapticPlayer {
                       pos: PositionType,
                       dotPoints: DotPoint[],
                       durationMillis: number) : ErrorCode => {
+    if (dotPoints === undefined) {
+      return ErrorCode.MESSAGE_INVALID;
+    }
+
+    for (let i = 0; i < dotPoints.length; i++) {
+      const point = dotPoints[i];
+      if (point.index < 0 || point.index >= 20) {
+        return ErrorCode.MESSAGE_INVALID_INDEX;
+      }
+
+      if (point.intensity < 0 || point.intensity > 100) {
+        return ErrorCode.MESSAGE_INVALID_INTENSITY;
+      }
+    }
+
+    if (durationMillis <= 10 || durationMillis > 100000) {
+      return ErrorCode.MESSAGE_INVALID_DURATION_MILLIS;
+    }
+
+
     const request = {
       Submit :[{
         Type : 'frame',
@@ -63,6 +82,28 @@ class HapticPlayer {
                 pos: PositionType,
                 pathPoints: PathPoint[],
                 durationMillis: number) : ErrorCode => {
+    if (pathPoints === undefined) {
+      return ErrorCode.MESSAGE_INVALID;
+    }
+
+    for (let i = 0; i < pathPoints.length; i++) {
+      const point = pathPoints[i];
+      if (point.x < 0 || point.x > 1) {
+        return ErrorCode.MESSAGE_INVALID_X;
+      }
+      if (point.y < 0 || point.y > 1) {
+        return ErrorCode.MESSAGE_INVALID_Y;
+      }
+      if (point.intensity < 0 || point.intensity > 100) {
+        return ErrorCode.MESSAGE_INVALID_INTENSITY;
+      }
+    }
+
+    if (durationMillis <= 10 || durationMillis > 100000) {
+      return ErrorCode.MESSAGE_INVALID_DURATION_MILLIS;
+    }
+
+
     const request = {
       Submit :[{
         Type : 'frame',
@@ -118,6 +159,14 @@ class HapticPlayer {
   }
 
   public submitRegisteredWithRotationOption = (key: string, rotationOption: RotationOption) : ErrorCode => {
+
+    if (rotationOption.offsetAngleX < 0 || rotationOption.offsetAngleX > 360) {
+      return ErrorCode.MESSAGE_INVALID_ROTATION_X;
+    }
+    if (rotationOption.offsetY < -0.5 || rotationOption.offsetY > 0.5) {
+      return ErrorCode.MESSAGE_INVALID_ROTATION_X;
+    }
+
     const request = {
       Submit :[{
         Type : 'key',

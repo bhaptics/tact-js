@@ -45,6 +45,8 @@ tactJs.addListener(function(msg) {
       * intensity: [1, 100] 
   * durationMillis: [50, 10000]
 
+* Return Type: ErrorCode
+
 ```javascript
 var key = 'dot';
 var position = 'VestFront'
@@ -53,7 +55,7 @@ var points = [{
     intensity : 100
 }];
 var durationMillis = 1000; // 1000ms
-const errorCode = tactJs.submitDot(key, position, points, durationMillis);
+var errorCode = tactJs.submitDot(key, position, points, durationMillis);
 ```
 
 2. PathMode - submitPath()
@@ -67,6 +69,8 @@ const errorCode = tactJs.submitDot(key, position, points, durationMillis);
       * intensity: [1, 100] 
   * durationMillis: [50, 10000]
   
+* Return Type: ErrorCode
+  
 * Example
 ```javascript
 var key = 'dot';
@@ -77,7 +81,7 @@ var points = [{
     intensity : 100
 }];
 var durationMillis = 1000; // 1000ms
-const errorCode = tactJs.submitPath(key, position, points, durationMillis);
+var errorCode = tactJs.submitPath(key, position, points, durationMillis);
 ```
 
 
@@ -86,9 +90,11 @@ const errorCode = tactJs.submitPath(key, position, points, durationMillis);
 * Parameters
   * key: string;
   
+* Return Type: ErrorCode
+
 * Example
 ```javascript
-const errorCode = tactJs.submitRegistered(key);
+var errorCode = tactJs.submitRegistered(key);
 ```
 
 3.2. Tact File - submitRegisteredWithRotationOption()
@@ -98,7 +104,9 @@ const errorCode = tactJs.submitRegistered(key);
   * object with (offsetAngleX, offsetY)
      * offsetAngleX: [0, 360]
      * offsetY: [-0.5, 0.5]
-  
+ 
+* Return Type: ErrorCode
+ 
 * Example
 ```javascript
 var key = 'key';
@@ -111,3 +119,11 @@ var errorCode = tactJs.submitRegisteredWithRotationOption(key, rotationOption);
 * 1(MESSAGE_NOT_DEFINED) : Check if parameter is wrong or not 
 * 2: CONNECTION_NOT_ESTABLISHED : Check if the bhaptics player is running or not
 * 3: FAILED_TO_SEND_MESSAGE : Check if there is problem on sending message to the bhpatics player
+* 4: MESSAGE_INVALID : Unknown Message Error
+* 5: MESSAGE_INVALID_DURATION_MILLIS : durationMillis [10ms~100,000ms]
+* 6: MESSAGE_INVALID_INDEX : index should be [0, 19]
+* 7: MESSAGE_INVALID_INTENSITY : intensity should be [0, 100]
+* 8: MESSAGE_INVALID_X :  x should be [0, 1]
+* 9: MESSAGE_INVALID_Y : y should be [0, 1]
+* 10: MESSAGE_INVALID_ROTATION_X : rotationOffsetX should be [0, 360]
+* 11: MESSAGE_INVALID_ROTATION_Y : offsetY should be [-0.5, 0.5]

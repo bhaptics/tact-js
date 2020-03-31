@@ -14,6 +14,22 @@ class TactJsUtils {
         return 'Failed to send a request to the bHaptics Player'
       case ErrorCode.MESSAGE_NOT_DEFINED:
         return 'Message is not defined';
+      case ErrorCode.MESSAGE_INVALID:
+        return 'Invalid input: Unknown';
+      case ErrorCode.MESSAGE_INVALID_DURATION_MILLIS:
+        return 'Invalid: durationMillis [10ms~100,000ms]';
+      case ErrorCode.MESSAGE_INVALID_INDEX:
+        return 'Invalid: index should be [0, 19]';
+      case ErrorCode.MESSAGE_INVALID_INTENSITY:
+        return 'Invalid: intensity should be [0, 100]';
+      case ErrorCode.MESSAGE_INVALID_X:
+        return 'Invalid: x should be [0, 1]';
+      case ErrorCode.MESSAGE_INVALID_Y:
+        return 'Invalid: y should be [0, 1]';
+      case ErrorCode.MESSAGE_INVALID_ROTATION_X:
+        return 'Invalid: rotationOffsetX should be [0, 360]';
+      case ErrorCode.MESSAGE_INVALID_ROTATION_Y:
+        return 'Invalid: offsetY should be [-0.5, 0.5]';
       case ErrorCode.SUCCESS:
         return 'Success';
     }
