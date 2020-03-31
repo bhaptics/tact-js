@@ -115,15 +115,15 @@ var errorCode = tactJs.submitRegisteredWithRotationOption(key, rotationOption);
 ```
 
 ### Error Code
-* 0(SUCCESS)
-* 1(MESSAGE_NOT_DEFINED) : Check if parameter is wrong or not 
-* 2: CONNECTION_NOT_ESTABLISHED : Check if the bhaptics player is running or not
-* 3: FAILED_TO_SEND_MESSAGE : Check if there is problem on sending message to the bhpatics player
-* 4: MESSAGE_INVALID : Unknown Message Error
-* 5: MESSAGE_INVALID_DURATION_MILLIS : durationMillis [10ms~100,000ms]
-* 6: MESSAGE_INVALID_INDEX : index should be [0, 19]
-* 7: MESSAGE_INVALID_INTENSITY : intensity should be [0, 100]
-* 8: MESSAGE_INVALID_X :  x should be [0, 1]
-* 9: MESSAGE_INVALID_Y : y should be [0, 1]
-* 10: MESSAGE_INVALID_ROTATION_X : rotationOffsetX should be [0, 360]
-* 11: MESSAGE_INVALID_ROTATION_Y : offsetY should be [-0.5, 0.5]
+* 0: SUCCESS
+* 1: MESSAGE_NOT_DEFINED - Check if parameter is wrong or not 
+* 2: CONNECTION_NOT_ESTABLISHED - Check if the bhaptics player is running or not
+* 3: FAILED_TO_SEND_MESSAGE - Check if there is problem on sending message to the bhpatics player
+* 4: MESSAGE_INVALID - Unknown Message Error
+* 5: MESSAGE_INVALID_DURATION_MILLIS - durationMillis [10ms~100,000ms]
+* 6: MESSAGE_INVALID_INDEX - index should be [0, 19]
+* 7: MESSAGE_INVALID_INTENSITY - intensity should be [0, 100]
+* 8: MESSAGE_INVALID_X -  x should be [0, 1]
+* 9: MESSAGE_INVALID_Y - y should be [0, 1]
+* 10: MESSAGE_INVALID_ROTATION_X - rotationOffsetX should be [0, 360]
+* 11: MESSAGE_INVALID_ROTATION_Y - offsetY should be [-0.5, 0.5]
