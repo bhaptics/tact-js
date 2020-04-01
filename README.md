@@ -143,5 +143,6 @@ var errorCode = tactJs.submitRegisteredWithScaleOption(key, scaleOption);
 * 9: MESSAGE_INVALID_Y - y should be [0, 1]
 * 10: MESSAGE_INVALID_ROTATION_X - rotationOffsetX should be [0, 360]
 * 11: MESSAGE_INVALID_ROTATION_Y - offsetY should be [-0.5, 0.5]
-* 11: MESSAGE_INVALID_SCALE_INTENSITY_RATIO - intensityRatio should be [0.2, 5]
-* 11: MESSAGE_INVALID_SCALE_DURATION_RATIO - durationRatio should be [0.2, 5]
+* 12: MESSAGE_INVALID_SCALE_INTENSITY_RATIO - intensityRatio should be [0.2, 5]
+* 13: MESSAGE_INVALID_SCALE_DURATION_RATIO - durationRatio should be [0.2, 5]
+* 14: MESSAGE_NOT_REGISTERED_KEY - key not registered

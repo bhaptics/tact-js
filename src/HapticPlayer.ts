@@ -9,9 +9,15 @@ import {
 } from './Interfaces'
 
 class HapticPlayer {
+  registeredKeys: string[] = []
   socket: PlayerSocket;
   constructor() {
     this.socket = new PlayerSocket();
+    this.addListener((msg => {
+      if (msg.message.RegisteredKeys) {
+        this.registeredKeys = msg.message.RegisteredKeys;
+      }
+    }))
   }
 
   public addListener = (func: (msg: Message) => void) => {
@@ -134,6 +140,11 @@ class HapticPlayer {
   }
 
   public submitRegistered = (key: string) : ErrorCode => {
+    if (this.registeredKeys.find(v => v === key) === undefined) {
+      return ErrorCode.MESSAGE_NOT_REGISTERED_KEY;
+    }
+
+
     const request = {
       Submit :[{
         Type : 'key',
@@ -145,6 +156,10 @@ class HapticPlayer {
   }
 
   public submitRegisteredWithScaleOption = (key: string, scaleOption: ScaleOption) : ErrorCode => {
+    if (this.registeredKeys.find(v => v === key) === undefined) {
+      return ErrorCode.MESSAGE_NOT_REGISTERED_KEY;
+    }
+
     if (scaleOption.intensity < 0.2 || scaleOption.intensity > 5) {
       return ErrorCode.MESSAGE_INVALID_SCALE_INTENSITY_RATIO;
     }
@@ -166,6 +181,9 @@ class HapticPlayer {
   }
 
   public submitRegisteredWithRotationOption = (key: string, rotationOption: RotationOption) : ErrorCode => {
+    if (this.registeredKeys.find(v => v === key) === undefined) {
+      return ErrorCode.MESSAGE_NOT_REGISTERED_KEY;
+    }
 
     if (rotationOption.offsetAngleX < 0 || rotationOption.offsetAngleX > 360) {
       return ErrorCode.MESSAGE_INVALID_ROTATION_X;

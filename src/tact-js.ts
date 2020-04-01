@@ -34,6 +34,8 @@ class TactJsUtils {
         return 'Invalid: intensityRatio should be [0.2, 5]';
       case ErrorCode.MESSAGE_INVALID_SCALE_DURATION_RATIO:
         return 'Invalid: durationRatio should be [0.2, 5]';
+      case ErrorCode.MESSAGE_NOT_REGISTERED_KEY:
+        return 'Invalid: key not registered';
       case ErrorCode.SUCCESS:
         return 'Success';
     }
