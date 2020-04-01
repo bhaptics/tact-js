@@ -98,7 +98,7 @@ var errorCode = tactJs.submitRegistered(key);
 ```
 
 3.2. Tact File - submitRegisteredWithRotationOption()
-
+* This function only works with Tactot(Vest) haptic pattern.
 * Parameters
   * key: string;
   * object with (offsetAngleX, offsetY)
