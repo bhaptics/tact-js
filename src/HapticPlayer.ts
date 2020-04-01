@@ -145,6 +145,13 @@ class HapticPlayer {
   }
 
   public submitRegisteredWithScaleOption = (key: string, scaleOption: ScaleOption) : ErrorCode => {
+    if (scaleOption.intensity < 0.2 || scaleOption.intensity > 5) {
+      return ErrorCode.MESSAGE_INVALID_SCALE_INTENSITY_RATIO;
+    }
+    if (scaleOption.duration < 0.2 || scaleOption.duration > 5) {
+      return ErrorCode.MESSAGE_INVALID_SCALE_DURATION_RATIO;
+    }
+
     const request = {
       Submit :[{
         Type : 'key',
@@ -164,7 +171,7 @@ class HapticPlayer {
       return ErrorCode.MESSAGE_INVALID_ROTATION_X;
     }
     if (rotationOption.offsetY < -0.5 || rotationOption.offsetY > 0.5) {
-      return ErrorCode.MESSAGE_INVALID_ROTATION_X;
+      return ErrorCode.MESSAGE_INVALID_ROTATION_Y;
     }
 
     const request = {

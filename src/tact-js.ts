@@ -30,6 +30,10 @@ class TactJsUtils {
         return 'Invalid: rotationOffsetX should be [0, 360]';
       case ErrorCode.MESSAGE_INVALID_ROTATION_Y:
         return 'Invalid: offsetY should be [-0.5, 0.5]';
+      case ErrorCode.MESSAGE_INVALID_SCALE_INTENSITY_RATIO:
+        return 'Invalid: intensityRatio should be [0.2, 5]';
+      case ErrorCode.MESSAGE_INVALID_SCALE_DURATION_RATIO:
+        return 'Invalid: durationRatio should be [0.2, 5]';
       case ErrorCode.SUCCESS:
         return 'Success';
     }

@@ -114,6 +114,22 @@ var rotationOption = {offsetAngleX: 180, offsetY: 0.2};
 var errorCode = tactJs.submitRegisteredWithRotationOption(key, rotationOption);
 ```
 
+3.3. Tact File - submitRegisteredWithScaleOption()
+* Parameters
+  * key: string;
+  * object with (intensity, duration)
+     * intensity: [0.1, 10]
+     * duration: [0.1, 10]
+ 
+* Return Type: ErrorCode
+ 
+* Example
+```javascript
+var key = 'key';
+var scaleOption = {intensity: 1, duration: 1};
+var errorCode = tactJs.submitRegisteredWithScaleOption(key, scaleOption);
+```
+
 ### Error Code
 * 0: SUCCESS
 * 1: MESSAGE_NOT_DEFINED - Check if parameter is wrong or not 
@@ -127,3 +143,5 @@ var errorCode = tactJs.submitRegisteredWithRotationOption(key, rotationOption);
 * 9: MESSAGE_INVALID_Y - y should be [0, 1]
 * 10: MESSAGE_INVALID_ROTATION_X - rotationOffsetX should be [0, 360]
 * 11: MESSAGE_INVALID_ROTATION_Y - offsetY should be [-0.5, 0.5]
+* 11: MESSAGE_INVALID_SCALE_INTENSITY_RATIO - intensityRatio should be [0.2, 5]
+* 11: MESSAGE_INVALID_SCALE_DURATION_RATIO - durationRatio should be [0.2, 5]
