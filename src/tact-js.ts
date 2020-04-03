@@ -17,9 +17,13 @@ class TactJsUtils {
       case ErrorCode.MESSAGE_INVALID:
         return 'Invalid input: Unknown';
       case ErrorCode.MESSAGE_INVALID_DURATION_MILLIS:
-        return 'Invalid: durationMillis [10ms~100,000ms]';
-      case ErrorCode.MESSAGE_INVALID_INDEX:
-        return 'Invalid: index should be [0, 19]';
+        return 'Invalid: durationMillis [20ms ~ 100,000ms]';
+      case ErrorCode.MESSAGE_INVALID_DOT_INDEX_VEST:
+        return 'Invalid: VestFront/Back index should be [0, 19]';
+      case ErrorCode.MESSAGE_INVALID_DOT_INDEX_ARM:
+        return 'Invalid: ArmLeft/Right index should be [0, 5]';
+      case ErrorCode.MESSAGE_INVALID_DOT_INDEX_HEAD:
+        return 'Invalid: Head index should be [0, 5]';
       case ErrorCode.MESSAGE_INVALID_INTENSITY:
         return 'Invalid: intensity should be [0, 100]';
       case ErrorCode.MESSAGE_INVALID_X:
