@@ -93,7 +93,18 @@ var errorCode = tactJs.submitPath(key, position, points, durationMillis);
 ```
 
 
-3.1. Tact File - submitRegistered()
+3.1. Tact File - registerFile()
+* You need to registerFile, before calling submitRegistered(), submitRegisteredWithRotationOption() and submitRegisteredWithScaleOption()
+* key: string;
+* tactFile: provided *.tact file
+ 
+```javascript
+var key = 'key';
+var tactFile = '{"project":{"createdAt":1583739337216,"description":"","layout":{"layouts":{"For...' // tact file string
+var errorCode = tactJs.registerFile(key, tactFile);
+```
+
+3.2. Tact File - submitRegistered()
 
 * Parameters
   * key: string;
@@ -105,7 +116,7 @@ var errorCode = tactJs.submitPath(key, position, points, durationMillis);
 var errorCode = tactJs.submitRegistered(key);
 ```
 
-3.2. Tact File - submitRegisteredWithRotationOption()
+3.3. Tact File - submitRegisteredWithRotationOption()
 * This function only works with Tactot(Vest) haptic pattern.
 * Parameters
   * key: string;
@@ -122,7 +133,7 @@ var rotationOption = {offsetAngleX: 180, offsetY: 0.2};
 var errorCode = tactJs.submitRegisteredWithRotationOption(key, rotationOption);
 ```
 
-3.3. Tact File - submitRegisteredWithScaleOption()
+3.4. Tact File - submitRegisteredWithScaleOption()
 * Parameters
   * key: string;
   * object with (intensity, duration)
