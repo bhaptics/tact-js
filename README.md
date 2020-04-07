@@ -1,5 +1,5 @@
 # tact-js
-Library for bHaptics Haptic Devices
+Library for bHaptics Player 1.6.0
 
 ### Prerequisite
 bHaptics Player has to be installed (window) and running.
@@ -7,10 +7,6 @@ bHaptics Player has to be installed (window) and running.
 
 ### Examples
 * https://elated-noyce-f0332a.netlify.com/
-
-or 
-
-* Open samples/simple/index.html directory in browser (Example code)
 
 
 ### How to setup
@@ -49,9 +45,9 @@ tactJs.addListener(function(msg) {
   * key: string;
   * position: 'VestFront' | 'VestBack' | 'Head' | 'ForearmL' | 'ForearmR'
   * points: array of object with (index, intensity)
-      * index: [0, 19]
-      * intensity: [1, 100] 
-  * durationMillis: [50, 10000]
+      * index:  [0, 19] (VestFront|VestBack) or [0, 5] (Head|ForearmL|ForearmR)
+      * intensity: [0, 100] 
+  * durationMillis: [20, 10000]
 
 * Return Type: ErrorCode
 
@@ -74,8 +70,8 @@ var errorCode = tactJs.submitDot(key, position, points, durationMillis);
   * points: array of object with (x, y, intensity)
       * x: [0, 1]
       * y: [0, 1]
-      * intensity: [1, 100] 
-  * durationMillis: [50, 10000]
+      * intensity: [0, 100] 
+  * durationMillis: [20, 10000]
   
 * Return Type: ErrorCode
   
