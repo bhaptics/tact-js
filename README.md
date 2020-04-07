@@ -137,8 +137,8 @@ var errorCode = tactJs.submitRegisteredWithRotationOption(key, rotationOption);
 * Parameters
   * key: string;
   * object with (intensity, duration)
-     * intensity: [0.1, 10]
-     * duration: [0.1, 10]
+     * intensity: [0.2, 5]
+     * duration: [0.2, 5]
  
 * Return Type: ErrorCode
  
