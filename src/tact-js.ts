@@ -35,9 +35,9 @@ class TactJsUtils {
       case ErrorCode.MESSAGE_INVALID_ROTATION_Y:
         return 'Invalid: offsetY should be [-0.5, 0.5]';
       case ErrorCode.MESSAGE_INVALID_SCALE_INTENSITY_RATIO:
-        return 'Invalid: intensityRatio should be [0.2, 5]';
+        return 'Invalid: intensity should be [0.2, 5]';
       case ErrorCode.MESSAGE_INVALID_SCALE_DURATION_RATIO:
-        return 'Invalid: durationRatio should be [0.2, 5]';
+        return 'Invalid: duration should be [0.2, 5]';
       case ErrorCode.MESSAGE_NOT_REGISTERED_KEY:
         return 'Invalid: key not registered';
       case ErrorCode.SUCCESS:
