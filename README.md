@@ -65,7 +65,7 @@ position: 'VestFront' | 'VestBack' | 'Head' | 'ForearmL' | 'ForearmR'
 points: array of object with (index, intensity)
   * index:  [0, 19] (VestFront|VestBack) or [0, 5] (Head|ForearmL|ForearmR)
   * intensity: [0, 100] 
-durationMillis: [20, 10000]
+durationMillis: [20, 100,000]
 ```
 * Return Type: ErrorCode
 
@@ -96,7 +96,7 @@ points: array of object with (x, y, intensity)
       * x: [0, 1]
       * y: [0, 1]
       * intensity: [0, 100] 
-durationMillis: [20, 10000]
+durationMillis: [20, 100,000]
 ```
   
 * Return Type: ErrorCode
