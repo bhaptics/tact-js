@@ -9,8 +9,8 @@ describe("Simple test", () => {
 
     setTimeout(() => {
       console.log('test');
-      HapticPlayer.submitPath('test2', PositionType.VestFront, [{intensity: 100, x: 0.5, y: 0.5}], 1000);
-      HapticPlayer.submitDot('test', PositionType.VestBack, [{index: 0, intensity: 100}], 1000);
+      // HapticPlayer.submitPath('test2', PositionType.VestFront, [{intensity: 100, x: 0.5, y: 0.5}], 1000);
+      // HapticPlayer.submitDot('test', PositionType.VestBack, [{index: 0, intensity: 100}], 1000);
     }, 1000)
   });
 });
