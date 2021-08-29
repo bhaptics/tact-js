@@ -80,6 +80,14 @@ export default class PlayerSocket {
       }, this.retryConnectTime);
     };
 
+    this.websocketClient.onerror = (event: any) => {
+      this.currentStatus = STATUS.DISCONNECT;
+      this.emit({
+        status: this.currentStatus,
+        message: event.message,
+      });
+    }
+
     this.currentStatus = STATUS.CONNECTING;
     this.emit({
       status: this.currentStatus,
