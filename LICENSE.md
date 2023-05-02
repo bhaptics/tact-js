@@ -1,1 +1,3 @@
-bHaptics License.
+License
+
+Use of bHaptics SDK is subject to the bHaptics SDK agreement (https://bhaptics.gitbook.io/license-sdk/).
