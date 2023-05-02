@@ -8,7 +8,7 @@ bHaptics Player has to be installed (window) and running.
 ### Examples
 * https://elated-noyce-f0332a.netlify.com/
 
-or 
+or
 
 * Open samples/simple/index.html directory in browser (Example code)
 
@@ -25,7 +25,7 @@ npm install tact-js
 import tactJs from 'tact-js'
 ```
 
-3. Checking connection status between the bHaptics Player and your application  
+3. Checking connection status between the bHaptics Player and your application
 
 * Connection Status: Connected | Disconnected | Connecting
 ```javascript
@@ -46,12 +46,12 @@ tactJs.addListener(function(msg) {
 1. Dot Mode - submitDot()
 
 * Parameters
-  * key: string;
-  * position: 'VestFront' | 'VestBack' | 'Head' | 'ForearmL' | 'ForearmR'
-  * points: array of object with (index, intensity)
-      * index: [0, 19]
-      * intensity: [1, 100] 
-  * durationMillis: [50, 10000]
+    * key: string;
+    * position: 'VestFront' | 'VestBack' | 'Head' | 'ForearmL' | 'ForearmR'
+    * points: array of object with (index, intensity)
+        * index: [0, 19]
+        * intensity: [1, 100]
+    * durationMillis: [50, 10000]
 
 * Return Type: ErrorCode
 
@@ -69,16 +69,16 @@ var errorCode = tactJs.submitDot(key, position, points, durationMillis);
 2. PathMode - submitPath()
 
 * Parameters
-  * key: string;
-  * position: 'VestFront' | 'VestBack' | 'Head' | 'ForearmL' | 'ForearmR'
-  * points: array of object with (x, y, intensity)
-      * x: [0, 1]
-      * y: [0, 1]
-      * intensity: [1, 100] 
-  * durationMillis: [50, 10000]
-  
+    * key: string;
+    * position: 'VestFront' | 'VestBack' | 'Head' | 'ForearmL' | 'ForearmR'
+    * points: array of object with (x, y, intensity)
+        * x: [0, 1]
+        * y: [0, 1]
+        * intensity: [1, 100]
+    * durationMillis: [50, 10000]
+
 * Return Type: ErrorCode
-  
+
 * Example
 ```javascript
 var key = 'dot';
@@ -97,7 +97,7 @@ var errorCode = tactJs.submitPath(key, position, points, durationMillis);
 * You need to registerFile, before calling submitRegistered(), submitRegisteredWithRotationOption() and submitRegisteredWithScaleOption()
 * key: string;
 * tactFile: provided *.tact file
- 
+
 ```javascript
 var key = 'key';
 var tactFile = '{"project":{"createdAt":1583739337216,"description":"","layout":{"layouts":{"For...' // tact file string
@@ -107,8 +107,8 @@ var errorCode = tactJs.registerFile(key, tactFile);
 3.2. Tact File - submitRegistered()
 
 * Parameters
-  * key: string;
-  
+    * key: string;
+
 * Return Type: ErrorCode
 
 * Example
@@ -119,13 +119,13 @@ var errorCode = tactJs.submitRegistered(key);
 3.3. Tact File - submitRegisteredWithRotationOption()
 * This function only works with Tactot(Vest) haptic pattern.
 * Parameters
-  * key: string;
-  * object with (offsetAngleX, offsetY)
-     * offsetAngleX: [0, 360]
-     * offsetY: [-0.5, 0.5]
- 
+    * key: string;
+    * object with (offsetAngleX, offsetY)
+        * offsetAngleX: [0, 360]
+        * offsetY: [-0.5, 0.5]
+
 * Return Type: ErrorCode
- 
+
 * Example
 ```javascript
 var key = 'key';
@@ -135,13 +135,13 @@ var errorCode = tactJs.submitRegisteredWithRotationOption(key, rotationOption);
 
 3.4. Tact File - submitRegisteredWithScaleOption()
 * Parameters
-  * key: string;
-  * object with (intensity, duration)
-     * intensity: [0.2, 5]
-     * duration: [0.2, 5]
- 
+    * key: string;
+    * object with (intensity, duration)
+        * intensity: [0.2, 5]
+        * duration: [0.2, 5]
+
 * Return Type: ErrorCode
- 
+
 * Example
 ```javascript
 var key = 'key';

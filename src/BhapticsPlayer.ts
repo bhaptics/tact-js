@@ -1,54 +1,73 @@
 import PlayerSocket, { Message } from './PlayerSocket'
 import {
   DotPoint,
-  ErrorCode,
   PathPoint,
   PositionType,
   RotationOption,
   ScaleOption
-} from './Interfaces'
+} from './models/Interfaces'
+import ErrorCode from "./models/ErrorCode";
 
-class HapticPlayer {
-  registeredKeys: string[] = []
-  socket: PlayerSocket;
-  constructor() {
-    this.socket = new PlayerSocket();
-    this.addListener((msg => {
-      if (msg.message.RegisteredKeys) {
-        this.registeredKeys = msg.message.RegisteredKeys;
-      }
-    }))
-  }
+class BhapticsPlayer {
+  public static registeredKeys: string[] = [];
+  private static socket?: PlayerSocket;
 
-  public addListener = (func: (msg: Message) => void) => {
+  public static addListener = (func: (msg: Message) => void) => {
+    if (!this.socket) {
+      console.log('BhapticsSdk not initialized');
+      return;
+    }
+
     this.socket.addListener(func);
   };
 
-  public turnOff = (key: string) :ErrorCode => {
+  public static initialize = (appId: string, appName: string) => {
+    if (this.socket) {
+      console.log('initialize called twice');
+      return;
+    }
+
+    this.socket = new PlayerSocket(appId, appName);
+    this.addListener((msg => {
+      if (msg.message?.RegisteredKeys) {
+        this.registeredKeys = msg.message.RegisteredKeys;
+      }
+    }))
+
+  }
+
+  public static turnOff = (key: string) :ErrorCode => {
     const request = {
       Submit :[{
         Type : 'turnOff',
         Key : key,
       }],
     };
+    if (!this.socket) {
+      return ErrorCode.MESSAGE_NOT_INITIALIZED;
+    }
+
     return this.socket.send(JSON.stringify(request));
   };
 
-  public turnOffAll = () : ErrorCode => {
+  public static turnOffAll = () : ErrorCode => {
     const request = {
       Submit :[{
         Type : 'turnOffAll',
       }],
     };
+    if (!this.socket) {
+      return ErrorCode.MESSAGE_NOT_INITIALIZED;
+    }
     return this.socket.send(JSON.stringify(request));
   };
 
-  public submitDot = (key: string,
+  public static submitDot = (key: string,
                       pos: PositionType,
                       dotPoints: DotPoint[],
                       durationMillis: number) : ErrorCode => {
-    if (isNaN(durationMillis)) {
-      return ErrorCode.MESSAGE_INVALID_DURATION_MILLIS;
+    if (!this.socket) {
+      return ErrorCode.MESSAGE_NOT_INITIALIZED;
     }
 
     if (durationMillis < 20 || durationMillis > 100000) {
@@ -66,18 +85,12 @@ class HapticPlayer {
       switch (pos) {
         case PositionType.ForearmL:
         case PositionType.ForearmR:
-          if (isNaN(point.index)) {
-            return ErrorCode.MESSAGE_INVALID_DOT_INDEX_ARM;
-          }
 
           if (point.index < 0 || point.index >= 6) {
             return ErrorCode.MESSAGE_INVALID_DOT_INDEX_ARM;
           }
           break;
         case PositionType.Head:
-          if (isNaN(point.index)) {
-            return ErrorCode.MESSAGE_INVALID_DOT_INDEX_HEAD;
-          }
 
           if (point.index < 0 || point.index >= 6) {
             return ErrorCode.MESSAGE_INVALID_DOT_INDEX_HEAD;
@@ -85,18 +98,11 @@ class HapticPlayer {
           break;
         case PositionType.VestBack:
         case PositionType.VestFront:
-          if (isNaN(point.index)) {
-            return ErrorCode.MESSAGE_INVALID_DOT_INDEX_VEST;
-          }
 
           if (point.index < 0 || point.index >= 20) {
             return ErrorCode.MESSAGE_INVALID_DOT_INDEX_VEST;
           }
           break;
-      }
-
-      if (isNaN(point.intensity)) {
-        return ErrorCode.MESSAGE_INVALID_INTENSITY;
       }
 
       if (point.intensity < 0 || point.intensity > 100) {
@@ -117,15 +123,19 @@ class HapticPlayer {
       }],
     };
 
-    return this.socket.send(JSON.stringify(request, (k, val) =>
+    return this.socket.send(JSON.stringify(request, (_, val) =>
       val.toFixed ? Number(val.toFixed(3)) : val
     ));
   };
 
-  public submitPath = (key: string,
+  public static submitPath = (key: string,
                 pos: PositionType,
                 pathPoints: PathPoint[],
                 durationMillis: number) : ErrorCode => {
+
+    if (!this.socket) {
+      return ErrorCode.MESSAGE_NOT_INITIALIZED;
+    }
 
     if (isNaN(durationMillis)) {
       return ErrorCode.MESSAGE_INVALID_DURATION_MILLIS;
@@ -141,18 +151,6 @@ class HapticPlayer {
 
     for (let i = 0; i < pathPoints.length; i++) {
       const point = pathPoints[i];
-
-      if (isNaN(point.x)) {
-        return ErrorCode.MESSAGE_INVALID_X;
-      }
-
-      if (isNaN(point.y)) {
-        return ErrorCode.MESSAGE_INVALID_Y;
-      }
-
-      if (isNaN(point.intensity)) {
-        return ErrorCode.MESSAGE_INVALID_INTENSITY;
-      }
 
       if (point.x < 0 || point.x > 1) {
         return ErrorCode.MESSAGE_INVALID_X;
@@ -179,12 +177,16 @@ class HapticPlayer {
         },
       }],
     };
-    return this.socket.send(JSON.stringify(request, (k, val) =>
+    return this.socket.send(JSON.stringify(request, (_, val) =>
       val.toFixed ? Number(val.toFixed(3)) : val
     ));
   }
 
-  public registerFile = (key: string, json: string) : ErrorCode => {
+  public static registerFile = (key: string, json: string) : ErrorCode => {
+    if (!this.socket) {
+      throw new Error('BhapticsSdk not initialized');
+    }
+
     const jsonData = JSON.parse(json);
     const project = jsonData["project"];
     const request = {
@@ -196,7 +198,11 @@ class HapticPlayer {
     return this.socket.send(JSON.stringify(request));
   }
 
-  public submitRegistered = (key: string) : ErrorCode => {
+  public static submitRegistered = (key: string) : ErrorCode => {
+    if (!this.socket) {
+      return ErrorCode.MESSAGE_NOT_INITIALIZED;
+    }
+
     if (this.registeredKeys.find(v => v === key) === undefined) {
       return ErrorCode.MESSAGE_NOT_REGISTERED_KEY;
     }
@@ -212,21 +218,17 @@ class HapticPlayer {
     return this.socket.send(JSON.stringify(request));
   }
 
-  public submitRegisteredWithScaleOption = (key: string, scaleOption: ScaleOption) : ErrorCode => {
+  public static submitRegisteredWithScaleOption = (key: string, scaleOption: ScaleOption) : ErrorCode => {
+    if (!this.socket) {
+      return ErrorCode.MESSAGE_NOT_INITIALIZED;
+    }
+
     if (this.registeredKeys.find(v => v === key) === undefined) {
       return ErrorCode.MESSAGE_NOT_REGISTERED_KEY;
     }
 
-    if (isNaN(scaleOption.intensity)) {
-      return ErrorCode.MESSAGE_INVALID_SCALE_INTENSITY_RATIO;
-    }
-
     if (scaleOption.intensity < 0.2 || scaleOption.intensity > 5) {
       return ErrorCode.MESSAGE_INVALID_SCALE_INTENSITY_RATIO;
-    }
-
-    if (isNaN(scaleOption.duration)) {
-      return ErrorCode.MESSAGE_INVALID_SCALE_DURATION_RATIO;
     }
 
     if (scaleOption.duration < 0.2 || scaleOption.duration > 5) {
@@ -246,21 +248,17 @@ class HapticPlayer {
     return this.socket.send(JSON.stringify(request));
   }
 
-  public submitRegisteredWithRotationOption = (key: string, rotationOption: RotationOption) : ErrorCode => {
+  public static submitRegisteredWithRotationOption = (key: string, rotationOption: RotationOption) : ErrorCode => {
+    if (!this.socket) {
+      return ErrorCode.MESSAGE_NOT_INITIALIZED;
+    }
+
     if (this.registeredKeys.find(v => v === key) === undefined) {
       return ErrorCode.MESSAGE_NOT_REGISTERED_KEY;
     }
 
-    if (isNaN(rotationOption.offsetAngleX)) {
-      return ErrorCode.MESSAGE_INVALID_ROTATION_X;
-    }
-
     if (rotationOption.offsetAngleX < 0 || rotationOption.offsetAngleX > 360) {
       return ErrorCode.MESSAGE_INVALID_ROTATION_X;
-    }
-
-    if (isNaN(rotationOption.offsetY)) {
-      return ErrorCode.MESSAGE_INVALID_ROTATION_Y;
     }
 
     if (rotationOption.offsetY < -0.5 || rotationOption.offsetY > 0.5) {
@@ -281,4 +279,4 @@ class HapticPlayer {
   }
 }
 
-export default HapticPlayer;
+export default BhapticsPlayer;

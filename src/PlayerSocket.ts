@@ -1,6 +1,6 @@
-import { ErrorCode } from './Interfaces'
+import ErrorCode from "./models/ErrorCode";
 
-const DEFAULT_URL= 'ws://127.0.0.1:15881/v2/feedbacks?app_id=com.bhaptics.designer2&app_name=bHaptics Designer';
+const DEFAULT_URL= 'ws://127.0.0.1:15881/v2/feedbacks?' //app_id=com.bhaptics.designer2&app_name=bHaptics Designer';
 
 export enum STATUS {
   CONNECTING = 'Connecting',
@@ -16,15 +16,20 @@ export interface Message {
 }
 
 export default class PlayerSocket {
+  // eslint-disable-next-line @typescript-eslint/ban-types
   private handlers: Function[] = [];
   private websocketClient: any;
   private currentStatus: STATUS;
   private message: any;
   private isTriggered = false;
+  private appId: string;
+  private appName: string;
 
   retryConnectTime: number;
 
-  constructor(retryConnectTime = DEFAULT_RETRY_CONNECT_TIME) {
+  constructor(appId = "yourAppId", appName = 'yourAppName', retryConnectTime = DEFAULT_RETRY_CONNECT_TIME) {
+    this.appName = appName;
+    this.appId = appId;
     this.message = {};
     this.retryConnectTime = retryConnectTime;
     this.currentStatus = STATUS.DISCONNECT;
@@ -42,7 +47,7 @@ export default class PlayerSocket {
 
   connect = () => {
     try  {
-      this.websocketClient = new WebSocket(DEFAULT_URL);
+      this.websocketClient = new WebSocket(`${DEFAULT_URL}app_id=${this.appId}&app_name=${this.appName}`);
     } catch (e) {
       // connection failed
       console.log('PlayerSocket', e);
@@ -69,7 +74,7 @@ export default class PlayerSocket {
       });
     };
 
-    this.websocketClient.onclose = (event: any) => {
+    this.websocketClient.onclose = (_: any) => {
       this.currentStatus = STATUS.DISCONNECT;
       this.emit( {
         status: this.currentStatus,
