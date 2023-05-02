@@ -91,9 +91,6 @@
         console.log('error', e)
       });
   }
-
-  let name = 'world';
-  console.log('name')
 </script>
 
 <h1>Welcome to SvelteKit</h1>
