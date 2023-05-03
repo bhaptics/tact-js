@@ -47,7 +47,7 @@ tactJs.addListener(function(msg) {
 
 * Parameters
     * key: string;
-    * position: 'VestFront' | 'VestBack' | 'Head' | 'ForearmL' | 'ForearmR'
+    * position: 'VestFront' | 'VestBack' | 'Head' | 'ForearmL' | 'ForearmR' |  'GloveL' | 'GloveR'
     * points: array of object with (index, intensity)
         * index: [0, 19]
         * intensity: [1, 100]
@@ -70,7 +70,7 @@ var errorCode = tactJs.submitDot(key, position, points, durationMillis);
 
 * Parameters
     * key: string;
-    * position: 'VestFront' | 'VestBack' | 'Head' | 'ForearmL' | 'ForearmR'
+    * position: 'VestFront' | 'VestBack' | 'Head' | 'ForearmL' | 'ForearmR' | 'GloveL' | 'GloveR'
     * points: array of object with (x, y, intensity)
         * x: [0, 1]
         * y: [0, 1]
