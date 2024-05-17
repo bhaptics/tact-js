@@ -6,5 +6,4 @@ export {
   DotPoint, PathPoint, ScaleOption, RotationOption, PositionType, ErrorCode, BhapticsPlayer
 }
 
-
-export default BhapticsPlayer;
+export default new BhapticsPlayer();

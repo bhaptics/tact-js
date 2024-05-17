@@ -9,10 +9,10 @@ import {
 import ErrorCode from "./models/ErrorCode";
 
 class BhapticsPlayer {
-  public static registeredKeys: string[] = [];
-  private static socket?: PlayerSocket;
+  public registeredKeys: string[] = [];
+  private socket?: PlayerSocket;
 
-  public static addListener = (func: (msg: Message) => void) => {
+  public addListener = (func: (msg: Message) => void) => {
     if (!this.socket) {
       console.log('BhapticsSdk not initialized');
       return;
@@ -21,7 +21,13 @@ class BhapticsPlayer {
     this.socket.addListener(func);
   };
 
-  public static initialize = (appId: string, appName: string) => {
+  public initialize = (appId: string, appName: string) => {
+    if (appId === undefined) {
+      throw new Error('App ID is required');
+    }
+    if (appName === undefined) {
+      throw new Error('App Name is required');
+    }
     if (this.socket) {
       console.log('initialize called twice');
       return;
@@ -36,7 +42,7 @@ class BhapticsPlayer {
 
   }
 
-  public static turnOff = (key: string) :ErrorCode => {
+  public turnOff = (key: string) :ErrorCode => {
     const request = {
       Submit :[{
         Type : 'turnOff',
@@ -50,7 +56,7 @@ class BhapticsPlayer {
     return this.socket.send(JSON.stringify(request));
   };
 
-  public static turnOffAll = () : ErrorCode => {
+  public turnOffAll = () : ErrorCode => {
     const request = {
       Submit :[{
         Type : 'turnOffAll',
@@ -62,10 +68,10 @@ class BhapticsPlayer {
     return this.socket.send(JSON.stringify(request));
   };
 
-  public static submitDot = (key: string,
-                      pos: PositionType,
-                      dotPoints: DotPoint[],
-                      durationMillis: number) : ErrorCode => {
+  public submitDot = (key: string,
+                             pos: PositionType,
+                             dotPoints: DotPoint[],
+                             durationMillis: number) : ErrorCode => {
     if (!this.socket) {
       return ErrorCode.MESSAGE_NOT_INITIALIZED;
     }
@@ -128,10 +134,10 @@ class BhapticsPlayer {
     ));
   };
 
-  public static submitPath = (key: string,
-                pos: PositionType,
-                pathPoints: PathPoint[],
-                durationMillis: number) : ErrorCode => {
+  public submitPath = (key: string,
+                              pos: PositionType,
+                              pathPoints: PathPoint[],
+                              durationMillis: number) : ErrorCode => {
 
     if (!this.socket) {
       return ErrorCode.MESSAGE_NOT_INITIALIZED;
@@ -182,7 +188,7 @@ class BhapticsPlayer {
     ));
   }
 
-  public static registerFile = (key: string, json: string) : ErrorCode => {
+  public registerFile = (key: string, json: string) : ErrorCode => {
     if (!this.socket) {
       throw new Error('BhapticsSdk not initialized');
     }
@@ -198,7 +204,7 @@ class BhapticsPlayer {
     return this.socket.send(JSON.stringify(request));
   }
 
-  public static submitRegistered = (key: string) : ErrorCode => {
+  public submitRegistered = (key: string) : ErrorCode => {
     if (!this.socket) {
       return ErrorCode.MESSAGE_NOT_INITIALIZED;
     }
@@ -218,7 +224,7 @@ class BhapticsPlayer {
     return this.socket.send(JSON.stringify(request));
   }
 
-  public static submitRegisteredWithScaleOption = (key: string, scaleOption: ScaleOption) : ErrorCode => {
+  public submitRegisteredWithScaleOption = (key: string, scaleOption: ScaleOption) : ErrorCode => {
     if (!this.socket) {
       return ErrorCode.MESSAGE_NOT_INITIALIZED;
     }
@@ -248,7 +254,7 @@ class BhapticsPlayer {
     return this.socket.send(JSON.stringify(request));
   }
 
-  public static submitRegisteredWithRotationOption = (key: string, rotationOption: RotationOption) : ErrorCode => {
+  public submitRegisteredWithRotationOption = (key: string, rotationOption: RotationOption) : ErrorCode => {
     if (!this.socket) {
       return ErrorCode.MESSAGE_NOT_INITIALIZED;
     }
