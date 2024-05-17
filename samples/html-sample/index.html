@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tact Js</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../../dist/bundle.js"></script>
+</head>
+<body>
+<div class="flex flex-col w-[400px] gap-2 mx-auto py-8">
+    <button id="dotButton" class="rounded bg-blue-500 px-2 py-2 text-white">Dot</button>
+    <button id="turnOffButton" class="rounded bg-blue-500 px-2 py-2 text-white">TurnOff</button>
+</div>
+<script>
+    const player = new tactJs.BhapticsPlayer()
+    player.initialize("sampleApp", "sampleApp")
+
+    const dotButton = document.getElementById('dotButton');
+    const turnOffButton = document.getElementById('turnOffButton');
+
+    dotButton.addEventListener('click', function() {
+        player.submitDot("testKey", 'GloveR', [{ index: 0, intensity: 100 }], 100)
+    });
+    turnOffButton.addEventListener('click', function() {
+        player.turnOffAll()
+    });
+</script>
+
+</body>
+</html>
