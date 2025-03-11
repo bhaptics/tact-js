@@ -1,4 +1,23 @@
-# bHaptics WebSDK
+# bHaptics JavaScript SDK
+
+Documentation at https://docs.bhaptics.com/sdk/
+
+## Installation
+
+```bash
+npm install @bhaptics/tact-js
+```
+
+or
+
+```bash
+yarn add @bhaptics/tact-js
+```
+
+파일 4개를 담아서 NPM에 공개해야함
+
+상원님이 올린 tact-js 갈기
+https://www.npmjs.com/package/tact-js
 
 ## Prerequisite
 
@@ -32,11 +51,3 @@ npx http-server
 3. Move to /sdk on Browser
 
 4. Check bHaptics Player
-
-## install library
-
-```bash
-npm install @bhaptics/tact-js2
-```
-
-파일 4개를 담아서 NPM에 공개해야함
