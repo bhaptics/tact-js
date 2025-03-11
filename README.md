@@ -14,10 +14,10 @@
 1. Open src/index.html
 2. Change `bhaptics.initBhaptics("ENTER_YOUR_APP_ID", "ENTER_YOUR_API_KEY"")` with your app-id and api-key.
 
-Sample App ID & Key
+3. Uses Sample App ID and API Key
 
-- App ID
-- APP Key
+- App ID: 67d0055d69fb8c79a66b1cb6
+- API Key: Sv3sOVOSeLFl8t8QTKpK
 
 ## How to Run
 
