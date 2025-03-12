@@ -1,0 +1,6 @@
+{
+  "name": "tact-js",
+  "version": "1.0.0",
+  "main": "./src/bhaptics.js",
+  "type": "module"
+}
