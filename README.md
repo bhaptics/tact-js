@@ -4,11 +4,17 @@ Documentation at https://docs.bhaptics.com/sdk/
 
 ## Installation
 
+npm
+
 ```bash
 npm install @bhaptics/tact-js
 ```
 
-or
+pnpm
+
+```bash
+pnpm install @bhaptics/tact-js
+```
 
 ```bash
 yarn add @bhaptics/tact-js
@@ -28,26 +34,6 @@ https://www.npmjs.com/package/tact-js
 
 3. Connect your TactSuit to bHaptics Player
 
-## Setup
+## Demo
 
-1. Open src/index.html
-2. Change `bhaptics.initBhaptics("ENTER_YOUR_APP_ID", "ENTER_YOUR_API_KEY"")` with your app-id and api-key.
-
-3. Uses Sample App ID and API Key
-
-- App ID: 67d0055d69fb8c79a66b1cb6
-- API Key: Sv3sOVOSeLFl8t8QTKpK
-
-## How to Run
-
-1. Run http-server
-
-```bash
-npx http-server
-```
-
-2. Open [192.168.0.1](http://127.0.0.1:8080)
-
-3. Move to /sdk on Browser
-
-4. Check bHaptics Player
+`/demo` directory contains sample code for the SDK.
