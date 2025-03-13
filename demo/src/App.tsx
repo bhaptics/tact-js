@@ -22,12 +22,3 @@ function App() {
 }
 
 export default App;
-
-{
-  /* <button id="getEvent">Get Event</button>
-	<button onclick="bhaptics.motorTest()">Motor Test</button>
-	<button onclick="bhaptics.getHapticMappings('','')">getHapticMappings</button>
-	<button onclick="bhaptics.getHapticMappingsJson()">getHapticMappingsJson</button>
-	<button onclick="bhaptics.getHapticMessages('','')">getHapticMessages</button>
-	<button onclick="bhaptics.getDeviceInfoJson()">getDeviceInfoJson</button> */
-}
