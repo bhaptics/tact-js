@@ -12,7 +12,7 @@ import init, {
   get_haptic_messages,
   get_haptic_mappings_json,
   get_device_info_json,
-} from '../../bhaptics_web.js';
+} from './bhaptics_web.js';
 import utils from './internal/utils.js';
 /**
  * private variables
