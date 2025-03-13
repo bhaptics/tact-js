@@ -3,7 +3,7 @@ import HapticsDriver from 'tact-js';
 
 function App() {
   useEffect(() => {
-    HapticsDriver.initBhaptics('', '');
+    HapticsDriver.initBhaptics('ENTER_YOUR_APP_ID', 'ENTER_YOUR_API_KEY');
   }, []);
 
   return (
