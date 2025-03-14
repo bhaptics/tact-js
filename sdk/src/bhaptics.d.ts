@@ -2,7 +2,17 @@ declare module 'tact-js' {
   /**
    * Initializes the bHaptics WebSDK with the given workspace ID and key.
    */
-  export function initBhaptics(workspaceid: string, key: string): Promise<void>;
+  export function initBhaptics(workspaceid: string, key: string): Promise<boolean>;
+
+  /**
+   * Opens the bHaptics Player.
+   */
+  export function runBhapticsPlayer(): void;
+
+  /**
+   * Checks if the bHaptics Player is connected.
+   */
+  export function isConnected(): Promise<boolean>;
 
   /**
    * Plays a haptic event with the given intensity.
@@ -37,12 +47,7 @@ declare module 'tact-js' {
   /**
    * Retrieves device information in JSON format.
    */
-  export function getDeviceInfoJson(): void;
-
-  /**
-   * Prints SDK version information.
-   */
-  export function printSdkInfo(): void;
+  export function getDeviceInfo(): Promise<any>;
 
   /**
    * Retrieves all registered event keys.

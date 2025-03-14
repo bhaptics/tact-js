@@ -20,9 +20,9 @@ pnpm install
 ## Setup
 
 1. Open src/App.tsx
-2. Change `initBhaptics("ENTER_YOUR_APP_ID", "ENTER_YOUR_API_KEY"")` with your app-id and api-key.
-
-3. Uses Sample App ID and API Key
+2. Change `initBhaptics("ENTER_YOUR_APP_ID", "ENTER_YOUR_API_KEY"")` with your app-id and api-key. You can get them from [bHaptics Developer](https://developer.bhaptics.com/)
+3.
+4. Uses Sample App ID and API Key
 
 - App ID: `67d0055d69fb8c79a66b1cb6`
 - API Key: `Sv3sOVOSeLFl8t8QTKpK`

@@ -8,17 +8,17 @@ import init, {
   play_event,
   play_dot,
   stop_all,
-  get_haptic_mappings,
   get_haptic_messages,
-  get_haptic_mappings_json,
   get_device_info_json,
+  is_connected,
+  run_bhaptics_player,
 } from './bhaptics_web.js';
 import utils from './internal/utils.js';
+
 /**
  * private variables
  */
 
-let registedEvent = {};
 let defaultWorkspaceId = null;
 
 /**
@@ -28,10 +28,20 @@ const initBhaptics = async (workspaceid, key) => {
   await init();
   console.log('WebAssembly module loaded');
 
-  const result = registry_and_initialize(workspaceid, key, '');
+  const result = await registry_and_initialize(workspaceid, key, '');
   console.log('Result:', result);
 
   defaultWorkspaceId = workspaceid;
+  return result;
+};
+
+const runBhapticsPlayer = async () => {
+  console.log('runBhapticsPlayer');
+  run_bhaptics_player();
+};
+
+const isConnected = async () => {
+  return is_connected();
 };
 
 const play = (eventKey, intensity = 1, workspaceId = null) => {
@@ -52,125 +62,59 @@ const motorTest = async () => {
     testMotor[index] = 100;
     console.log('motor front test: ' + index + ', ' + JSON.stringify(testMotor));
     await play_dot(0, 1000, testMotor);
-    await utils.sleep(1000);
+    utils.sleep(1000);
   }
 };
 
-const getHapticMappings = (workspaceid, key) => {
-  const haptic = [];
-  const jsonString = get_haptic_mappings(workspaceid, key, -1);
-
-  defaultWorkspaceId = workspaceid;
-
-  jsonString
-    .then((result) => {
-      console.log('getHapticMappings result: ' + result);
-      if (typeof result === 'string' && result.trim() !== '') {
-        const hapticMappings = JSON.parse(result);
-
-        if (Array.isArray(hapticMappings.message)) {
-          for (const { key } of hapticMappings.message) {
-            haptic.push(key);
-          }
-          registedEvent[workspaceid] = haptic;
-        }
-      }
-      return result;
-    })
-    .then((data) => {
-      //console.log("data: " + data);
-    })
-    .catch((error) => {
-      console.error('error :', error);
-    });
-};
-
-const getHapticMessages = (workspaceid, key) => {
+const getHapticMessages = async (workspaceid, key) => {
   const haptic = {};
-  const jsonString = get_haptic_messages(workspaceid, key, -1);
+  const result = await get_haptic_messages(workspaceid, key, -1);
 
-  defaultWorkspaceId = workspaceid;
+  try {
+    if (typeof result === 'string' && result.trim() !== '') {
+      const hapticMappings = JSON.parse(result);
 
-  jsonString
-    .then((result) => {
-      if (typeof result === 'string' && result.trim() !== '') {
-        const hapticMappings = JSON.parse(result);
-
-        if (Array.isArray(hapticMappings)) {
-          for (const { key } of hapticMappings) {
-            haptic[key] = {};
-          }
+      if (Array.isArray(hapticMappings)) {
+        for (const { key } of hapticMappings) {
+          haptic[key] = {};
         }
       }
-      return result;
-    })
-    .then((data) => {
-      //console.log("data: " + data);
-    })
-    .catch((error) => {
-      console.error('error :', error);
-    });
-};
-const getHapticMappingsJson = () => {
-  const haptic = [];
-  const jsonString = get_haptic_mappings_json();
-
-  jsonString
-    .then((result) => {
-      if (typeof result === 'string' && result.trim() !== '') {
-        const hapticMappings = JSON.parse(result);
-
-        if (Array.isArray(hapticMappings)) {
-          for (const { eventName, eventTime } of hapticMappings) {
-            haptic.push(eventName);
-          }
-          registedEvent[defaultWorkspaceId] = haptic;
-        }
-      }
-      return result;
-    })
-    .then((data) => {
-      //console.log("data: " + data);
-    })
-    .catch((error) => {
-      console.error('error :', error);
-    });
+    }
+    return result;
+  } catch (error) {
+    console.error('error :', error);
+  }
 };
 
-const getDeviceInfoJson = () => {
+const getDeviceInfo = async () => {
   const devices = [];
-  const jsonString = get_device_info_json();
+  const result = await get_device_info_json();
 
-  jsonString
-    .then((result) => {
-      if (typeof result === 'string' && result.trim() !== '') {
-        const devicesInfo = JSON.parse(result);
+  try {
+    if (typeof result === 'string' && result.trim() !== '') {
+      const devicesInfo = JSON.parse(result);
 
-        if (Array.isArray(devicesInfo)) {
-          for (const device of devicesInfo) {
-            devices.push(device); //position, deviceName, address, connected, paired, battery, audioJackIn, vsm
-          }
+      if (Array.isArray(devicesInfo)) {
+        for (const device of devicesInfo) {
+          devices.push(device); //position, deviceName, address, connected, paired, battery, audioJackIn, vsm
         }
-        console.log('get_device_info_json devices: ' + devices[0].vsm);
       }
-      return result;
-    })
-    .then((data) => {
-      //console.log("data: " + data);
-    })
-    .catch((error) => {
-      console.error('error :', error);
-    });
+      console.log('get_device_info_json devices: ' + devices[0].vsm);
+    }
+    return result;
+  } catch (error) {
+    console.error('error :', error);
+  }
 };
 
 // expose bhaptics sdk.
 export default {
   initBhaptics,
+  isConnected,
+  runBhapticsPlayer,
   play,
   stop,
   motorTest,
-  getHapticMappings,
   getHapticMessages,
-  getHapticMappingsJson,
-  getDeviceInfoJson,
+  getDeviceInfo,
 };
