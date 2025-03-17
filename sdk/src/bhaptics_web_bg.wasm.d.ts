@@ -5,6 +5,7 @@ export function is_bhaptics_player_running(): number;
 export function is_bhaptics_player_installed(): number;
 export function run_bhaptics_player(a: number): number;
 export function registry_and_initialize(a: number, b: number, c: number, d: number, e: number, f: number): number;
+export function remote_registry_and_initialize(a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number): number;
 export function retry_initialize(a: number, b: number, c: number, d: number): number;
 export function is_connected(): number;
 export function close(): number;

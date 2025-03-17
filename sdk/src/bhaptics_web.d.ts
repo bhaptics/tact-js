@@ -21,6 +21,14 @@ export function run_bhaptics_player(try_launch: boolean): Promise<boolean>;
 */
 export function registry_and_initialize(app_id: string, api_key: string, init_json_string: string): Promise<boolean>;
 /**
+* @param {string} host
+* @param {string} app_id
+* @param {string} api_key
+* @param {string} init_json_string
+* @returns {Promise<boolean>}
+*/
+export function remote_registry_and_initialize(host: string, app_id: string, api_key: string, init_json_string: string): Promise<boolean>;
+/**
 * @param {string} app_id
 * @param {string} api_key
 * @returns {Promise<void>}
@@ -186,6 +194,7 @@ export interface InitOutput {
   readonly is_bhaptics_player_installed: () => number;
   readonly run_bhaptics_player: (a: number) => number;
   readonly registry_and_initialize: (a: number, b: number, c: number, d: number, e: number, f: number) => number;
+  readonly remote_registry_and_initialize: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number) => number;
   readonly retry_initialize: (a: number, b: number, c: number, d: number) => number;
   readonly is_connected: () => number;
   readonly close: () => number;
