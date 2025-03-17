@@ -55,17 +55,8 @@ export function EventKeySection({ appId, apiKey }: EventKeySectionProps) {
 
   return (
     <section className={`flex flex-col items-start gap-2 transition-opacity`}>
-      <h3>3. Play your Events</h3>
-      <p>
-        These are the event keys you can use to play haptic feedback. You can find the event keys in
-        the{' '}
-        <a
-          className="underline text-blue-600"
-          href="https://developer.bhaptics.com/applications"
-          target="_blank">
-          bhaptics Developer
-        </a>
-      </p>
+      <h3>3. Play Events</h3>
+      <p>These are the event keys you can use to play haptic feedback.</p>
 
       <div className="flex flex-col gap-2 w-full mt-2">
         <ul className="flex flex-col gap-2 bg-neutral-800 p-2 rounded-lg text-white">

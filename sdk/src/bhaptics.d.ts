@@ -45,11 +45,6 @@ declare module 'tact-js' {
   export function getHapticMappings(workspaceid: string, key: string): void;
 
   /**
-   * Retrieves haptic messages for the given workspace ID and key.
-   */
-  export function getHapticMessages(workspaceid: string, key: string): void;
-
-  /**
    * Retrieves all haptic mappings in JSON format.
    */
   export function getHapticMappingsJson(): void;

@@ -4,6 +4,7 @@ import Connection from './components/Connnection';
 import OpenPlayerSection from './components/OpenPlayerSection';
 import MotorTestSection from './components/MotorTestSection';
 import { EventKeySection } from './components/EventKeySection';
+import VideoSection from './components/VideoSection';
 
 const APP_ID = '67d0055d69fb8c79a66b1cb6';
 const API_KEY = 'Sv3sOVOSeLFl8t8QTKpK';
@@ -23,14 +24,6 @@ export default function App() {
 
   useEffect(() => {
     init();
-
-    HapticDriver.isConnected().then((status) => {
-      console.log('Connected:', status);
-    });
-
-    HapticDriver.getDeviceInfo().then((devices) => {
-      return devices;
-    });
   }, []);
 
   return (
@@ -44,6 +37,7 @@ export default function App() {
         <OpenPlayerSection />
         <MotorTestSection />
         <EventKeySection appId={APP_ID} apiKey={API_KEY} />
+        <VideoSection />
       </div>
     </main>
   );
