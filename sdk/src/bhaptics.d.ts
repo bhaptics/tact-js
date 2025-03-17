@@ -6,7 +6,7 @@ declare module 'tact-js' {
     workspaceid: string,
     key: string,
     option?: {
-      remote: string;
+      remote?: string;
     }
   ): Promise<boolean>;
 
