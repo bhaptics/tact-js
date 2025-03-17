@@ -19,7 +19,7 @@ export default function App() {
      * https://developer.bhaptics.com/applications
      */
     const status = await HapticDriver.initBhaptics(APP_ID, API_KEY, {
-      remote: '192.168.100.22:15881',
+      // remote: '192.168.100.22:15881',
     });
     setConnected(status);
   };
