@@ -25,6 +25,16 @@ declare module 'tact-js' {
   export function stop(): void;
 
   /**
+   * Pauses a haptic event.
+   */
+  export function pause(event: string): Promise<void>;
+
+  /**
+   * Resumes a haptic event.
+   */
+  export function resume(event: string): Promise<void>;
+
+  /**
    * Runs a motor test sequence.
    */
   export function motorTest(): Promise<void>;
