@@ -1,8 +1,9 @@
 const utils = {
-    sleep: (ms) => {
-        const loopTime = Date.now() + ms;
-        while (Date.now() < loopTime) { }
-    },
+  sleep: (ms) => {
+    return new Promise((resolve) => {
+      setTimeout(resolve, ms);
+    });
+  },
 };
 
 export default utils;

@@ -62,7 +62,7 @@ const motorTest = async () => {
     testMotor[index] = 100;
     console.log('motor front test: ' + index + ', ' + JSON.stringify(testMotor));
     await play_dot(0, 1000, testMotor);
-    utils.sleep(1000);
+    await utils.sleep(1000);
   }
 };
 
