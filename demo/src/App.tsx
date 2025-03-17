@@ -18,7 +18,11 @@ export default function App() {
      * You can get the App ID and API key from the bhaptics Developer page.
      * https://developer.bhaptics.com/applications
      */
-    const status = await HapticDriver.initBhaptics(APP_ID, API_KEY);
+    const status = await HapticDriver.initBhaptics(
+      APP_ID,
+      API_KEY
+      // { remote: '192.168.100.22:15881' }
+    );
     setConnected(status);
   };
 

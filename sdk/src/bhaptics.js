@@ -5,6 +5,7 @@
 
 import init, {
   registry_and_initialize,
+  remote_registry_and_initialize,
   play_event,
   play_dot,
   stop_all,
@@ -25,9 +26,17 @@ let defaultWorkspaceId = null;
 /**
  * public functions
  */
-const initBhaptics = async (workspaceid, key) => {
+const initBhaptics = async (workspaceid, key, option) => {
   await init();
   console.log('WebAssembly module loaded');
+
+  if (option && option.remote) {
+    const result = await remote_registry_and_initialize(option.remote, workspaceid, key, '');
+    console.log('Result:', result);
+
+    defaultWorkspaceId = workspaceid;
+    return result;
+  }
 
   const result = await registry_and_initialize(workspaceid, key, '');
   console.log('Result:', result);

@@ -2,7 +2,13 @@ declare module 'tact-js' {
   /**
    * Initializes the bHaptics WebSDK with the given workspace ID and key.
    */
-  export function initBhaptics(workspaceid: string, key: string): Promise<boolean>;
+  export function initBhaptics(
+    workspaceid: string,
+    key: string,
+    option?: {
+      remote: string;
+    }
+  ): Promise<boolean>;
 
   /**
    * Opens the bHaptics Player.
