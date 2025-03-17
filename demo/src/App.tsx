@@ -10,7 +10,6 @@ const APP_ID = '67d0055d69fb8c79a66b1cb6';
 const API_KEY = 'Sv3sOVOSeLFl8t8QTKpK';
 
 export default function App() {
-  const [mounted, setMounted] = useState<boolean>(false);
   const [connected, setConnected] = useState<boolean>(false);
 
   const init = async () => {
@@ -20,17 +19,16 @@ export default function App() {
      * https://developer.bhaptics.com/applications
      */
     const status = await HapticDriver.initBhaptics(APP_ID, API_KEY, {
-      // remote: '192.168.100.22:15881',
+      remote: '192.168.100.22:15881',
     });
     setConnected(status);
   };
 
   useEffect(() => {
-    setMounted(true);
-    if (mounted) {
+    if (!connected) {
       init();
     }
-  }, [mounted]);
+  }, [connected]);
 
   return (
     <main className="flex flex-col items-center min-h-screen p-32">
