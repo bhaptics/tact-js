@@ -8,7 +8,6 @@ import init, {
   play_event,
   play_dot,
   stop_all,
-  get_haptic_messages,
   get_device_info_json,
   is_connected,
   run_bhaptics_player,
@@ -68,26 +67,6 @@ const motorTest = async () => {
   }
 };
 
-const getHapticMessages = async (workspaceid, key) => {
-  const haptic = {};
-  const result = await get_haptic_messages(workspaceid, key, -1);
-
-  try {
-    if (typeof result === 'string' && result.trim() !== '') {
-      const hapticMappings = JSON.parse(result);
-
-      if (Array.isArray(hapticMappings)) {
-        for (const { key } of hapticMappings) {
-          haptic[key] = {};
-        }
-      }
-    }
-    return result;
-  } catch (error) {
-    console.error('error :', error);
-  }
-};
-
 const getDeviceInfo = async () => {
   const devices = [];
   const result = await get_device_info_json();
@@ -119,6 +98,5 @@ export default {
   pause,
   resume,
   motorTest,
-  getHapticMessages,
   getDeviceInfo,
 };
