@@ -16,8 +16,6 @@ export function ping_all(): number;
 export function get_event_time(a: number, b: number): number;
 export function get_device_info_json(): number;
 export function get_haptic_mappings_json(): number;
-export function get_haptic_messages(a: number, b: number, c: number, d: number, e: number): number;
-export function get_haptic_mappings(a: number, b: number, c: number, d: number, e: number): number;
 export function is_playing_event(): number;
 export function is_playing_event_by_request_id(a: number): number;
 export function is_playing_event_by_event_id(a: number, b: number): number;
@@ -29,6 +27,8 @@ export function play_loop(a: number, b: number, c: number, d: number, e: number,
 export function play_dot(a: number, b: number, c: number, d: number): number;
 export function play_path(a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number): number;
 export function play_glove(a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number): number;
+export function pause(a: number, b: number): number;
+export function resume(a: number, b: number): number;
 export function stop_by_request_id(a: number): number;
 export function stop_by_event_name(a: number, b: number): number;
 export function stop_all(): number;

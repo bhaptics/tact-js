@@ -73,20 +73,6 @@ export function get_device_info_json(): Promise<string>;
 */
 export function get_haptic_mappings_json(): Promise<string>;
 /**
-* @param {string} app_id
-* @param {string} api_key
-* @param {number} version
-* @returns {Promise<string>}
-*/
-export function get_haptic_messages(app_id: string, api_key: string, version: number): Promise<string>;
-/**
-* @param {string} app_id
-* @param {string} api_key
-* @param {number} version
-* @returns {Promise<string>}
-*/
-export function get_haptic_mappings(app_id: string, api_key: string, version: number): Promise<string>;
-/**
 * @returns {Promise<boolean>}
 */
 export function is_playing_event(): Promise<boolean>;
@@ -168,6 +154,16 @@ export function play_path(position: number, durationMillis: number, x: Float32Ar
 */
 export function play_glove(position: number, motors: Int32Array, playtimes: Int32Array, shapes: Int32Array, repeat_count: number): Promise<number>;
 /**
+* @param {string} event
+* @returns {Promise<void>}
+*/
+export function pause(event: string): Promise<void>;
+/**
+* @param {string} event
+* @returns {Promise<void>}
+*/
+export function resume(event: string): Promise<void>;
+/**
 * @param {number} request_id
 * @returns {Promise<void>}
 */
@@ -201,8 +197,6 @@ export interface InitOutput {
   readonly get_event_time: (a: number, b: number) => number;
   readonly get_device_info_json: () => number;
   readonly get_haptic_mappings_json: () => number;
-  readonly get_haptic_messages: (a: number, b: number, c: number, d: number, e: number) => number;
-  readonly get_haptic_mappings: (a: number, b: number, c: number, d: number, e: number) => number;
   readonly is_playing_event: () => number;
   readonly is_playing_event_by_request_id: (a: number) => number;
   readonly is_playing_event_by_event_id: (a: number, b: number) => number;
@@ -214,6 +208,8 @@ export interface InitOutput {
   readonly play_dot: (a: number, b: number, c: number, d: number) => number;
   readonly play_path: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number) => number;
   readonly play_glove: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number) => number;
+  readonly pause: (a: number, b: number) => number;
+  readonly resume: (a: number, b: number) => number;
   readonly stop_by_request_id: (a: number) => number;
   readonly stop_by_event_name: (a: number, b: number) => number;
   readonly stop_all: () => number;

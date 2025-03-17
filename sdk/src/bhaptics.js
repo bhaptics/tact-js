@@ -12,6 +12,8 @@ import init, {
   get_device_info_json,
   is_connected,
   run_bhaptics_player,
+  pause,
+  resume,
 } from './bhaptics_web.js';
 import utils from './internal/utils.js';
 
@@ -114,6 +116,8 @@ export default {
   runBhapticsPlayer,
   play,
   stop,
+  pause,
+  resume,
   motorTest,
   getHapticMessages,
   getDeviceInfo,
