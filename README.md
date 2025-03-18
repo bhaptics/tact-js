@@ -4,20 +4,26 @@ Documentation at https://docs.bhaptics.com/sdk/
 
 ## Installation
 
+```bash
+cd sdk
+```
+
 npm
 
 ```bash
-npm install @bhaptics/tact-js
+npm run build
 ```
 
 pnpm
 
 ```bash
-pnpm install @bhaptics/tact-js
+pnpm run build
 ```
 
+yarn
+
 ```bash
-yarn add @bhaptics/tact-js
+yarn build
 ```
 
 파일 4개를 담아서 NPM에 공개해야함
