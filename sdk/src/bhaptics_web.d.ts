@@ -101,6 +101,16 @@ export function is_playing_event_by_event_id(event_id: string): Promise<boolean>
 export function play_event(event_name: string): Promise<number>;
 /**
 * @param {string} key
+* @param {number} start_millis
+* @param {number} intensity
+* @param {number} duration_millis
+* @param {number} angle_x
+* @param {number} offset_y
+* @returns {Promise<number>}
+*/
+export function play_with_start_time(key: string, start_millis: number, intensity: number, duration_millis: number, angle_x: number, offset_y: number): Promise<number>;
+/**
+* @param {string} key
 * @param {number} position
 * @param {number} intensity
 * @param {number} durationMillis
@@ -210,6 +220,7 @@ export interface InitOutput {
   readonly is_playing_event_by_request_id: (a: number) => number;
   readonly is_playing_event_by_event_id: (a: number, b: number) => number;
   readonly play_event: (a: number, b: number) => number;
+  readonly play_with_start_time: (a: number, b: number, c: number, d: number, e: number, f: number, g: number) => number;
   readonly play_without_result: (a: number, b: number, c: number, d: number, e: number, f: number, g: number) => number;
   readonly play_position: (a: number, b: number, c: number) => number;
   readonly play_position_with_parameter: (a: number, b: number, c: number, d: number, e: number, f: number, g: number) => number;
