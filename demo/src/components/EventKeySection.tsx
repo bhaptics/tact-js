@@ -1,7 +1,6 @@
 import HapticDriver from 'tact-js';
 import { useEffect, useState } from 'react';
-import { PlayIcon } from './PlayIcon';
-import { StopIcon } from './StopIcon';
+import { FaRegCirclePlay, FaRegCircleStop } from 'react-icons/fa6';
 
 type EventKey = {
   key: string;
@@ -71,12 +70,12 @@ export function EventKeySection({ appId, apiKey }: EventKeySectionProps) {
                 <button
                   onClick={() => playEvent(eventKey.key)}
                   className=" hover:bg-neutral-700 cursor-pointer  text-neutral-white size-9 items-center justify-center flex rounded-full">
-                  <PlayIcon className="size-6" />
+                  <FaRegCirclePlay className="size-5" />
                 </button>
                 <button
                   onClick={stopEvent}
                   className=" hover:bg-neutral-700 cursor-pointer text-neutral-white size-9 items-center justify-center flex rounded-full">
-                  <StopIcon className="size-6" />
+                  <FaRegCircleStop className="size-5" />
                 </button>
               </div>
             </li>
