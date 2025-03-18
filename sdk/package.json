@@ -1,6 +1,17 @@
 {
   "name": "tact-js",
   "version": "1.0.0",
-  "main": "./src/bhaptics.js",
-  "type": "module"
+  "main": "dist/bundle.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^12.1.2",
+    "rollup": "^4.36.0",
+    "rollup-plugin-copy": "^3.5.0",
+    "tslib": "^2.8.1",
+    "typescript": "~5.7.2"
+  }
 }

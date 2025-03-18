@@ -54,7 +54,7 @@ export function EventKeySection({ appId, apiKey }: EventKeySectionProps) {
 
   return (
     <section className={`flex flex-col items-start gap-2 transition-opacity`}>
-      <h3>3. Play Events</h3>
+      <h3>2. Play Events</h3>
       <p>These are the event keys you can use to play haptic feedback.</p>
 
       <div className="flex flex-col gap-2 w-full mt-2">

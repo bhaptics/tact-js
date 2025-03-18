@@ -14,18 +14,14 @@ This is a demo for the bHaptics JavaScript SDK.
 ## Installation
 
 ```bash
-pnpm install
+cd ../sdk
+pnpm run build
 ```
 
-## Setup
-
-1. Open src/App.tsx
-2. Change `initBhaptics("ENTER_YOUR_APP_ID", "ENTER_YOUR_API_KEY"")` with your app-id and api-key. You can get them from [bHaptics Developer](https://developer.bhaptics.com/)
-3.
-4. Uses Sample App ID and API Key
-
-- App ID: `67d0055d69fb8c79a66b1cb6`
-- API Key: `Sv3sOVOSeLFl8t8QTKpK`
+```bash
+cd demo
+pnpm install
+```
 
 ## Usage
 

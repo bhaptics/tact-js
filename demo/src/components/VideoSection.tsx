@@ -13,7 +13,7 @@ export default function VideoSection() {
 
   return (
     <section className={`flex flex-col items-start gap-2 transition-opacity`}>
-      <h3>4. Video with Haptic</h3>
+      <h3>3. Video with Haptic</h3>
       <p>Watch this video with haptic feedback.</p>
       <div className="rounded-lg overflow-hidden border border-neutral-200">
         <div className="pointer-events-">
