@@ -21,6 +21,7 @@ export function is_playing_event(): number;
 export function is_playing_event_by_request_id(a: number): number;
 export function is_playing_event_by_event_id(a: number, b: number): number;
 export function play_event(a: number, b: number): number;
+export function play_with_start_time(a: number, b: number, c: number, d: number, e: number, f: number, g: number): number;
 export function play_without_result(a: number, b: number, c: number, d: number, e: number, f: number, g: number): number;
 export function play_position(a: number, b: number, c: number): number;
 export function play_position_with_parameter(a: number, b: number, c: number, d: number, e: number, f: number, g: number): number;
