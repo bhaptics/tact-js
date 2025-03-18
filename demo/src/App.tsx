@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import HapticDriver from 'tact-js';
 import Connection from './components/Connnection';
-import OpenPlayerSection from './components/OpenPlayerSection';
 import MotorTestSection from './components/MotorTestSection';
 import { EventKeySection } from './components/EventKeySection';
 import VideoSection from './components/VideoSection';
@@ -38,7 +37,6 @@ export default function App() {
       </div>
 
       <div className="grid grid-cols-1 gap-10 items-start ">
-        <OpenPlayerSection />
         <MotorTestSection />
         <EventKeySection appId={APP_ID} apiKey={API_KEY} />
         <VideoSection />

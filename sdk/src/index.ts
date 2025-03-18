@@ -10,23 +10,18 @@ import init, {
   play_dot,
   stop_all,
   get_device_info_json,
-  is_connected,
-  run_bhaptics_player,
   pause,
   resume,
 } from './bhaptics_web.js';
-import utils from './internal/utils.js';
+import utils from './internal/utils';
 
-/**
- * private variables
- */
+let defaultWorkspaceId: string | null = null;
 
-let defaultWorkspaceId = null;
+type Option = {
+  remote?: string;
+};
 
-/**
- * public functions
- */
-const initBhaptics = async (workspaceid, key, option) => {
+const initBhaptics = async (workspaceid: string, key: string, option?: Option) => {
   await init();
   console.log('WebAssembly module loaded');
 
@@ -45,22 +40,13 @@ const initBhaptics = async (workspaceid, key, option) => {
   return result;
 };
 
-const runBhapticsPlayer = async () => {
-  console.log('runBhapticsPlayer');
-  run_bhaptics_player();
-};
-
-const isConnected = async () => {
-  return is_connected();
-};
-
-const play = (eventKey, intensity = 1, workspaceId = null) => {
+const play = (eventKey: string, intensity = 1, workspaceId: string | null = null) => {
   console.log(`eventKey: ${eventKey}, intensity: ${intensity}, workspaceId: ${workspaceId}`);
 
   play_event(eventKey);
 };
 
-const stop = (event) => {
+const stop = () => {
   stop_all();
 };
 
@@ -68,10 +54,10 @@ const motorTest = async () => {
   console.log('motorTest');
 
   for (let index = 0; index < 40; index++) {
-    let testMotor = Array.from({ length: 40 }, () => 0);
+    const testMotor = Array.from({ length: 40 }, () => 0);
     testMotor[index] = 100;
     console.log('motor front test: ' + index + ', ' + JSON.stringify(testMotor));
-    await play_dot(0, 1000, testMotor);
+    await play_dot(0, 1000, testMotor as unknown as Int32Array);
     await utils.sleep(1000);
   }
 };
@@ -97,11 +83,8 @@ const getDeviceInfo = async () => {
   }
 };
 
-// expose bhaptics sdk.
 export default {
   initBhaptics,
-  isConnected,
-  runBhapticsPlayer,
   play,
   stop,
   pause,
