@@ -6,9 +6,9 @@
 import init, {
   registry_and_initialize,
   remote_registry_and_initialize,
-  play_event,
   play_dot,
   stop_all,
+  play_with_start_time,
   get_device_info_json,
   pause,
   resume,
@@ -40,10 +40,24 @@ const initBhaptics = async (workspaceid: string, key: string, option?: Option) =
   return result;
 };
 
-const play = (eventKey: string, intensity = 1, workspaceId: string | null = null) => {
-  console.log(`eventKey: ${eventKey}, intensity: ${intensity}, workspaceId: ${workspaceId}`);
+type PlayParams = {
+  eventKey: string;
+  startTime?: number;
+  intensity?: number;
+  duration?: number;
+  x?: number;
+  y?: number;
+};
 
-  play_event(eventKey);
+const play = ({
+  eventKey,
+  startTime = 0,
+  intensity = 1,
+  duration = 1,
+  x = 0,
+  y = 0,
+}: PlayParams) => {
+  play_with_start_time(eventKey, startTime, intensity, duration, x, y);
 };
 
 const stop = () => {
