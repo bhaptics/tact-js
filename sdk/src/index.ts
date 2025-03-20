@@ -53,7 +53,7 @@ const play = ({
   eventKey,
   startTime = 0,
   intensity = 1,
-  duration = 1000,
+  duration = 1,
   offsetX = 0,
   offsetY = 0,
 }: PlayParams) => {
