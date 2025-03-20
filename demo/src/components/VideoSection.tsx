@@ -11,6 +11,8 @@ export default function VideoSection() {
   const [currentTime, setCurrentTime] = useState<number>(0);
   const [player, setPlayer] = useState<ReactPlayer>();
 
+  const EVENT_KEY = 'ces_video';
+
   return (
     <section className={`flex flex-col items-start gap-2 transition-opacity`}>
       <h3>3. Video with Haptic</h3>
@@ -24,12 +26,12 @@ export default function VideoSection() {
             onReady={(player) => setPlayer(player)}
             onPlay={async () => {
               setPlaying(true);
-              HapticDriver.play({ eventKey: 'ces_video', startTime: currentTime * 1000 });
+              HapticDriver.play({ eventKey: EVENT_KEY, startTime: currentTime * 1000 });
             }}
             onProgress={({ playedSeconds }) => setCurrentTime(playedSeconds)}
             onPause={async () => {
               setPlaying(false);
-              HapticDriver.stop();
+              await HapticDriver.stop(EVENT_KEY);
             }}
             config={{
               youtube: {
@@ -50,11 +52,11 @@ export default function VideoSection() {
           </button>
           <button
             className="p-3 hover:bg-neutral-200 rounded"
-            onClick={() => {
+            onClick={async () => {
               setPlaying(false);
               setCurrentTime(0);
               player?.seekTo(0);
-              HapticDriver.stop();
+              await HapticDriver.stop(EVENT_KEY);
             }}>
             <FaStop className="size-4" />
           </button>
