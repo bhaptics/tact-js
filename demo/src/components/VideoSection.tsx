@@ -9,7 +9,6 @@ export default function VideoSection() {
 
   const [playing, setPlaying] = useState<boolean>(false);
   const [currentTime, setCurrentTime] = useState<number>(0);
-  console.log('🚀 ~ VideoSection ~ currentTime:', currentTime);
   const [player, setPlayer] = useState<ReactPlayer>();
 
   return (
@@ -30,7 +29,7 @@ export default function VideoSection() {
             onProgress={({ playedSeconds }) => setCurrentTime(playedSeconds)}
             onPause={async () => {
               setPlaying(false);
-              await HapticDriver.stop();
+              HapticDriver.stop();
             }}
             config={{
               youtube: {
