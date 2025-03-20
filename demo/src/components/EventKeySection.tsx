@@ -33,7 +33,7 @@ export function EventKeySection({ appId, apiKey }: EventKeySectionProps) {
     /**
      * Plays the haptic event with the given event key.
      */
-    HapticDriver.play(eventKey);
+    HapticDriver.play({ eventKey });
   };
 
   const stopEvent = () => {

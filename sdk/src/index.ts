@@ -45,8 +45,8 @@ type PlayParams = {
   startTime?: number;
   intensity?: number;
   duration?: number;
-  x?: number;
-  y?: number;
+  offsetX?: number;
+  offsetY?: number;
 };
 
 const play = ({
@@ -54,10 +54,10 @@ const play = ({
   startTime = 0,
   intensity = 1,
   duration = 1,
-  x = 0,
-  y = 0,
+  offsetX = 0,
+  offsetY = 0,
 }: PlayParams) => {
-  play_with_start_time(eventKey, startTime, intensity, duration, x, y);
+  play_with_start_time(eventKey, startTime, intensity, duration, offsetX, offsetY);
 };
 
 const stop = () => {

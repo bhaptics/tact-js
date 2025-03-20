@@ -27,7 +27,9 @@ export default function VideoSection() {
             onPlay={async () => {
               setPlaying(true);
               if (stopped) {
-                HapticDriver.play('ces_video');
+                HapticDriver.play({
+                  eventKey: 'ces_video',
+                });
                 console.log('play');
                 setStopped(false);
               } else {
