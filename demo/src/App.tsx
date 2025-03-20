@@ -7,18 +7,16 @@ import VideoSection from './components/VideoSection';
 
 const APP_ID = '67d0055d69fb8c79a66b1cb6';
 const API_KEY = 'Sv3sOVOSeLFl8t8QTKpK';
+// const REMOTE_ADDRESS = '192.168.100.22:15881';
 
 export default function App() {
   const [connected, setConnected] = useState<boolean>(false);
 
   const init = async () => {
-    /**
-     * initBhaptics(workspaceid: string, key: string): Promise<boolean>
-     * You can get the App ID and API key from the bhaptics Developer page.
-     * https://developer.bhaptics.com/applications
-     */
-    const status = await HapticDriver.initBhaptics(APP_ID, API_KEY, {
-      // remote: '192.168.100.22:15881',
+    const status = await HapticDriver.init({
+      appId: APP_ID,
+      apiKey: API_KEY,
+      // remote: REMOTE_ADDRESS,
     });
     setConnected(status);
   };

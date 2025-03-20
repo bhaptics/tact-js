@@ -36,11 +36,11 @@ export function EventKeySection({ appId, apiKey }: EventKeySectionProps) {
     HapticDriver.play({ eventKey });
   };
 
-  const stopEvent = () => {
+  const stopEvent = (eventKey: string) => {
     /**
      * Stops all haptic events.
      */
-    HapticDriver.stop();
+    HapticDriver.stop(eventKey);
   };
 
   useEffect(() => {
@@ -73,7 +73,7 @@ export function EventKeySection({ appId, apiKey }: EventKeySectionProps) {
                   <FaRegCirclePlay className="size-5" />
                 </button>
                 <button
-                  onClick={stopEvent}
+                  onClick={() => stopEvent(eventKey.key)}
                   className=" hover:bg-neutral-700 cursor-pointer text-neutral-white size-9 items-center justify-center flex rounded-full">
                   <FaRegCircleStop className="size-5" />
                 </button>
