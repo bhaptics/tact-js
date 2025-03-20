@@ -6,9 +6,10 @@ import { secondsToMMSS } from '../utils/Time';
 
 export default function VideoSection() {
   const ref = useRef<ReactPlayer>(null);
-  const [stopped, setStopped] = useState<boolean>(true);
+
   const [playing, setPlaying] = useState<boolean>(false);
   const [currentTime, setCurrentTime] = useState<number>(0);
+  console.log('🚀 ~ VideoSection ~ currentTime:', currentTime);
   const [player, setPlayer] = useState<ReactPlayer>();
 
   return (
@@ -21,29 +22,15 @@ export default function VideoSection() {
             ref={ref}
             url="https://www.youtube.com/watch?v=cXEhYjivY3o&ab_channel=MikeKim"
             playing={playing}
-            onReady={(player) => {
-              setPlayer(player);
-            }}
+            onReady={(player) => setPlayer(player)}
             onPlay={async () => {
               setPlaying(true);
-              if (stopped) {
-                HapticDriver.play({
-                  eventKey: 'ces_video',
-                });
-                console.log('play');
-                setStopped(false);
-              } else {
-                console.log('resume');
-                await HapticDriver.resume('ces_video');
-              }
+              HapticDriver.play({ eventKey: 'ces_video', startTime: currentTime * 1000 });
             }}
-            onProgress={({ playedSeconds }) => {
-              setCurrentTime(playedSeconds);
-            }}
+            onProgress={({ playedSeconds }) => setCurrentTime(playedSeconds)}
             onPause={async () => {
-              console.log('pause');
               setPlaying(false);
-              await HapticDriver.pause('ces_video');
+              await HapticDriver.stop();
             }}
             config={{
               youtube: {
@@ -59,18 +46,14 @@ export default function VideoSection() {
           />
         </div>
         <div className="flex bg-neutral-100 p-3 gap-1">
-          <button
-            className="p-3 hover:bg-neutral-200 rounded"
-            onClick={() => {
-              setPlaying(!playing);
-            }}>
+          <button className="p-3 hover:bg-neutral-200 rounded" onClick={() => setPlaying(!playing)}>
             {playing ? <FaPause className="size-4" /> : <FaPlay className="size-4" />}
           </button>
           <button
             className="p-3 hover:bg-neutral-200 rounded"
             onClick={() => {
-              setStopped(true);
               setPlaying(false);
+              setCurrentTime(0);
               player?.seekTo(0);
               HapticDriver.stop();
             }}>
