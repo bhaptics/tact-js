@@ -67,8 +67,9 @@ function Event({ eventKey }: { eventKey: EventKey }) {
      * Plays the haptic event with the given event key.
      */
 
+    HapticDriver.play({ eventKey: key, durationRatio: 1000 });
+
     Timer.start((res: { interval: number; elapsed: number }) => {
-      HapticDriver.play({ eventKey: key, durationRatio: 1000 });
       setCurrentTime(res.elapsed);
       if (res.elapsed >= eventKey.durationMillis) {
         stopTimer();
