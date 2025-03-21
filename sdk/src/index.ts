@@ -55,10 +55,6 @@ export type PlayGloveParams = {
 };
 
 export default {
-  async runBhapticsPlayer() {
-    return await bhaptics.run_bhaptics_player(true);
-  },
-
   /**
    * Initialize the bHaptics WebSDK
    * @example
@@ -239,13 +235,5 @@ export default {
 
   async isPlayingByEventKey(eventKey: string) {
     return await bhaptics.is_playing_event_by_event_id(eventKey);
-  },
-
-  async isBhapticsPlayerRunning() {
-    return await bhaptics.is_bhaptics_player_running();
-  },
-
-  async isBhapticsPlayerInstalled() {
-    return await bhaptics.is_bhaptics_player_installed();
   },
 };
