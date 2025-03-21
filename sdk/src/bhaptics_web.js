@@ -432,15 +432,15 @@ export function play_event(event_name) {
 * @param {string} key
 * @param {number} start_millis
 * @param {number} intensity
-* @param {number} duration_millis
+* @param {number} duration_ratio
 * @param {number} angle_x
 * @param {number} offset_y
 * @returns {Promise<number>}
 */
-export function play_with_start_time(key, start_millis, intensity, duration_millis, angle_x, offset_y) {
+export function play_with_start_time(key, start_millis, intensity, duration_ratio, angle_x, offset_y) {
     const ptr0 = passStringToWasm0(key, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
     const len0 = WASM_VECTOR_LEN;
-    const ret = wasm.play_with_start_time(ptr0, len0, start_millis, intensity, duration_millis, angle_x, offset_y);
+    const ret = wasm.play_with_start_time(ptr0, len0, start_millis, intensity, duration_ratio, angle_x, offset_y);
     return takeObject(ret);
 }
 
@@ -448,15 +448,15 @@ export function play_with_start_time(key, start_millis, intensity, duration_mill
 * @param {string} key
 * @param {number} position
 * @param {number} intensity
-* @param {number} durationMillis
-* @param {number} angleX
-* @param {number} offsetY
+* @param {number} duration_ratio
+* @param {number} angle_x
+* @param {number} offset_y
 * @returns {Promise<void>}
 */
-export function play_without_result(key, position, intensity, durationMillis, angleX, offsetY) {
+export function play_without_result(key, position, intensity, duration_ratio, angle_x, offset_y) {
     const ptr0 = passStringToWasm0(key, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
     const len0 = WASM_VECTOR_LEN;
-    const ret = wasm.play_without_result(ptr0, len0, position, intensity, durationMillis, angleX, offsetY);
+    const ret = wasm.play_without_result(ptr0, len0, position, intensity, duration_ratio, angle_x, offset_y);
     return takeObject(ret);
 }
 
@@ -476,32 +476,32 @@ export function play_position(key, position) {
 * @param {string} key
 * @param {number} position
 * @param {number} intensity
-* @param {number} durationMillis
-* @param {number} angleX
-* @param {number} offsetY
+* @param {number} duration_ratio
+* @param {number} angle_x
+* @param {number} offset_y
 * @returns {Promise<number>}
 */
-export function play_position_with_parameter(key, position, intensity, durationMillis, angleX, offsetY) {
+export function play_position_with_parameter(key, position, intensity, duration_ratio, angle_x, offset_y) {
     const ptr0 = passStringToWasm0(key, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
     const len0 = WASM_VECTOR_LEN;
-    const ret = wasm.play_position_with_parameter(ptr0, len0, position, intensity, durationMillis, angleX, offsetY);
+    const ret = wasm.play_position_with_parameter(ptr0, len0, position, intensity, duration_ratio, angle_x, offset_y);
     return takeObject(ret);
 }
 
 /**
 * @param {string} key
 * @param {number} intensity
-* @param {number} durationMillis
-* @param {number} angleX
-* @param {number} offsetY
+* @param {number} duration_ratio
+* @param {number} angle_x
+* @param {number} offset_y
 * @param {number} interval
 * @param {number} max_count
 * @returns {Promise<number>}
 */
-export function play_loop(key, intensity, durationMillis, angleX, offsetY, interval, max_count) {
+export function play_loop(key, intensity, duration_ratio, angle_x, offset_y, interval, max_count) {
     const ptr0 = passStringToWasm0(key, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
     const len0 = WASM_VECTOR_LEN;
-    const ret = wasm.play_loop(ptr0, len0, intensity, durationMillis, angleX, offsetY, interval, max_count);
+    const ret = wasm.play_loop(ptr0, len0, intensity, duration_ratio, angle_x, offset_y, interval, max_count);
     return takeObject(ret);
 }
 
@@ -522,14 +522,14 @@ function passArray32ToWasm0(arg, malloc) {
 }
 /**
 * @param {number} position
-* @param {number} durationMillis
-* @param {Int32Array} motorValues
+* @param {number} duration_millis
+* @param {Int32Array} motor_values
 * @returns {Promise<number>}
 */
-export function play_dot(position, durationMillis, motorValues) {
-    const ptr0 = passArray32ToWasm0(motorValues, wasm.__wbindgen_malloc);
+export function play_dot(position, duration_millis, motor_values) {
+    const ptr0 = passArray32ToWasm0(motor_values, wasm.__wbindgen_malloc);
     const len0 = WASM_VECTOR_LEN;
-    const ret = wasm.play_dot(position, durationMillis, ptr0, len0);
+    const ret = wasm.play_dot(position, duration_millis, ptr0, len0);
     return takeObject(ret);
 }
 
@@ -550,20 +550,20 @@ function passArrayF32ToWasm0(arg, malloc) {
 }
 /**
 * @param {number} position
-* @param {number} durationMillis
+* @param {number} duration_millis
 * @param {Float32Array} x
 * @param {Float32Array} y
 * @param {Int32Array} intensity
 * @returns {Promise<number>}
 */
-export function play_path(position, durationMillis, x, y, intensity) {
+export function play_path(position, duration_millis, x, y, intensity) {
     const ptr0 = passArrayF32ToWasm0(x, wasm.__wbindgen_malloc);
     const len0 = WASM_VECTOR_LEN;
     const ptr1 = passArrayF32ToWasm0(y, wasm.__wbindgen_malloc);
     const len1 = WASM_VECTOR_LEN;
     const ptr2 = passArray32ToWasm0(intensity, wasm.__wbindgen_malloc);
     const len2 = WASM_VECTOR_LEN;
-    const ret = wasm.play_path(position, durationMillis, ptr0, len0, ptr1, len1, ptr2, len2);
+    const ret = wasm.play_path(position, duration_millis, ptr0, len0, ptr1, len1, ptr2, len2);
     return takeObject(ret);
 }
 

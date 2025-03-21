@@ -103,22 +103,22 @@ export function play_event(event_name: string): Promise<number>;
 * @param {string} key
 * @param {number} start_millis
 * @param {number} intensity
-* @param {number} duration_millis
+* @param {number} duration_ratio
 * @param {number} angle_x
 * @param {number} offset_y
 * @returns {Promise<number>}
 */
-export function play_with_start_time(key: string, start_millis: number, intensity: number, duration_millis: number, angle_x: number, offset_y: number): Promise<number>;
+export function play_with_start_time(key: string, start_millis: number, intensity: number, duration_ratio: number, angle_x: number, offset_y: number): Promise<number>;
 /**
 * @param {string} key
 * @param {number} position
 * @param {number} intensity
-* @param {number} durationMillis
-* @param {number} angleX
-* @param {number} offsetY
+* @param {number} duration_ratio
+* @param {number} angle_x
+* @param {number} offset_y
 * @returns {Promise<void>}
 */
-export function play_without_result(key: string, position: number, intensity: number, durationMillis: number, angleX: number, offsetY: number): Promise<void>;
+export function play_without_result(key: string, position: number, intensity: number, duration_ratio: number, angle_x: number, offset_y: number): Promise<void>;
 /**
 * @param {string} key
 * @param {number} position
@@ -129,39 +129,39 @@ export function play_position(key: string, position: number): Promise<number>;
 * @param {string} key
 * @param {number} position
 * @param {number} intensity
-* @param {number} durationMillis
-* @param {number} angleX
-* @param {number} offsetY
+* @param {number} duration_ratio
+* @param {number} angle_x
+* @param {number} offset_y
 * @returns {Promise<number>}
 */
-export function play_position_with_parameter(key: string, position: number, intensity: number, durationMillis: number, angleX: number, offsetY: number): Promise<number>;
+export function play_position_with_parameter(key: string, position: number, intensity: number, duration_ratio: number, angle_x: number, offset_y: number): Promise<number>;
 /**
 * @param {string} key
 * @param {number} intensity
-* @param {number} durationMillis
-* @param {number} angleX
-* @param {number} offsetY
+* @param {number} duration_ratio
+* @param {number} angle_x
+* @param {number} offset_y
 * @param {number} interval
 * @param {number} max_count
 * @returns {Promise<number>}
 */
-export function play_loop(key: string, intensity: number, durationMillis: number, angleX: number, offsetY: number, interval: number, max_count: number): Promise<number>;
+export function play_loop(key: string, intensity: number, duration_ratio: number, angle_x: number, offset_y: number, interval: number, max_count: number): Promise<number>;
 /**
 * @param {number} position
-* @param {number} durationMillis
-* @param {Int32Array} motorValues
+* @param {number} duration_millis
+* @param {Int32Array} motor_values
 * @returns {Promise<number>}
 */
-export function play_dot(position: number, durationMillis: number, motorValues: Int32Array): Promise<number>;
+export function play_dot(position: number, duration_millis: number, motor_values: Int32Array): Promise<number>;
 /**
 * @param {number} position
-* @param {number} durationMillis
+* @param {number} duration_millis
 * @param {Float32Array} x
 * @param {Float32Array} y
 * @param {Int32Array} intensity
 * @returns {Promise<number>}
 */
-export function play_path(position: number, durationMillis: number, x: Float32Array, y: Float32Array, intensity: Int32Array): Promise<number>;
+export function play_path(position: number, duration_millis: number, x: Float32Array, y: Float32Array, intensity: Int32Array): Promise<number>;
 /**
 * @param {number} position
 * @param {Int32Array} motors
