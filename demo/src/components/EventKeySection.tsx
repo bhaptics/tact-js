@@ -1,6 +1,7 @@
 import HapticDriver from 'tact-js';
 import { useEffect, useState } from 'react';
-import { FaRegCirclePlay, FaRegCircleStop } from 'react-icons/fa6';
+import { FaPlay, FaPause, FaStop } from 'react-icons/fa';
+import { Timer } from '../utils/Timer';
 
 type EventKey = {
   key: string;
@@ -29,20 +30,6 @@ interface EventKeySectionProps {
 export function EventKeySection({ appId, apiKey }: EventKeySectionProps) {
   const [eventKeys, setEventKeys] = useState<EventKey[]>();
 
-  const playEvent = (eventKey: string) => {
-    /**
-     * Plays the haptic event with the given event key.
-     */
-    HapticDriver.play({ eventKey });
-  };
-
-  const stopEvent = (eventKey: string) => {
-    /**
-     * Stops all haptic events.
-     */
-    HapticDriver.stop(eventKey);
-  };
-
   useEffect(() => {
     fetchEventKeys({
       appId,
@@ -58,32 +45,73 @@ export function EventKeySection({ appId, apiKey }: EventKeySectionProps) {
       <p>These are the event keys you can use to play haptic feedback.</p>
 
       <div className="flex flex-col gap-2 w-full mt-2">
-        <ul className="flex flex-col gap-2 bg-neutral-800 p-2 rounded-lg text-white">
+        <ul className="flex flex-col gap-2 bg-neutral-600 p-2 rounded-lg text-white">
           {!eventKeys && <li>Loading...</li>}
 
           {eventKeys?.map((eventKey) => (
-            <li
-              key={eventKey.key}
-              className="rounded flex items-center pl-2 p-1 justify-between bg-neutral-600">
-              <span>{eventKey.key}</span>
-              <div className="flex">
-                <button
-                  onClick={() => playEvent(eventKey.key)}
-                  className=" hover:bg-neutral-700 cursor-pointer  text-neutral-white size-9 items-center justify-center flex rounded-full">
-                  <FaRegCirclePlay className="size-5" />
-                </button>
-                <button
-                  onClick={() => stopEvent(eventKey.key)}
-                  className=" hover:bg-neutral-700 cursor-pointer text-neutral-white size-9 items-center justify-center flex rounded-full">
-                  <FaRegCircleStop className="size-5" />
-                </button>
-              </div>
-            </li>
+            <Event key={eventKey.key} eventKey={eventKey} />
           ))}
 
           {eventKeys?.length === 0 && <li>No event keys found</li>}
         </ul>
       </div>
     </section>
+  );
+}
+
+function Event({ eventKey }: { eventKey: EventKey }) {
+  const [currentTime, setCurrentTime] = useState(0);
+
+  const playEvent = (key: string) => {
+    /**
+     * Plays the haptic event with the given event key.
+     */
+
+    HapticDriver.play({ eventKey: key, durationRatio: 1000 });
+
+    Timer.start((res: { interval: number; elapsed: number }) => {
+      setCurrentTime(res.elapsed);
+      if (res.elapsed >= eventKey.durationMillis) {
+        stopTimer();
+      }
+    });
+  };
+
+  const stopTimer = () => {
+    Timer.stop();
+    setCurrentTime(0);
+  };
+
+  const stopEvent = (eventKey: string) => {
+    /**
+     * Stops all haptic events.
+     */
+    stopTimer();
+    HapticDriver.stop(eventKey);
+  };
+
+  return (
+    <li className="relative rounded flex items-center pl-2 p-1 justify-between bg-black">
+      <span>{eventKey.key}</span>
+      <div className="flex">
+        <button
+          onClick={() => playEvent(eventKey.key)}
+          className=" hover:bg-neutral-700 cursor-pointer  text-neutral-white size-8 items-center justify-center flex rounded">
+          {currentTime !== 0 ? <FaPause className="size-3" /> : <FaPlay className="size-3" />}
+        </button>
+        <button
+          onClick={() => stopEvent(eventKey.key)}
+          className=" hover:bg-neutral-700 cursor-pointer text-neutral-white size-8 items-center justify-center flex rounded">
+          <FaStop className="size-3" />
+        </button>
+      </div>
+      <div
+        className="absolute pointer-events-none inset-0 w-full mix-blend-difference bg-white"
+        style={{
+          width: currentTime !== 0 ? `${(currentTime / eventKey.durationMillis) * 100}%` : '0%',
+          borderRadius: '0.25rem',
+        }}
+      />
+    </li>
   );
 }
