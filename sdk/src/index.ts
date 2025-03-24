@@ -34,16 +34,16 @@ export type PlayLoopParams = {
 
 export type PlayDotParams = {
   position: PositionType;
-  duration: number;
-  motorValues: Int32Array;
+  motorValues: number[];
+  duration?: number;
 };
 
 export type PlayPathParams = {
   position: PositionType;
-  duration: number;
-  x: Float32Array;
-  y: Float32Array;
-  intensity: Int32Array;
+  x: number[];
+  y: number[];
+  intensity: number[];
+  duration?: number;
 };
 
 export type PlayGloveParams = {
@@ -53,6 +53,8 @@ export type PlayGloveParams = {
   shapes: Int32Array;
   repeat_count: number;
 };
+
+export { PositionType, PositionUtils };
 
 export default {
   /**
@@ -158,12 +160,16 @@ export default {
 
   async playDot({ position, motorValues, duration = 500 }: PlayDotParams) {
     const enumPosition = PositionUtils.enumToPosition(position);
-    await bhaptics.play_dot(enumPosition, duration, motorValues);
+    const motors = new Int32Array(motorValues);
+    return await bhaptics.play_dot(enumPosition, duration, motors);
   },
 
   async playPath({ position, x, y, intensity, duration = 40 }: PlayPathParams) {
     const enumPosition = PositionUtils.enumToPosition(position);
-    bhaptics.play_path(enumPosition, duration, x, y, intensity);
+    const xValues = new Float32Array(x);
+    const yValues = new Float32Array(y);
+    const intensityValues = new Int32Array(intensity);
+    return await bhaptics.play_path(enumPosition, duration, xValues, yValues, intensityValues);
   },
 
   async pause(eventKey: string) {
@@ -187,8 +193,9 @@ export default {
       const result = await bhaptics.get_device_info_json();
       const devicesInfo = JSON.parse(result);
 
+      console.log('Device info loaded:', devicesInfo);
+
       if (Array.isArray(devicesInfo)) {
-        console.log('Device info loaded:', devicesInfo);
         return devicesInfo;
       }
 
