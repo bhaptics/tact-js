@@ -37,7 +37,7 @@ export default function PathModeSection() {
     <section className={`flex flex-col select-none items-start gap-2 transition-opacity`}>
       <h3>4. Path Mode Test</h3>
       <p>
-        {`If you have a TactSuit connected, you can test the motors by moving your mouse over the
+        {`If you have a TactSuit connected, you can test the motors by dragging over the
         area below. The motors will vibrate according to the position of your mouse.`}
       </p>
       <div className="flex gap-10">
