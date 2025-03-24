@@ -33,8 +33,8 @@ importers:
         specifier: ^2.16.0
         version: 2.16.0(react@19.0.0)
       tact-js:
-        specifier: workspace:^
-        version: link:../sdk
+        specifier: 2.0.0-beta.0
+        version: 2.0.0-beta.0
       tailwindcss:
         specifier: ^4.0.13
         version: 4.0.13
@@ -1356,6 +1356,9 @@ packages:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
 
+  tact-js@2.0.0-beta.0:
+    resolution: {integrity: sha512-Uof0XMscotAUn2TQR8a72Mi5pEmc6zxmtS5tda9VOnkNbYXJVfau+Fuv+efdkcJByGYcjQtGAQvBrLdYPUxpQg==}
+
   tailwindcss@4.0.13:
     resolution: {integrity: sha512-gbvFrB0fOsTv/OugXWi2PtflJ4S6/ctu6Mmn3bCftmLY/6xRsQVEJPgIIpABwpZ52DpONkCA3bEj5b54MHxF2Q==}
 
@@ -2568,6 +2571,8 @@ snapshots:
       has-flag: 4.0.0
 
   supports-preserve-symlinks-flag@1.0.0: {}
+
+  tact-js@2.0.0-beta.0: {}
 
   tailwindcss@4.0.13: {}
 
