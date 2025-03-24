@@ -38,11 +38,11 @@ export default function DotModeSection() {
           />
         </div>
         <div className="flex items-center gap-3 text-sm">
-          <label htmlFor="intensity">Duration (ms)</label>
+          <label htmlFor="duration">Duration (ms)</label>
           <input
             type="number"
             min={0}
-            max={200}
+            max={1000}
             value={duration}
             onChange={(e) => setDuration(Number(e.target.value))}
             className="border border-neutral-200 p-2 rounded w-20"
