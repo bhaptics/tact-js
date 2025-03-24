@@ -2,28 +2,60 @@ import HapticDriver, { PositionType } from 'tact-js';
 import { useRef, useState } from 'react';
 import { linearScale } from '../utils/Scale';
 
+type Point = {
+  x: number;
+  y: number;
+  lifespan: number;
+};
+
 export default function PathModeSection() {
+  const [points, setPoints] = useState<Point[]>([]);
   const [intensity, setIntensity] = useState<number>(100);
   const [duration, setDuration] = useState<number>(100);
   const on = useRef(false);
 
-  const handlePointerDown = () => {
+  const activateDrawing = () => {
+    setPoints([]);
     on.current = true;
   };
 
-  const handlePointerUp = () => {
+  const deactivateDrawing = () => {
     on.current = false;
+
+    setTimeout(() => {
+      setPoints([]);
+    }, 1000);
   };
 
-  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => (front: boolean) => {
+  const updatePoints = (x: number, y: number) => {
+    const newPath = [
+      ...points.map((value) => ({ ...value, lifespan: value.lifespan - 5 })),
+      { x, y, lifespan: 100 },
+    ].filter((value) => value.lifespan > 0);
+    setPoints(newPath);
+  };
+
+  const updateDrawing = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (on.current) {
+      updatePoints(
+        e.clientX - e.currentTarget.getBoundingClientRect().left,
+        e.clientY - e.currentTarget.getBoundingClientRect().top
+      );
+    }
+  };
+
+  const playPath = (e: React.PointerEvent<HTMLDivElement>) => (front: boolean) => {
     if (!on.current) return;
 
     const offset = front ? 0 : 0.5;
     const x = linearScale(e.nativeEvent.offsetX, e.currentTarget.clientWidth, 0) / 2 + offset;
     const y = linearScale(e.nativeEvent.offsetY, e.currentTarget.clientHeight, 0);
 
-    console.log(x, y);
+    if (x < 0 || x > 1 || y < 0 || y > 1) return;
 
+    /**
+     * Play the path with the given position, duration, x, y, and intensity.
+     */
     HapticDriver.playPath({
       position: PositionType.Vest,
       duration: duration,
@@ -65,27 +97,64 @@ export default function PathModeSection() {
       </div>
 
       <Header />
-      <div className="flex w-full justify-center divide-x divide-gray-400">
+      <div className="relative w-full">
         <div
-          onPointerDown={handlePointerDown}
-          onPointerUp={handlePointerUp}
-          onPointerMove={(e) => {
-            handlePointerMove(e)(true);
-          }}
-          className="flex-1 h-[416px] bg-gray-50 cursor-crosshair relative">
-          <Indicator />
+          className="flex w-full justify-center divide-x divide-gray-400"
+          onPointerDown={activateDrawing}
+          onPointerUp={deactivateDrawing}
+          onPointerMove={updateDrawing}
+          onPointerLeave={deactivateDrawing}>
+          <div
+            onPointerMove={(e) => {
+              playPath(e)(true);
+            }}
+            className="flex-1 h-[416px] bg-gray-50 cursor-crosshair relative">
+            <Indicator />
+          </div>
+          <div
+            onPointerMove={(e) => {
+              playPath(e)(false);
+            }}
+            className="flex-1 h-[416px] bg-gray-50 cursor-crosshair relative">
+            <Indicator />
+          </div>
         </div>
-        <div
-          onPointerDown={handlePointerDown}
-          onPointerUp={handlePointerUp}
-          onPointerMove={(e) => {
-            handlePointerMove(e)(false);
-          }}
-          className="flex-1 h-[416px] bg-gray-50 cursor-crosshair relative">
-          <Indicator />
-        </div>
+
+        <Drawings points={points} />
       </div>
     </section>
+  );
+}
+
+function Drawings({ points }: { points: Point[] }) {
+  const createBezierPath = (points: Point[]) => {
+    if (points.length < 2) return '';
+    let d = `M ${points[0].x},${points[0].y}`;
+    for (let i = 1; i < points.length - 1; i++) {
+      const current = points[i];
+      const next = points[i + 1];
+      const midX = (current.x + next.x) / 2;
+      const midY = (current.y + next.y) / 2;
+      d += ` Q ${current.x},${current.y} ${midX},${midY}`;
+    }
+    const last = points[points.length - 1];
+    d += ` T ${last.x},${last.y}`;
+    return d;
+  };
+
+  return (
+    <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
+      <svg className=" w-full h-full">
+        <path
+          d={createBezierPath(points)}
+          stroke="#155dfc"
+          fill="none"
+          strokeWidth="10"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </div>
   );
 }
 
