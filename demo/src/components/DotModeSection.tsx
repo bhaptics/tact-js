@@ -49,22 +49,48 @@ export default function DotModeSection() {
           />
         </div>
       </div>
-      <div className="flex gap-10 w-full justify-center py-5">
-        <div className="grid grid-cols-4 gap-2">
+      <Header />
+      <div className="flex gap-5 w-full justify-center">
+        <div className="flex-1 grid grid-cols-4 gap-px bg-gray-200">
           {Array.from({ length: 16 }).map((_, index) => (
             <button
-              className="cursor-pointer bg-gray-100 p-5 rounded hover:bg-gray-200 mt-2"
-              onClick={() => handleClick(index)(true)}></button>
+              className="cursor-pointer bg-gray-50 py-10  hover:bg-gray-100  text-gray-400 text-sm"
+              onClick={() => handleClick(index)(true)}>
+              {index}
+            </button>
           ))}
         </div>
-        <div className="grid grid-cols-4 gap-2">
+        <div className="flex-1  grid grid-cols-4 gap-px bg-gray-200">
           {motors.slice(16, 32).map((_, index) => (
             <button
-              className="cursor-pointer bg-gray-100 p-5 rounded hover:bg-gray-200 mt-2"
-              onClick={() => handleClick(index)(false)}></button>
+              className="cursor-pointer bg-gray-50 py-10  hover:bg-gray-100  text-gray-400 text-sm"
+              onClick={() => handleClick(index)(false)}>
+              {index + 20}
+            </button>
           ))}
         </div>
       </div>
     </section>
+  );
+}
+
+function Header() {
+  return (
+    <div className="flex w-full pt-5 gap-5">
+      <div className="flex flex-col flex-1 w-full justify-around ">
+        <h4 className="text-gray-500 text-sm text-center">Front</h4>
+        <div className="flex justify-between px-4">
+          <p className="text-[11px] text-gray-400">L</p>
+          <p className="text-[11px] text-gray-400">R</p>
+        </div>
+      </div>
+      <div className="flex flex-col flex-1 w-full justify-around ">
+        <h4 className="text-gray-500 text-sm text-center">Back</h4>
+        <div className="flex justify-between px-4">
+          <p className="text-[11px] text-gray-400">L</p>
+          <p className="text-[11px] text-gray-400">R</p>
+        </div>
+      </div>
+    </div>
   );
 }

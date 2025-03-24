@@ -63,22 +63,57 @@ export default function PathModeSection() {
           />
         </div>
       </div>
-      <div className="flex gap-10 w-full justify-center py-5">
+
+      <Header />
+      <div className="flex w-full justify-center divide-x divide-gray-400">
         <div
           onPointerDown={handlePointerDown}
           onPointerUp={handlePointerUp}
           onPointerMove={(e) => {
             handlePointerMove(e)(true);
           }}
-          className="w-[184px] h-[216px] rounded bg-gray-100 cursor-crosshair"></div>
+          className="flex-1 h-[416px] bg-gray-50 cursor-crosshair relative">
+          <Indicator />
+        </div>
         <div
           onPointerDown={handlePointerDown}
           onPointerUp={handlePointerUp}
           onPointerMove={(e) => {
             handlePointerMove(e)(false);
           }}
-          className="w-[184px] h-[216px] rounded bg-gray-100 cursor-crosshair"></div>
+          className="flex-1 h-[416px] bg-gray-50 cursor-crosshair relative">
+          <Indicator />
+        </div>
       </div>
     </section>
+  );
+}
+
+function Header() {
+  return (
+    <div className="flex flex-col w-full pt-5 gap-5">
+      <div className="flex flex-1 w-full justify-around ">
+        <h4 className="text-gray-500 text-sm text-center">Front</h4>
+        <h4 className="text-gray-500 text-sm text-center">Back</h4>
+      </div>
+      <div className="flex justify-between px-4">
+        <p className="text-[11px] text-gray-400">L</p>
+        <p className="text-[11px] text-gray-400">R</p>
+        <p className="text-[11px] text-gray-400">L</p>
+      </div>
+    </div>
+  );
+}
+
+function Indicator() {
+  return (
+    <>
+      <div className="absolute h-full border-l border-dashed left-1/4 border-gray-300" />
+      <div className="absolute h-full border-l border-dashed left-2/4 border-gray-300" />
+      <div className="absolute h-full border-l border-dashed left-3/4 border-gray-300" />
+      <div className="absolute w-full border-t border-dashed top-1/4 border-gray-300" />
+      <div className="absolute w-full border-t border-dashed top-2/4 border-gray-300" />
+      <div className="absolute w-full border-t border-dashed top-3/4 border-gray-300" />
+    </>
   );
 }
