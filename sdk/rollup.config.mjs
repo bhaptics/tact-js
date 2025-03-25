@@ -1,4 +1,3 @@
-import { importMetaAssets } from '@web/rollup-plugin-import-meta-assets';
 import typescript from '@rollup/plugin-typescript';
 import copy from 'rollup-plugin-copy';
 
@@ -10,7 +9,6 @@ export default {
     sourcemap: true, // 소스맵 생성 (디버깅에 매우 중요)
   },
   plugins: [
-    importMetaAssets(),
     copy({
       targets: [{ src: 'src/bhaptics_web_bg.wasm', dest: 'dist' }],
     }),
