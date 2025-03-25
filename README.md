@@ -1,45 +1,146 @@
-# bHaptics JavaScript SDK
+![npm](https://img.shields.io/npm/v/tact-js)
+![license](https://img.shields.io/npm/l/tact-js)
 
-Documentation at https://docs.bhaptics.com/sdk/
+# bHaptics Web SDK
 
-## Installation
+Web-based haptic control library for [bHaptics](https://www.bhaptics.com/) devices. A variety of haptic events can be played in your browser.
+
+- Written in TypeScript
+- Supports ESM
+
+## ✨ Features
+
+#### 🎮 Play events
+
+Play haptic event exported from [bHaptics developer portal](https://developer.bhaptics.com/applications)
+
+![video](https://github.com/user-attachments/assets/d58c352e-cbf1-42d5-b177-bc658e8865df)
+
+#### 🔵 Dot mode
+
+Play single-frame feedback with intensity-mapped dot values
+
+![dot-mode](https://github.com/user-attachments/assets/2045d2ec-f16d-46ef-b0a9-903abbeff7a7)
+
+#### 🧭 Path mode
+
+Play directional feedback across the surface of a device
+
+![path-mode](https://github.com/user-attachments/assets/a4644c11-9e5e-47aa-9c21-0e4b04a6cc90)
+
+## 📦 Installation
 
 ```bash
-cd sdk
+npm install tact-js
+# or
+yarn add tact-js
+# or
+pnpm add tact-js
 ```
 
-npm
+## 🚀 Quick Start
 
-```bash
-npm run build
+### Prerequisite
+
+1. Download and install the [bHaptics Player](https://www.bhaptics.com/software/player/?type=pcplayer)
+2. Make sure the Player is running
+3. Connect your bHaptics Device to the Player
+4. Ensure the Player version is vX.Y.Z or later
+
+### Usage
+
+#### Initialize the library
+
+```ts
+import Tact from 'tact-js';
+
+// Initialize the library
+Tact.init({
+  appId: '<APP_ID>',
+  apiKey: '<API_KEY>',
+  remote: '<REMOTE_ADDRESS>',
+});
 ```
 
-pnpm
+#### Play an event
 
-```bash
-pnpm run build
+```ts
+import Tact, { PositionType } from 'tact-js';
+
+// Play an event
+Tact.play({ eventKey: key });
 ```
 
-yarn
+#### Play dot mode
 
-```bash
-yarn build
+```ts
+import Tact, { PositionType } from 'tact-js';
+
+// Play a dot
+Tact.playDot({
+  position: PositionType.Vest,  // e.g., Vest, Head, Arm, etc.
+  motorValues: [100, 0, ... , 0], // 0 ~ 100
+});
 ```
 
-파일 4개를 담아서 NPM에 공개해야함
+#### Play path mode
 
-상원님이 올린 tact-js 갈기
-https://www.npmjs.com/package/tact-js
+```ts
+import Tact, { PositionType } from 'tact-js';
 
-## Prerequisite
+// Play a path
+Tact.playPath({
+  position: PositionType.Vest,  // e.g., Vest, Head, Arm, etc.
+  x: [0.4, 0.42, ... , 1], // 0 ~ 1
+  y: [0.5, 0.52, ... , 1], // 0 ~ 1
+  intensity: [100, 89, ... , 49], // 0 ~ 100
+});
+```
 
-1. If you don't have bHaptics Player, download it [here](https://www.bhaptics.com/software/player/?type=pcplayer)
-2. Run bHaptic Player
+## 📚 API
 
-- If not working, check your bHaptics Player version (above vX.Y.Z)
+#### `Tact.init(params: InitParams): void`
 
-3. Connect your TactSuit to bHaptics Player
+- Initialize the library
+- `params`:
+  - `appId`: string - Your application ID
+  - `apiKey`: string - Your API key
+  - `remote`?: string - Remote address of the bHaptics Player
+
+#### `Tact.play(params: PlayParams): void`
+
+- Play an event
+- `params`:
+  - `eventKey`: string - Event key
+  - `startTime`?: number - Start time in milliseconds
+  - `intensityRatio`?: number - Intensity ratio
+  - `durationRatio`?: number - Duration ratio
+  - `offsetX`?: number - Offset X
+  - `offsetY`?: number - Offset Y
+
+#### `Tact.playDot(params: PlayDotParams): void`
+
+- Play a dot
+- `params`:
+  - `position`: PositionType - Position type
+  - `motorValues`: number[] - Motor values
+  - `duration`?: number - Duration in milliseconds
+
+#### `Tact.playPath(params: PlayPathParams): void`
+
+- Play a path
+- `params`:
+  - `position`: PositionType - Position type
+  - `x`: number[] - X values
+  - `y`: number[] - Y values
+  - `intensity`: number[] - Intensity values
+  - `duration`?: number - Duration in milliseconds
 
 ## Demo
 
-`/demo` directory contains sample code for the SDK.
+- Online demo: [tact-js](https://tact-js2-demo.vercel.app/)
+- Local demo: Check the `demo/` directory for a minimal setup example
+
+## 🪪 License
+
+bHaptics License
