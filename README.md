@@ -14,19 +14,19 @@ Web-based haptic control library for [bHaptics](https://www.bhaptics.com/) devic
 
 Play haptic event exported from [bHaptics developer portal](https://developer.bhaptics.com/applications)
 
-![play-event-image]()
+![video](https://github.com/user-attachments/assets/d58c352e-cbf1-42d5-b177-bc658e8865df)
 
 #### 🔵 Dot mode
 
 Play single-frame feedback with intensity-mapped dot values
 
-![play-dot-image]()
+![dot-mode](https://github.com/user-attachments/assets/2045d2ec-f16d-46ef-b0a9-903abbeff7a7)
 
 #### 🧭 Path mode
 
 Play directional feedback across the surface of a device
 
-![play-path-image]()
+![path-mode](https://github.com/user-attachments/assets/a4644c11-9e5e-47aa-9c21-0e4b04a6cc90)
 
 ## 📦 Installation
 
