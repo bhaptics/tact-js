@@ -18,6 +18,7 @@
   "homepage": "https://github.com/bhaptics/tact-js2",
   "devDependencies": {
     "@rollup/plugin-typescript": "^12.1.2",
+    "@web/rollup-plugin-import-meta-assets": "^2.2.1",
     "rollup": "^4.36.0",
     "rollup-plugin-copy": "^3.5.0",
     "tslib": "^2.8.1",
