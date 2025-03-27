@@ -1,8 +1,3 @@
-/**
- * bHaptics WebSDK
- * version: 0.0.1
- */
-
 import bhaptics_init, * as bhaptics from './bhaptics_web.js';
 import { PositionType, PositionUtils } from './internal/position.js';
 import utils from './internal/utils';
@@ -56,7 +51,7 @@ export type PlayGloveParams = {
 
 export { PositionType, PositionUtils };
 
-export default {
+const Tact = {
   /**
    * Initialize the bHaptics WebSDK
    * @example
@@ -244,3 +239,5 @@ export default {
     return await bhaptics.is_playing_event_by_event_id(eventKey);
   },
 };
+
+export default Tact;
