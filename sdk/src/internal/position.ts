@@ -9,9 +9,6 @@ export enum PositionType {
   FootR = 'FootR',
   GloveL = 'GloveL',
   GloveR = 'GloveR',
-  VestFront = 'VestFront',
-  VestBack = 'VestBack',
-  All = 'All',
 }
 
 export class PositionUtils {
@@ -37,20 +34,14 @@ export class PositionUtils {
         return PositionType.GloveL;
       case 9:
         return PositionType.GloveR;
-      case 201:
-        return PositionType.VestFront;
-      case 202:
-        return PositionType.VestBack;
       default:
-        return PositionType.All;
+        return PositionType.Vest;
     }
   }
 
   static enumToPosition(position: PositionType): number {
     switch (position) {
       case PositionType.Vest:
-      case PositionType.VestBack:
-      case PositionType.VestFront:
         return 0;
       case PositionType.ForearmL:
         return 1;

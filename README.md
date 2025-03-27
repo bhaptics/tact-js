@@ -78,7 +78,7 @@ import Tact, { PositionType } from 'tact-js';
 
 // Play a dot
 Tact.playDot({
-  position: PositionType.Vest,  // e.g., Vest, Head, Arm, etc.
+  position: PositionType.Vest,  // e.g., Vest, Head, ForearmL, ForearmR etc.
   motorValues: [100, 0, ... , 0], // 0 ~ 100
 });
 ```
@@ -90,7 +90,7 @@ import Tact, { PositionType } from 'tact-js';
 
 // Play a path
 Tact.playPath({
-  position: PositionType.Vest,  // e.g., Vest, Head, Arm, etc.
+  position: PositionType.Vest,  // e.g., Vest, Head, ForearmL, ForearmR etc.
   x: [0.4, 0.42, ... , 1], // 0 ~ 1
   y: [0.5, 0.52, ... , 1], // 0 ~ 1
   intensity: [100, 89, ... , 49], // 0 ~ 100
