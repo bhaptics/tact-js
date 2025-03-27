@@ -9,6 +9,7 @@
     "README.md"
   ],
   "scripts": {
+    "postbuild": "cp ../README.md ./README.md",
     "build": "rollup -c"
   },
   "repository": {
