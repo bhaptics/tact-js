@@ -1,6 +1,7 @@
 import HapticDriver, { PositionType } from 'tact-js';
 import { useRef, useState } from 'react';
 import { linearScale } from '../utils/Scale';
+import { clamp } from '../utils/common';
 
 type Point = {
   x: number;
@@ -14,13 +15,15 @@ export default function PathModeSection() {
   const [duration, setDuration] = useState<number>(100);
   const on = useRef(false);
 
-  const activateDrawing = () => {
+  const activateDrawing = (e: React.PointerEvent<HTMLDivElement>) => {
+    e.currentTarget.setPointerCapture(e.pointerId);
     setPoints([]);
     on.current = true;
   };
 
-  const deactivateDrawing = () => {
+  const deactivateDrawing = (e: React.PointerEvent<HTMLDivElement>) => {
     on.current = false;
+    e.currentTarget.releasePointerCapture(e.pointerId);
 
     setTimeout(() => {
       setPoints([]);
@@ -36,12 +39,15 @@ export default function PathModeSection() {
   };
 
   const updateDrawing = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (on.current) {
-      updatePoints(
-        e.clientX - e.currentTarget.getBoundingClientRect().left,
-        e.clientY - e.currentTarget.getBoundingClientRect().top
-      );
-    }
+    if (!on.current) return;
+
+    const x = e.clientX - e.currentTarget.getBoundingClientRect().left;
+    const y = e.clientY - e.currentTarget.getBoundingClientRect().top;
+
+    const clampedX = clamp(x, 0, e.currentTarget.clientWidth);
+    const clampedY = clamp(y, 0, e.currentTarget.clientHeight);
+
+    updatePoints(clampedX, clampedY);
   };
 
   const playPath = (e: React.PointerEvent<HTMLDivElement>) => (front: boolean) => {
@@ -51,7 +57,8 @@ export default function PathModeSection() {
     const x = linearScale(e.nativeEvent.offsetX, e.currentTarget.clientWidth, 0) / 2 + offset;
     const y = linearScale(e.nativeEvent.offsetY, e.currentTarget.clientHeight, 0);
 
-    if (x < 0 || x > 1 || y < 0 || y > 1) return;
+    const clapmedX = clamp(x, 0, 1);
+    const clampedY = clamp(y, 0, 1);
 
     /**
      * Play the path with the given position, duration, x, y, and intensity.
@@ -59,8 +66,8 @@ export default function PathModeSection() {
     HapticDriver.playPath({
       position: PositionType.Vest,
       duration: duration,
-      x: [x],
-      y: [y],
+      x: [clapmedX],
+      y: [clampedY],
       intensity: [intensity],
     });
   };

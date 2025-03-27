@@ -8,13 +8,4 @@ export default defineConfig({
     exclude: ['tact-js'],
   },
   plugins: [react(), tailwindcss()],
-  server: {
-    proxy: {
-      '/api': {
-        target: 'https://sdk-apis.bhaptics.com/api/',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''),
-      },
-    },
-  },
 });

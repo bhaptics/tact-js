@@ -45,7 +45,8 @@ export default function App() {
 
         <div className="grid grid-cols-1 gap-10 items-start ">
           <MotorTestSection />
-          <EventKeySection appId={APP_ID} apiKey={API_KEY} />
+          {/* If you want to use the Event Key Section, do not change the app id and api key. */}
+          <EventKeySection />
           <DotModeSection />
           <PathModeSection />
           <VideoSection />

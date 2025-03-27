@@ -1,43 +1,20 @@
 import HapticDriver from 'tact-js';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FaPlay, FaPause, FaStop } from 'react-icons/fa';
 import { Timer } from '../utils/Timer';
+import { events } from '../assets/example-events.json';
 
 type EventKey = {
   key: string;
   description: string;
   durationMillis: number;
   isAudio: boolean;
-  updateTime: string;
+  updateTime: number;
   positions: string[];
 };
 
-async function fetchEventKeys({ appId, apiKey }: { appId: string; apiKey: string }) {
-  const res = await fetch(
-    `api/v1/haptic-definitions/workspace/latest-mapping-meta?workspace-id=${appId}&api-key=${apiKey}`
-  );
-  const result = await res.json();
-  const data = (await result.message) as EventKey[];
-
-  return data;
-}
-
-interface EventKeySectionProps {
-  appId: string;
-  apiKey: string;
-}
-
-export function EventKeySection({ appId, apiKey }: EventKeySectionProps) {
-  const [eventKeys, setEventKeys] = useState<EventKey[]>();
-
-  useEffect(() => {
-    fetchEventKeys({
-      appId,
-      apiKey,
-    }).then((data) => {
-      setEventKeys(data);
-    });
-  }, [apiKey, appId]);
+export function EventKeySection() {
+  const eventKeys: EventKey[] = events;
 
   return (
     <section className={`flex flex-col items-start gap-2 transition-opacity`}>
@@ -46,13 +23,9 @@ export function EventKeySection({ appId, apiKey }: EventKeySectionProps) {
 
       <div className="flex flex-col gap-2 w-full mt-2">
         <ul className="flex flex-col gap-2 bg-neutral-600 p-2 rounded-lg text-white">
-          {!eventKeys && <li>Loading...</li>}
-
-          {eventKeys?.map((eventKey) => (
+          {eventKeys.map((eventKey) => (
             <Event key={eventKey.key} eventKey={eventKey} />
           ))}
-
-          {eventKeys?.length === 0 && <li>No event keys found</li>}
         </ul>
       </div>
     </section>
@@ -66,7 +39,6 @@ function Event({ eventKey }: { eventKey: EventKey }) {
     /**
      * Plays the haptic event with the given event key.
      */
-
     HapticDriver.play({ eventKey: key });
 
     Timer.start((res: { interval: number; elapsed: number }) => {
@@ -93,7 +65,8 @@ function Event({ eventKey }: { eventKey: EventKey }) {
   return (
     <li className="relative rounded flex items-center pl-2 p-1 justify-between bg-black">
       <span>{eventKey.key}</span>
-      <div className="flex">
+      <div className="flex items-center">
+        <span className="text-xs mr-2">{`${currentTime} / ${eventKey.durationMillis}`} </span>
         <button
           onClick={() => playEvent(eventKey.key)}
           className=" hover:bg-neutral-700 cursor-pointer  text-neutral-white size-8 items-center justify-center flex rounded">
