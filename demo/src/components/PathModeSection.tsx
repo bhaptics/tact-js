@@ -1,5 +1,5 @@
 import HapticDriver, { PositionType } from 'tact-js';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { linearScale } from '../utils/Scale';
 import { clamp } from '../utils/common';
 
@@ -13,48 +13,23 @@ export default function PathModeSection() {
   const [points, setPoints] = useState<Point[]>([]);
   const [intensity, setIntensity] = useState<number>(100);
   const [duration, setDuration] = useState<number>(100);
-  const on = useRef(false);
 
   const activateDrawing = (e: React.PointerEvent<HTMLDivElement>) => {
     e.currentTarget.setPointerCapture(e.pointerId);
     setPoints([]);
-    on.current = true;
   };
 
   const deactivateDrawing = (e: React.PointerEvent<HTMLDivElement>) => {
-    on.current = false;
     e.currentTarget.releasePointerCapture(e.pointerId);
-
     setTimeout(() => {
       setPoints([]);
     }, 1000);
   };
 
-  const updatePoints = (x: number, y: number) => {
-    const newPath = [
-      ...points.map((value) => ({ ...value, lifespan: value.lifespan - 5 })),
-      { x, y, lifespan: 100 },
-    ].filter((value) => value.lifespan > 0);
-    setPoints(newPath);
-  };
+  const playPath = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.buttons !== 1) return;
 
-  const updateDrawing = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (!on.current) return;
-
-    const x = e.clientX - e.currentTarget.getBoundingClientRect().left;
-    const y = e.clientY - e.currentTarget.getBoundingClientRect().top;
-
-    const clampedX = clamp(x, 0, e.currentTarget.clientWidth);
-    const clampedY = clamp(y, 0, e.currentTarget.clientHeight);
-
-    updatePoints(clampedX, clampedY);
-  };
-
-  const playPath = (e: React.PointerEvent<HTMLDivElement>) => (front: boolean) => {
-    if (!on.current) return;
-
-    const offset = front ? 0 : 0.5;
-    const x = linearScale(e.nativeEvent.offsetX, e.currentTarget.clientWidth, 0) / 2 + offset;
+    const x = linearScale(e.nativeEvent.offsetX, e.currentTarget.clientWidth, 0);
     const y = linearScale(e.nativeEvent.offsetY, e.currentTarget.clientHeight, 0);
 
     const clapmedX = clamp(x, 0, 1);
@@ -70,6 +45,25 @@ export default function PathModeSection() {
       y: [clampedY],
       intensity: [intensity],
     });
+  };
+
+  const draw = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.buttons !== 1) return;
+
+    playPath(e);
+
+    const x = e.clientX - e.currentTarget.getBoundingClientRect().left;
+    const y = e.clientY - e.currentTarget.getBoundingClientRect().top;
+
+    const clampedX = clamp(x, 0, e.currentTarget.clientWidth);
+    const clampedY = clamp(y, 0, e.currentTarget.clientHeight);
+
+    const newPath = [
+      ...points.map((value) => ({ ...value, lifespan: value.lifespan - 5 })),
+      { x: clampedX, y: clampedY, lifespan: 100 },
+    ].filter((value) => value.lifespan > 0);
+
+    setPoints(newPath);
   };
 
   return (
@@ -109,24 +103,14 @@ export default function PathModeSection() {
           className="flex w-full justify-center divide-x divide-gray-400"
           onPointerDown={activateDrawing}
           onPointerUp={deactivateDrawing}
-          onPointerMove={updateDrawing}
-          onPointerLeave={deactivateDrawing}>
-          <div
-            onPointerMove={(e) => {
-              playPath(e)(true);
-            }}
-            className="flex-1 h-[416px] bg-gray-50 cursor-crosshair relative">
+          onPointerMove={draw}>
+          <div className="flex-1 h-[416px] bg-gray-50 cursor-crosshair relative">
             <Indicator />
           </div>
-          <div
-            onPointerMove={(e) => {
-              playPath(e)(false);
-            }}
-            className="flex-1 h-[416px] bg-gray-50 cursor-crosshair relative">
+          <div className="flex-1 h-[416px] bg-gray-50 cursor-crosshair relative">
             <Indicator />
           </div>
         </div>
-
         <Drawings points={points} />
       </div>
     </section>
