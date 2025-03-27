@@ -1,0 +1,60 @@
+{
+  "events": [
+    {
+      "key": "slash-recoil",
+      "description": "",
+      "durationMillis": 100,
+      "isAudio": true,
+      "updateTime": 1741686174248,
+      "positions": []
+    },
+    {
+      "key": "punch-recoil",
+      "description": "",
+      "durationMillis": 180,
+      "isAudio": true,
+      "updateTime": 1741686205111,
+      "positions": []
+    },
+    {
+      "key": "dash",
+      "description": "",
+      "durationMillis": 3260,
+      "isAudio": true,
+      "updateTime": 1741686221803,
+      "positions": []
+    },
+    {
+      "key": "land",
+      "description": "",
+      "durationMillis": 80,
+      "isAudio": true,
+      "updateTime": 1741686235679,
+      "positions": []
+    },
+    {
+      "key": "teleport",
+      "description": "",
+      "durationMillis": 460,
+      "isAudio": true,
+      "updateTime": 1741686249257,
+      "positions": []
+    },
+    {
+      "key": "falling",
+      "description": "",
+      "durationMillis": 720,
+      "isAudio": true,
+      "updateTime": 1741686270897,
+      "positions": []
+    },
+    {
+      "key": "electric-magic-hit",
+      "description": "",
+      "durationMillis": 520,
+      "isAudio": true,
+      "updateTime": 1741686301924,
+      "positions": []
+    }
+  ]
+}
