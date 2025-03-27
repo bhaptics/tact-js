@@ -136,6 +136,22 @@ Tact.playPath({
   - `intensity`: number[] - Intensity values
   - `duration`?: number - Duration in milliseconds
 
+## 🛠 Troubleshooting
+
+### Vite
+
+If you are using Vite, you may need to add the following to your `vite.config.js` file:
+
+```js
+export default defineConfig({
+  // ...
+  optimizeDeps: {
+    exclude: ['tact-js'],
+  },
+  // ...
+});
+```
+
 ## Demo
 
 - Online demo: [tact-js](https://tact-js2-demo.vercel.app/)

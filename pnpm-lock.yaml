@@ -33,8 +33,8 @@ importers:
         specifier: ^2.16.0
         version: 2.16.0(react@19.0.0)
       tact-js:
-        specifier: 2.0.0-beta.0
-        version: 2.0.0-beta.0
+        specifier: 2.0.0-beta.2
+        version: 2.0.0-beta.2
       tailwindcss:
         specifier: ^4.0.13
         version: 4.0.17
@@ -1267,8 +1267,8 @@ packages:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
 
-  tact-js@2.0.0-beta.0:
-    resolution: {integrity: sha512-Uof0XMscotAUn2TQR8a72Mi5pEmc6zxmtS5tda9VOnkNbYXJVfau+Fuv+efdkcJByGYcjQtGAQvBrLdYPUxpQg==}
+  tact-js@2.0.0-beta.2:
+    resolution: {integrity: sha512-i3WmXjGm0RARONckz31k4Fc6U9/py4Y/p4rg9RF/qGH3o57doRz4kGi/7hiiDLBXthRo93Z0sYs2AcdiKzww5Q==}
 
   tailwindcss@4.0.17:
     resolution: {integrity: sha512-OErSiGzRa6rLiOvaipsDZvLMSpsBZ4ysB4f0VKGXUrjw2jfkJRd6kjRKV2+ZmTCNvwtvgdDam5D7w6WXsdLJZw==}
@@ -2409,7 +2409,7 @@ snapshots:
 
   supports-preserve-symlinks-flag@1.0.0: {}
 
-  tact-js@2.0.0-beta.0: {}
+  tact-js@2.0.0-beta.2: {}
 
   tailwindcss@4.0.17: {}
 

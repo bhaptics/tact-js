@@ -4,6 +4,9 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://vite.dev/config/
 export default defineConfig({
+  optimizeDeps: {
+    exclude: ['tact-js'],
+  },
   plugins: [react(), tailwindcss()],
   server: {
     proxy: {
