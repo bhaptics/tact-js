@@ -57,8 +57,7 @@ import Tact from 'tact-js';
 // Initialize the library
 Tact.init({
   appId: '<APP_ID>',
-  apiKey: '<API_KEY>',
-  remote: '<REMOTE_ADDRESS>',
+  apiKey: '<API_KEY>'
 });
 ```
 
@@ -105,7 +104,7 @@ Tact.playPath({
 - `params`:
   - `appId`: string - Your application ID
   - `apiKey`: string - Your API key
-  - `remote`?: string - Remote address of the bHaptics Player
+  - `remote`?: string - (Optional) Remote IP address and Port number of the bHaptics Player (ex. "192.168.0.123:15881")
 
 #### `Tact.play(params: PlayParams): void`
 
