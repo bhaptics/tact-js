@@ -1,3 +1,7 @@
+# **DEPRECATED**: Please use [a new tact-js version](https://github.com/bhaptics/tact-js)
+
+
+---
 # tact-js
 Library for bHaptics Haptic Devices
 
