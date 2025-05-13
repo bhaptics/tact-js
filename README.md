@@ -16,20 +16,17 @@ Play haptic event exported from [bHaptics developer portal](https://developer.bh
 
 ![video](https://github.com/user-attachments/assets/71c695fd-95d2-4e3c-82ed-a3390b685ddf)
 
-
 #### 🔵 Dot mode
 
 Play single-frame feedback with intensity-mapped dot values
 
 ![dot-mode](https://github.com/user-attachments/assets/74385edb-64c0-44ad-a205-5c0520ee8523)
 
-
 #### 🧭 Path mode
 
 Play directional feedback across the surface of a device
 
 ![path-mode](https://github.com/user-attachments/assets/d985e54e-a7f1-44ed-96bc-9f1dfe605078)
-
 
 ## 📦 Installation
 
@@ -60,7 +57,7 @@ import Tact from 'tact-js';
 // Initialize the library
 Tact.init({
   appId: '<APP_ID>',
-  apiKey: '<API_KEY>'
+  apiKey: '<API_KEY>',
 });
 ```
 
