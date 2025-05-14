@@ -1,6 +1,6 @@
 {
   "name": "tact-js",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "type": "module",
   "license": "bHaptics SDK License Agreement",
   "main": "dist/bundle.js",
