@@ -1,0 +1,49 @@
+name: Update Dependencies
+
+on:
+  schedule:
+    # 매주 월요일 오전 9시 (UTC)에 실행
+    - cron: '0 9 * * 1'
+  workflow_dispatch: # 수동 실행 가능
+
+jobs:
+  update-dependencies:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'pnpm'
+
+      - name: Update dependencies
+        run: |
+          pnpm update
+          pnpm --filter ./sdk update
+          pnpm --filter ./demo update
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: 'chore: update dependencies'
+          title: 'chore: update dependencies'
+          body: |
+            ## 자동 의존성 업데이트
+
+            이 PR은 자동으로 생성된 의존성 업데이트입니다.
+
+            변경사항을 검토한 후 병합해주세요.
+          branch: chore/update-dependencies
+          delete-branch: true
