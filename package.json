@@ -1,11 +1,20 @@
 {
   "devDependencies": {
     "@types/node": "^22.13.10",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "prettier": "^3.5.3"
   },
   "scripts": {
     "version": "pnpm --filter ./sdk version",
     "build": "pnpm --filter ./sdk build",
-    "publish": "pnpm run build && pnpm --filter ./sdk publish"
+    "build:demo": "pnpm --filter ./demo build",
+    "build:all": "pnpm build && pnpm build:demo",
+    "publish": "pnpm run build && pnpm --filter ./sdk publish",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "pnpm --filter ./sdk exec tsc --noEmit && pnpm --filter ./demo exec tsc --noEmit",
+    "lint": "pnpm --filter ./demo lint",
+    "audit": "pnpm audit --audit-level moderate",
+    "test": "pnpm typecheck && pnpm format:check && pnpm build:all"
   }
 }
