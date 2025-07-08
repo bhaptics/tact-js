@@ -1,6 +1,6 @@
 import typescript from '@rollup/plugin-typescript';
 import copy from 'rollup-plugin-copy';
-import strip from '@rollup/plugin-strip';
+import terser from '@rollup/plugin-terser';
 
 export default {
   input: 'src/index.ts', // 진입점 지정 (여기서부터 번들링 시작)
@@ -14,9 +14,15 @@ export default {
       targets: [{ src: 'src/bhaptics_web_bg.wasm', dest: 'dist' }],
     }),
     typescript(),
-    strip({
-      functions: ['console.log', 'console.debug', 'console.info'],
-      // console.error와 console.warn은 유지
+    terser({
+      compress: {
+        drop_console: true, // console 제거
+      },
+      mangle: false, // 변수명 축약 안 함
+      format: {
+        beautify: true, // 읽기 좋은 형태로 포맷팅
+        comments: false, // 주석 제거
+      },
     }),
   ], // tsconfig.json을 자동으로 참조합니다
 };
