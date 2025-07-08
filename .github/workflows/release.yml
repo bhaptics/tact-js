@@ -35,7 +35,7 @@ jobs:
         run: pnpm build
 
       - name: Publish to NPM
-        run: pnpm --filter ./sdk publish --provenance
+        run: pnpm --filter ./sdk publish --provenance --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
