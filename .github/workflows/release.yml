@@ -31,6 +31,24 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Verify version consistency
+        run: |
+          TAG_VERSION="${{ github.ref_name }}"
+          PACKAGE_VERSION=$(cat sdk/package.json | grep '"version"' | sed 's/.*"version": *"\([^"]*\)".*/\1/')
+
+          # v 접두사 제거
+          TAG_VERSION_CLEAN=${TAG_VERSION#v}
+
+          echo "Tag version: $TAG_VERSION_CLEAN"
+          echo "Package version: $PACKAGE_VERSION"
+
+          if [ "$TAG_VERSION_CLEAN" != "$PACKAGE_VERSION" ]; then
+            echo "❌ Version mismatch: tag=$TAG_VERSION_CLEAN, package.json=$PACKAGE_VERSION"
+            exit 1
+          else
+            echo "✅ Version consistency verified"
+          fi
+
       - name: Build
         run: pnpm build
 
