@@ -148,9 +148,21 @@ const Tact = {
     return await bhaptics.play_position(eventKey, enumPosition);
   },
 
-  async playGlove({ position, motors, playtimes, shapes, repeat_count }: PlayGloveParams) {
+  async playGlove({
+    position,
+    motors,
+    playtimes,
+    shapes,
+    repeat_count,
+  }: PlayGloveParams) {
     const enumPosition = PositionUtils.enumToPosition(position);
-    return await bhaptics.play_glove(enumPosition, motors, playtimes, shapes, repeat_count);
+    return await bhaptics.play_glove(
+      enumPosition,
+      motors,
+      playtimes,
+      shapes,
+      repeat_count
+    );
   },
 
   async playDot({ position, motorValues, duration = 500 }: PlayDotParams) {
@@ -164,7 +176,13 @@ const Tact = {
     const xValues = new Float32Array(x);
     const yValues = new Float32Array(y);
     const intensityValues = new Int32Array(intensity);
-    return await bhaptics.play_path(enumPosition, duration, xValues, yValues, intensityValues);
+    return await bhaptics.play_path(
+      enumPosition,
+      duration,
+      xValues,
+      yValues,
+      intensityValues
+    );
   },
 
   async pause(eventKey: string) {
