@@ -31,13 +31,6 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Update package version
-        run: |
-          # 태그에서 v 제거하여 버전 추출 (예: v2.0.3 -> 2.0.3)
-          VERSION=${GITHUB_REF_NAME#v}
-          # sdk/package.json의 버전 업데이트
-          cd sdk && npm version $VERSION --no-git-tag-version
-
       - name: Build
         run: pnpm build
 
