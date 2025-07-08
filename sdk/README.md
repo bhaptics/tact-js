@@ -1,5 +1,8 @@
 ![npm](https://img.shields.io/npm/v/tact-js)
 ![license](https://img.shields.io/npm/l/tact-js)
+![CI](https://github.com/bhaptics/tact-js/workflows/CI/badge.svg)
+![Code Quality](https://github.com/bhaptics/tact-js/workflows/Code%20Quality/badge.svg)
+![npm downloads](https://img.shields.io/npm/dm/tact-js)
 
 # bHaptics Web SDK
 

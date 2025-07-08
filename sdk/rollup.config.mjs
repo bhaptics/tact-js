@@ -1,5 +1,6 @@
 import typescript from '@rollup/plugin-typescript';
 import copy from 'rollup-plugin-copy';
+import strip from '@rollup/plugin-strip';
 
 export default {
   input: 'src/index.ts', // 진입점 지정 (여기서부터 번들링 시작)
@@ -13,5 +14,9 @@ export default {
       targets: [{ src: 'src/bhaptics_web_bg.wasm', dest: 'dist' }],
     }),
     typescript(),
+    strip({
+      functions: ['console.log', 'console.debug', 'console.info'],
+      // console.error와 console.warn은 유지
+    }),
   ], // tsconfig.json을 자동으로 참조합니다
 };
