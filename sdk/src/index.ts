@@ -22,7 +22,7 @@ export type PlayLoopParams = {
   intensityRatio?: number;
   durationRatio?: number;
   interval: number;
-  max_count: number;
+  maxCount: number;
   offsetX: number;
   offsetY: number;
   deviceIndex?: number;
@@ -49,7 +49,7 @@ export type PlayGloveParams = {
   motors: Int32Array;
   playtimes: Int32Array;
   shapes: Int32Array;
-  repeat_count: number;
+  repeatCount: number;
 };
 
 export { PositionType, PositionUtils };
@@ -119,7 +119,7 @@ const Tact = {
     intensityRatio = 1,
     durationRatio = 1,
     interval = 1000,
-    max_count = 1,
+    maxCount = 1,
     offsetX = 0,
     offsetY = 0,
     deviceIndex = -1,
@@ -131,7 +131,7 @@ const Tact = {
       offsetX,
       offsetY,
       interval,
-      max_count,
+      maxCount,
       deviceIndex
     );
   },
@@ -141,7 +141,7 @@ const Tact = {
     motors,
     playtimes,
     shapes,
-    repeat_count,
+    repeatCount,
   }: PlayGloveParams) {
     const enumPosition = PositionUtils.enumToPosition(position);
     return await bhaptics.play_glove(
@@ -149,7 +149,7 @@ const Tact = {
       motors,
       playtimes,
       shapes,
-      repeat_count
+      repeatCount
     );
   },
 
