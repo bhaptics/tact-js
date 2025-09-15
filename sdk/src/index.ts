@@ -5,7 +5,6 @@ import utils from './internal/utils';
 export type InitParams = {
   appId: string;
   apiKey: string;
-  remote?: string;
 };
 
 export type PlayParams = {
@@ -15,6 +14,7 @@ export type PlayParams = {
   durationRatio?: number;
   offsetX?: number;
   offsetY?: number;
+  deviceIndex?: number;
 };
 
 export type PlayLoopParams = {
@@ -22,15 +22,17 @@ export type PlayLoopParams = {
   intensityRatio?: number;
   durationRatio?: number;
   interval: number;
-  max_count: number;
+  maxCount: number;
   offsetX: number;
   offsetY: number;
+  deviceIndex?: number;
 };
 
 export type PlayDotParams = {
   position: PositionType;
   motorValues: number[];
   duration?: number;
+  deviceIndex?: number;
 };
 
 export type PlayPathParams = {
@@ -39,6 +41,7 @@ export type PlayPathParams = {
   y: number[];
   intensity: number[];
   duration?: number;
+  deviceIndex?: number;
 };
 
 export type PlayGloveParams = {
@@ -46,7 +49,7 @@ export type PlayGloveParams = {
   motors: Int32Array;
   playtimes: Int32Array;
   shapes: Int32Array;
-  repeat_count: number;
+  repeatCount: number;
 };
 
 export { PositionType, PositionUtils };
@@ -54,30 +57,16 @@ export { PositionType, PositionUtils };
 const Tact = {
   /**
    * Initialize the bHaptics WebSDK
-   * @example
    * ```typescript
    * await HapticDriver.init({
    *  appId: 'your-app-id',
    *  apiKey: 'your-api',
-   * });
-   * ```
-   * @example
-   * If you want to connect to a remote server
-   * ```typescript
-   * await HapticDriver.init({
-   *  appId: 'your-app-id',
-   *  apiKey: 'your-api',
-   *  remote: 'ip-address:15881',
    * });
    * ```
    */
-  async init({ appId, apiKey, remote }: InitParams) {
+  async init({ appId, apiKey }: InitParams) {
     await bhaptics_init();
-    console.log('WebAssembly module loaded');
-
-    return remote
-      ? await bhaptics.remote_registry_and_initialize(remote, appId, apiKey, '')
-      : await bhaptics.registry_and_initialize(appId, apiKey, '');
+    return await bhaptics.registry_and_initialize(appId, apiKey, '');
   },
 
   async ping(address: string) {
@@ -96,7 +85,7 @@ const Tact = {
       testMotor[index] = 100;
       console.log(`motor front test: ${index}, ${JSON.stringify(testMotor)}`);
 
-      await bhaptics.play_dot(0, 1000, testMotor as unknown as Int32Array);
+      await bhaptics.play_dot(0, 1000, testMotor as unknown as Int32Array, -1);
       await utils.sleep(1000);
     }
   },
@@ -112,6 +101,7 @@ const Tact = {
     durationRatio = 1,
     offsetX = 0,
     offsetY = 0,
+    deviceIndex = -1,
   }: PlayParams) {
     await bhaptics.play_with_start_time(
       eventKey,
@@ -119,7 +109,8 @@ const Tact = {
       intensityRatio,
       durationRatio,
       offsetX,
-      offsetY
+      offsetY,
+      deviceIndex
     );
   },
 
@@ -128,9 +119,10 @@ const Tact = {
     intensityRatio = 1,
     durationRatio = 1,
     interval = 1000,
-    max_count = 1,
+    maxCount = 1,
     offsetX = 0,
     offsetY = 0,
+    deviceIndex = -1,
   }: PlayLoopParams) {
     return await bhaptics.play_loop(
       eventKey,
@@ -139,13 +131,9 @@ const Tact = {
       offsetX,
       offsetY,
       interval,
-      max_count
+      maxCount,
+      deviceIndex
     );
-  },
-
-  async playPosition(eventKey: string, position: PositionType) {
-    const enumPosition = PositionUtils.enumToPosition(position);
-    return await bhaptics.play_position(eventKey, enumPosition);
   },
 
   async playGlove({
@@ -153,7 +141,7 @@ const Tact = {
     motors,
     playtimes,
     shapes,
-    repeat_count,
+    repeatCount,
   }: PlayGloveParams) {
     const enumPosition = PositionUtils.enumToPosition(position);
     return await bhaptics.play_glove(
@@ -161,17 +149,29 @@ const Tact = {
       motors,
       playtimes,
       shapes,
-      repeat_count
+      repeatCount
     );
   },
 
-  async playDot({ position, motorValues, duration = 500 }: PlayDotParams) {
+  async playDot({
+    position,
+    motorValues,
+    duration = 500,
+    deviceIndex = -1,
+  }: PlayDotParams) {
     const enumPosition = PositionUtils.enumToPosition(position);
     const motors = new Int32Array(motorValues);
-    return await bhaptics.play_dot(enumPosition, duration, motors);
+    return await bhaptics.play_dot(enumPosition, duration, motors, deviceIndex);
   },
 
-  async playPath({ position, x, y, intensity, duration = 40 }: PlayPathParams) {
+  async playPath({
+    position,
+    x,
+    y,
+    intensity,
+    duration = 40,
+    deviceIndex = -1,
+  }: PlayPathParams) {
     const enumPosition = PositionUtils.enumToPosition(position);
     const xValues = new Float32Array(x);
     const yValues = new Float32Array(y);
@@ -181,7 +181,8 @@ const Tact = {
       duration,
       xValues,
       yValues,
-      intensityValues
+      intensityValues,
+      deviceIndex
     );
   },
 
@@ -225,7 +226,6 @@ const Tact = {
       const hapticMappings = JSON.parse(result);
 
       if (Array.isArray(hapticMappings)) {
-        console.log('Haptic mappings loaded:', hapticMappings);
         return hapticMappings;
       }
 

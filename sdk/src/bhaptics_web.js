@@ -4,9 +4,18 @@ const heap = new Array(128).fill(undefined);
 
 heap.push(undefined, null, true, false);
 
-function getObject(idx) { return heap[idx]; }
-
 let heap_next = heap.length;
+
+function addHeapObject(obj) {
+    if (heap_next === heap.length) heap.push(heap.length + 1);
+    const idx = heap_next;
+    heap_next = heap[idx];
+
+    heap[idx] = obj;
+    return idx;
+}
+
+function getObject(idx) { return heap[idx]; }
 
 function dropObject(idx) {
     if (idx < 132) return;
@@ -18,15 +27,6 @@ function takeObject(idx) {
     const ret = getObject(idx);
     dropObject(idx);
     return ret;
-}
-
-function addHeapObject(obj) {
-    if (heap_next === heap.length) heap.push(heap.length + 1);
-    const idx = heap_next;
-    heap_next = heap[idx];
-
-    heap[idx] = obj;
-    return idx;
 }
 
 const cachedTextDecoder = (typeof TextDecoder !== 'undefined' ? new TextDecoder('utf-8', { ignoreBOM: true, fatal: true }) : { decode: () => { throw Error('TextDecoder not available') } } );
@@ -212,7 +212,7 @@ function makeMutClosure(arg0, arg1, dtor, f) {
     return real;
 }
 function __wbg_adapter_28(arg0, arg1, arg2) {
-    wasm._dyn_core__ops__function__FnMut__A____Output___R_as_wasm_bindgen__closure__WasmClosure___describe__invoke__he4862ce423d34f24(arg0, arg1, addHeapObject(arg2));
+    wasm._dyn_core__ops__function__FnMut__A____Output___R_as_wasm_bindgen__closure__WasmClosure___describe__invoke__h39ffd099e3b9af6c(arg0, arg1, addHeapObject(arg2));
 }
 
 function __wbg_adapter_35(arg0, arg1, arg2) {
@@ -419,12 +419,13 @@ export function is_playing_event_by_event_id(event_id) {
 
 /**
 * @param {string} event_name
+* @param {number} device_index
 * @returns {Promise<number>}
 */
-export function play_event(event_name) {
+export function play_event(event_name, device_index) {
     const ptr0 = passStringToWasm0(event_name, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
     const len0 = WASM_VECTOR_LEN;
-    const ret = wasm.play_event(ptr0, len0);
+    const ret = wasm.play_event(ptr0, len0, device_index);
     return takeObject(ret);
 }
 
@@ -435,56 +436,45 @@ export function play_event(event_name) {
 * @param {number} duration_ratio
 * @param {number} angle_x
 * @param {number} offset_y
+* @param {number} device_index
 * @returns {Promise<number>}
 */
-export function play_with_start_time(key, start_millis, intensity, duration_ratio, angle_x, offset_y) {
+export function play_with_start_time(key, start_millis, intensity, duration_ratio, angle_x, offset_y, device_index) {
     const ptr0 = passStringToWasm0(key, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
     const len0 = WASM_VECTOR_LEN;
-    const ret = wasm.play_with_start_time(ptr0, len0, start_millis, intensity, duration_ratio, angle_x, offset_y);
+    const ret = wasm.play_with_start_time(ptr0, len0, start_millis, intensity, duration_ratio, angle_x, offset_y, device_index);
     return takeObject(ret);
 }
 
 /**
 * @param {string} key
-* @param {number} position
 * @param {number} intensity
 * @param {number} duration_ratio
 * @param {number} angle_x
 * @param {number} offset_y
+* @param {number} device_index
 * @returns {Promise<void>}
 */
-export function play_without_result(key, position, intensity, duration_ratio, angle_x, offset_y) {
+export function play_without_result(key, intensity, duration_ratio, angle_x, offset_y, device_index) {
     const ptr0 = passStringToWasm0(key, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
     const len0 = WASM_VECTOR_LEN;
-    const ret = wasm.play_without_result(ptr0, len0, position, intensity, duration_ratio, angle_x, offset_y);
+    const ret = wasm.play_without_result(ptr0, len0, intensity, duration_ratio, angle_x, offset_y, device_index);
     return takeObject(ret);
 }
 
 /**
 * @param {string} key
-* @param {number} position
-* @returns {Promise<number>}
-*/
-export function play_position(key, position) {
-    const ptr0 = passStringToWasm0(key, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
-    const len0 = WASM_VECTOR_LEN;
-    const ret = wasm.play_position(ptr0, len0, position);
-    return takeObject(ret);
-}
-
-/**
-* @param {string} key
-* @param {number} position
 * @param {number} intensity
 * @param {number} duration_ratio
 * @param {number} angle_x
 * @param {number} offset_y
+* @param {number} device_index
 * @returns {Promise<number>}
 */
-export function play_position_with_parameter(key, position, intensity, duration_ratio, angle_x, offset_y) {
+export function play_param(key, intensity, duration_ratio, angle_x, offset_y, device_index) {
     const ptr0 = passStringToWasm0(key, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
     const len0 = WASM_VECTOR_LEN;
-    const ret = wasm.play_position_with_parameter(ptr0, len0, position, intensity, duration_ratio, angle_x, offset_y);
+    const ret = wasm.play_param(ptr0, len0, intensity, duration_ratio, angle_x, offset_y, device_index);
     return takeObject(ret);
 }
 
@@ -496,12 +486,13 @@ export function play_position_with_parameter(key, position, intensity, duration_
 * @param {number} offset_y
 * @param {number} interval
 * @param {number} max_count
+* @param {number} device_index
 * @returns {Promise<number>}
 */
-export function play_loop(key, intensity, duration_ratio, angle_x, offset_y, interval, max_count) {
+export function play_loop(key, intensity, duration_ratio, angle_x, offset_y, interval, max_count, device_index) {
     const ptr0 = passStringToWasm0(key, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
     const len0 = WASM_VECTOR_LEN;
-    const ret = wasm.play_loop(ptr0, len0, intensity, duration_ratio, angle_x, offset_y, interval, max_count);
+    const ret = wasm.play_loop(ptr0, len0, intensity, duration_ratio, angle_x, offset_y, interval, max_count, device_index);
     return takeObject(ret);
 }
 
@@ -524,12 +515,13 @@ function passArray32ToWasm0(arg, malloc) {
 * @param {number} position
 * @param {number} duration_millis
 * @param {Int32Array} motor_values
+* @param {number} device_index
 * @returns {Promise<number>}
 */
-export function play_dot(position, duration_millis, motor_values) {
+export function play_dot(position, duration_millis, motor_values, device_index) {
     const ptr0 = passArray32ToWasm0(motor_values, wasm.__wbindgen_malloc);
     const len0 = WASM_VECTOR_LEN;
-    const ret = wasm.play_dot(position, duration_millis, ptr0, len0);
+    const ret = wasm.play_dot(position, duration_millis, ptr0, len0, device_index);
     return takeObject(ret);
 }
 
@@ -554,16 +546,17 @@ function passArrayF32ToWasm0(arg, malloc) {
 * @param {Float32Array} x
 * @param {Float32Array} y
 * @param {Int32Array} intensity
+* @param {number} device_index
 * @returns {Promise<number>}
 */
-export function play_path(position, duration_millis, x, y, intensity) {
+export function play_path(position, duration_millis, x, y, intensity, device_index) {
     const ptr0 = passArrayF32ToWasm0(x, wasm.__wbindgen_malloc);
     const len0 = WASM_VECTOR_LEN;
     const ptr1 = passArrayF32ToWasm0(y, wasm.__wbindgen_malloc);
     const len1 = WASM_VECTOR_LEN;
     const ptr2 = passArray32ToWasm0(intensity, wasm.__wbindgen_malloc);
     const len2 = WASM_VECTOR_LEN;
-    const ret = wasm.play_path(position, duration_millis, ptr0, len0, ptr1, len1, ptr2, len2);
+    const ret = wasm.play_path(position, duration_millis, ptr0, len0, ptr1, len1, ptr2, len2, device_index);
     return takeObject(ret);
 }
 
@@ -643,7 +636,7 @@ function handleError(f, args) {
         wasm.__wbindgen_exn_store(addHeapObject(e));
     }
 }
-function __wbg_adapter_119(arg0, arg1, arg2, arg3) {
+function __wbg_adapter_118(arg0, arg1, arg2, arg3) {
     wasm.wasm_bindgen__convert__closures__invoke2_mut__h0616af040bff7ca8(arg0, arg1, addHeapObject(arg2), addHeapObject(arg3));
 }
 
@@ -681,12 +674,12 @@ async function __wbg_load(module, imports) {
 function __wbg_get_imports() {
     const imports = {};
     imports.wbg = {};
-    imports.wbg.__wbindgen_object_drop_ref = function(arg0) {
-        takeObject(arg0);
-    };
     imports.wbg.__wbindgen_number_new = function(arg0) {
         const ret = arg0;
         return addHeapObject(ret);
+    };
+    imports.wbg.__wbindgen_object_drop_ref = function(arg0) {
+        takeObject(arg0);
     };
     imports.wbg.__wbindgen_string_new = function(arg0, arg1) {
         const ret = getStringFromWasm0(arg0, arg1);
@@ -848,7 +841,7 @@ function __wbg_get_imports() {
                 const a = state0.a;
                 state0.a = 0;
                 try {
-                    return __wbg_adapter_119(a, state0.b, arg0, arg1);
+                    return __wbg_adapter_118(a, state0.b, arg0, arg1);
                 } finally {
                     state0.a = a;
                 }
@@ -908,20 +901,20 @@ function __wbg_get_imports() {
         const ret = wasm.memory;
         return addHeapObject(ret);
     };
-    imports.wbg.__wbindgen_closure_wrapper281 = function(arg0, arg1, arg2) {
-        const ret = makeMutClosure(arg0, arg1, 189, __wbg_adapter_28);
+    imports.wbg.__wbindgen_closure_wrapper271 = function(arg0, arg1, arg2) {
+        const ret = makeMutClosure(arg0, arg1, 179, __wbg_adapter_28);
         return addHeapObject(ret);
     };
-    imports.wbg.__wbindgen_closure_wrapper283 = function(arg0, arg1, arg2) {
-        const ret = makeMutClosure(arg0, arg1, 189, __wbg_adapter_28);
+    imports.wbg.__wbindgen_closure_wrapper273 = function(arg0, arg1, arg2) {
+        const ret = makeMutClosure(arg0, arg1, 179, __wbg_adapter_28);
         return addHeapObject(ret);
     };
-    imports.wbg.__wbindgen_closure_wrapper285 = function(arg0, arg1, arg2) {
-        const ret = makeMutClosure(arg0, arg1, 189, __wbg_adapter_28);
+    imports.wbg.__wbindgen_closure_wrapper275 = function(arg0, arg1, arg2) {
+        const ret = makeMutClosure(arg0, arg1, 179, __wbg_adapter_28);
         return addHeapObject(ret);
     };
-    imports.wbg.__wbindgen_closure_wrapper807 = function(arg0, arg1, arg2) {
-        const ret = makeMutClosure(arg0, arg1, 342, __wbg_adapter_35);
+    imports.wbg.__wbindgen_closure_wrapper793 = function(arg0, arg1, arg2) {
+        const ret = makeMutClosure(arg0, arg1, 325, __wbg_adapter_35);
         return addHeapObject(ret);
     };
 

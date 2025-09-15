@@ -96,9 +96,10 @@ export function is_playing_event_by_request_id(request_id: number): Promise<bool
 export function is_playing_event_by_event_id(event_id: string): Promise<boolean>;
 /**
 * @param {string} event_name
+* @param {number} device_index
 * @returns {Promise<number>}
 */
-export function play_event(event_name: string): Promise<number>;
+export function play_event(event_name: string, device_index: number): Promise<number>;
 /**
 * @param {string} key
 * @param {number} start_millis
@@ -106,35 +107,30 @@ export function play_event(event_name: string): Promise<number>;
 * @param {number} duration_ratio
 * @param {number} angle_x
 * @param {number} offset_y
+* @param {number} device_index
 * @returns {Promise<number>}
 */
-export function play_with_start_time(key: string, start_millis: number, intensity: number, duration_ratio: number, angle_x: number, offset_y: number): Promise<number>;
+export function play_with_start_time(key: string, start_millis: number, intensity: number, duration_ratio: number, angle_x: number, offset_y: number, device_index: number): Promise<number>;
 /**
 * @param {string} key
-* @param {number} position
 * @param {number} intensity
 * @param {number} duration_ratio
 * @param {number} angle_x
 * @param {number} offset_y
+* @param {number} device_index
 * @returns {Promise<void>}
 */
-export function play_without_result(key: string, position: number, intensity: number, duration_ratio: number, angle_x: number, offset_y: number): Promise<void>;
+export function play_without_result(key: string, intensity: number, duration_ratio: number, angle_x: number, offset_y: number, device_index: number): Promise<void>;
 /**
 * @param {string} key
-* @param {number} position
-* @returns {Promise<number>}
-*/
-export function play_position(key: string, position: number): Promise<number>;
-/**
-* @param {string} key
-* @param {number} position
 * @param {number} intensity
 * @param {number} duration_ratio
 * @param {number} angle_x
 * @param {number} offset_y
+* @param {number} device_index
 * @returns {Promise<number>}
 */
-export function play_position_with_parameter(key: string, position: number, intensity: number, duration_ratio: number, angle_x: number, offset_y: number): Promise<number>;
+export function play_param(key: string, intensity: number, duration_ratio: number, angle_x: number, offset_y: number, device_index: number): Promise<number>;
 /**
 * @param {string} key
 * @param {number} intensity
@@ -143,25 +139,28 @@ export function play_position_with_parameter(key: string, position: number, inte
 * @param {number} offset_y
 * @param {number} interval
 * @param {number} max_count
+* @param {number} device_index
 * @returns {Promise<number>}
 */
-export function play_loop(key: string, intensity: number, duration_ratio: number, angle_x: number, offset_y: number, interval: number, max_count: number): Promise<number>;
+export function play_loop(key: string, intensity: number, duration_ratio: number, angle_x: number, offset_y: number, interval: number, max_count: number, device_index: number): Promise<number>;
 /**
 * @param {number} position
 * @param {number} duration_millis
 * @param {Int32Array} motor_values
+* @param {number} device_index
 * @returns {Promise<number>}
 */
-export function play_dot(position: number, duration_millis: number, motor_values: Int32Array): Promise<number>;
+export function play_dot(position: number, duration_millis: number, motor_values: Int32Array, device_index: number): Promise<number>;
 /**
 * @param {number} position
 * @param {number} duration_millis
 * @param {Float32Array} x
 * @param {Float32Array} y
 * @param {Int32Array} intensity
+* @param {number} device_index
 * @returns {Promise<number>}
 */
-export function play_path(position: number, duration_millis: number, x: Float32Array, y: Float32Array, intensity: Int32Array): Promise<number>;
+export function play_path(position: number, duration_millis: number, x: Float32Array, y: Float32Array, intensity: Int32Array, device_index: number): Promise<number>;
 /**
 * @param {number} position
 * @param {Int32Array} motors
@@ -219,14 +218,13 @@ export interface InitOutput {
   readonly is_playing_event: () => number;
   readonly is_playing_event_by_request_id: (a: number) => number;
   readonly is_playing_event_by_event_id: (a: number, b: number) => number;
-  readonly play_event: (a: number, b: number) => number;
-  readonly play_with_start_time: (a: number, b: number, c: number, d: number, e: number, f: number, g: number) => number;
+  readonly play_event: (a: number, b: number, c: number) => number;
+  readonly play_with_start_time: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number) => number;
   readonly play_without_result: (a: number, b: number, c: number, d: number, e: number, f: number, g: number) => number;
-  readonly play_position: (a: number, b: number, c: number) => number;
-  readonly play_position_with_parameter: (a: number, b: number, c: number, d: number, e: number, f: number, g: number) => number;
-  readonly play_loop: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number) => number;
-  readonly play_dot: (a: number, b: number, c: number, d: number) => number;
-  readonly play_path: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number) => number;
+  readonly play_param: (a: number, b: number, c: number, d: number, e: number, f: number, g: number) => number;
+  readonly play_loop: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number, i: number) => number;
+  readonly play_dot: (a: number, b: number, c: number, d: number, e: number) => number;
+  readonly play_path: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number, i: number) => number;
   readonly play_glove: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number) => number;
   readonly pause: (a: number, b: number) => number;
   readonly resume: (a: number, b: number) => number;
@@ -236,7 +234,7 @@ export interface InitOutput {
   readonly __wbindgen_malloc: (a: number, b: number) => number;
   readonly __wbindgen_realloc: (a: number, b: number, c: number, d: number) => number;
   readonly __wbindgen_export_2: WebAssembly.Table;
-  readonly _dyn_core__ops__function__FnMut__A____Output___R_as_wasm_bindgen__closure__WasmClosure___describe__invoke__he4862ce423d34f24: (a: number, b: number, c: number) => void;
+  readonly _dyn_core__ops__function__FnMut__A____Output___R_as_wasm_bindgen__closure__WasmClosure___describe__invoke__h39ffd099e3b9af6c: (a: number, b: number, c: number) => void;
   readonly _dyn_core__ops__function__FnMut__A____Output___R_as_wasm_bindgen__closure__WasmClosure___describe__invoke__h9de4dfc5842d2ae3: (a: number, b: number, c: number) => void;
   readonly __wbindgen_exn_store: (a: number) => void;
   readonly wasm_bindgen__convert__closures__invoke2_mut__h0616af040bff7ca8: (a: number, b: number, c: number, d: number) => void;
