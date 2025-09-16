@@ -6,9 +6,9 @@
   },
   "scripts": {
     "version": "pnpm --filter ./sdk version",
-    "build": "pnpm --filter ./sdk build",
-    "build:demo": "pnpm --filter ./demo build",
-    "build:all": "pnpm build && pnpm build:demo",
+    "build": "pnpm run --recursive build",
+    "build:sdk": "pnpm --filter tact-js build",
+    "build:demo": "pnpm --filter demo build",
     "publish": "pnpm run build && pnpm --filter ./sdk publish",
     "format": "prettier --write .",
     "format:check": "prettier --check .",

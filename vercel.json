@@ -1,0 +1,5 @@
+{
+  "buildCommand": "pnpm -w run build:sdk && pnpm --filter demo build",
+  "outputDirectory": "dist",
+  "installCommand": "pnpm install"
+}
