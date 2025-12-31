@@ -9,10 +9,27 @@ type Point = {
   lifespan: number;
 };
 
-export default function PathModeSection() {
+const MOTOR_POSITIONS = Array.from({ length: 32 }, (_, index) => {
+  const isFront = index < 16;
+  const localIndex = index % 16;
+  const col = localIndex % 4;
+  const row = Math.floor(localIndex / 4);
+
+  const flippedCol = isFront ? col : 3 - col;
+
+  const baseX = isFront ? 0 : 0.5;
+  const x = baseX + (flippedCol / 4) * 0.5;
+  const y = row / 3;
+
+  return { x, y, index };
+});
+
+export default function NewPathModeSection() {
   const [points, setPoints] = useState<Point[]>([]);
   const [intensity, setIntensity] = useState<number>(100);
   const [duration, setDuration] = useState<number>(100);
+  const [thickness, setThickness] = useState<number>(1);
+  const [sharpness, setSharpness] = useState<number>(2);
 
   const activateDrawing = (e: React.PointerEvent<HTMLDivElement>) => {
     e.currentTarget.setPointerCapture(e.pointerId);
@@ -46,15 +63,37 @@ export default function PathModeSection() {
     const adjustedX =
       clapmedX - 0.087 < 0 ? clapmedX - 0.087 + 1 : clapmedX - 0.087;
 
-    /**
-     * Play the path with the given position, duration, x, y, and intensity.
-     */
-    HapticDriver.playPath({
+    const distances = MOTOR_POSITIONS.map((motor) => {
+      const directDx = motor.x - adjustedX;
+      const wrapDx = directDx > 0 ? directDx - 1 : directDx + 1;
+
+      const dx =
+        (Math.abs(directDx) < Math.abs(wrapDx) ? directDx : wrapDx) * 2;
+      const dy = motor.y - clampedY;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+      return { ...motor, distance };
+    });
+
+    const closestMotors = distances
+      .sort((a, b) => a.distance - b.distance)
+      .slice(0, Math.floor(1 + (thickness - 1) * 5));
+
+    const motorValues = Array.from({ length: 32 }, () => 0);
+
+    const sigma = 0.3 / sharpness;
+
+    closestMotors.forEach((motor) => {
+      const gaussianRatio = Math.exp(
+        -(motor.distance * motor.distance) / (2 * sigma * sigma)
+      );
+      const adjustedIntensity = Math.round(intensity * gaussianRatio);
+      motorValues[motor.index] = adjustedIntensity;
+    });
+
+    HapticDriver.playDot({
       position: PositionType.Vest,
       duration: duration,
-      x: [adjustedX],
-      y: [clampedY],
-      intensity: [intensity],
+      motorValues: motorValues,
     });
   };
 
@@ -81,12 +120,12 @@ export default function PathModeSection() {
     <section
       className={`flex flex-col select-none items-start gap-2 transition-opacity`}
     >
-      <h3 className="font-bold">Path Mode Test</h3>
+      <h3 className="font-bold">New Path Mode Test</h3>
       <p>
         {`If you have a TactSuit connected, you can test the motors by dragging over the
         area below. The motors will vibrate according to the position of your mouse.`}
       </p>
-      <div className="flex gap-10">
+      <div className="flex flex-col gap-10">
         <div className="flex items-center gap-3 text-sm">
           <label htmlFor="intensity">Intensity (0~100)</label>
           <input
@@ -98,7 +137,7 @@ export default function PathModeSection() {
           />
         </div>
         <div className="flex items-center gap-3 text-sm">
-          <label htmlFor="intensity">Duration (ms)</label>
+          <label htmlFor="duration">Duration (ms)</label>
           <input
             type="number"
             min={0}
@@ -107,6 +146,30 @@ export default function PathModeSection() {
             onChange={(e) => setDuration(Number(e.target.value))}
             className="border border-neutral-200 p-2 rounded w-20"
           />
+        </div>
+        <div className="flex items-center gap-3 text-sm">
+          <label htmlFor="thickness">Thickness (1~4)</label>
+          <input
+            type="range"
+            min={1}
+            max={4}
+            step={0.5}
+            value={thickness}
+            onChange={(e) => setThickness(Number(e.target.value))}
+          />
+          <span className="w-8 text-center">{thickness}</span>
+        </div>
+        <div className="flex items-center gap-3 text-sm">
+          <label htmlFor="sharpness">Sharpness (0.5~5)</label>
+          <input
+            type="range"
+            min={0.5}
+            max={5}
+            step={0.5}
+            value={sharpness}
+            onChange={(e) => setSharpness(Number(e.target.value))}
+          />
+          <span className="w-8 text-center">{sharpness}</span>
         </div>
       </div>
 
