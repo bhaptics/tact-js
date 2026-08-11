@@ -52,6 +52,10 @@ export type PlayGloveParams = {
   repeatCount: number;
 };
 
+export type PlayGloveDk3Params = PlayGloveParams & {
+  frequency: number;
+};
+
 export { PositionType, PositionUtils };
 
 const Tact = {
@@ -149,6 +153,29 @@ const Tact = {
       motors,
       playtimes,
       shapes,
+      repeatCount
+    );
+  },
+
+  /**
+   * Play a waveform on a TactGlove DK3, which takes an additional vibration
+   * `frequency` on top of the `playGlove` parameters.
+   */
+  async playGloveDk3({
+    position,
+    motors,
+    playtimes,
+    shapes,
+    frequency,
+    repeatCount,
+  }: PlayGloveDk3Params) {
+    const enumPosition = PositionUtils.enumToPosition(position);
+    return await bhaptics.play_glove_dk3(
+      enumPosition,
+      motors,
+      playtimes,
+      shapes,
+      frequency,
       repeatCount
     );
   },
