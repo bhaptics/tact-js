@@ -5,113 +5,6 @@
 */
 export function is_bhaptics_player_running(): Promise<boolean>;
 /**
-* @returns {Promise<boolean>}
-*/
-export function is_bhaptics_player_installed(): Promise<boolean>;
-/**
-* @param {boolean} try_launch
-* @returns {Promise<boolean>}
-*/
-export function run_bhaptics_player(try_launch: boolean): Promise<boolean>;
-/**
-* @param {string} app_id
-* @param {string} api_key
-* @param {string} init_json_string
-* @returns {Promise<boolean>}
-*/
-export function registry_and_initialize(app_id: string, api_key: string, init_json_string: string): Promise<boolean>;
-/**
-* @param {string} host
-* @param {string} app_id
-* @param {string} api_key
-* @param {string} init_json_string
-* @returns {Promise<boolean>}
-*/
-export function remote_registry_and_initialize(host: string, app_id: string, api_key: string, init_json_string: string): Promise<boolean>;
-/**
-* @param {string} app_id
-* @param {string} api_key
-* @returns {Promise<void>}
-*/
-export function retry_initialize(app_id: string, api_key: string): Promise<void>;
-/**
-* @returns {Promise<boolean>}
-*/
-export function is_connected(): Promise<boolean>;
-/**
-* @returns {Promise<void>}
-*/
-export function close(): Promise<void>;
-/**
-* @param {string} address
-* @param {number} vsm
-* @returns {Promise<void>}
-*/
-export function set_device_vsm(address: string, vsm: number): Promise<void>;
-/**
-* @param {string} address
-* @returns {Promise<void>}
-*/
-export function swap_position(address: string): Promise<void>;
-/**
-* @param {number} position
-* @returns {Promise<boolean>}
-*/
-export function is_bhaptics_device_connected(position: number): Promise<boolean>;
-/**
-* @param {string} address
-* @returns {Promise<void>}
-*/
-export function ping(address: string): Promise<void>;
-/**
-* @returns {Promise<void>}
-*/
-export function ping_all(): Promise<void>;
-/**
-* @param {string} event_name
-* @returns {Promise<number>}
-*/
-export function get_event_time(event_name: string): Promise<number>;
-/**
-* @returns {Promise<string>}
-*/
-export function get_device_info_json(): Promise<string>;
-/**
-* @returns {Promise<string>}
-*/
-export function get_haptic_mappings_json(): Promise<string>;
-/**
-* @returns {Promise<boolean>}
-*/
-export function is_playing_event(): Promise<boolean>;
-/**
-* @param {number} request_id
-* @returns {Promise<boolean>}
-*/
-export function is_playing_event_by_request_id(request_id: number): Promise<boolean>;
-/**
-* @param {string} event_id
-* @returns {Promise<boolean>}
-*/
-export function is_playing_event_by_event_id(event_id: string): Promise<boolean>;
-/**
-* @param {string} event_name
-* @param {number} device_index
-* @returns {Promise<number>}
-*/
-export function play_event(event_name: string, device_index: number): Promise<number>;
-/**
-* @param {string} key
-* @param {number} start_millis
-* @param {number} intensity
-* @param {number} duration_ratio
-* @param {number} angle_x
-* @param {number} offset_y
-* @param {number} device_index
-* @returns {Promise<number>}
-*/
-export function play_with_start_time(key: string, start_millis: number, intensity: number, duration_ratio: number, angle_x: number, offset_y: number, device_index: number): Promise<number>;
-/**
 * @param {string} key
 * @param {number} intensity
 * @param {number} duration_ratio
@@ -171,6 +64,16 @@ export function play_path(position: number, duration_millis: number, x: Float32A
 */
 export function play_glove(position: number, motors: Int32Array, playtimes: Int32Array, shapes: Int32Array, repeat_count: number): Promise<number>;
 /**
+* @param {number} position
+* @param {Int32Array} motors
+* @param {Int32Array} playtimes
+* @param {Int32Array} shapes
+* @param {number} frequency
+* @param {number} repeat_count
+* @returns {Promise<number>}
+*/
+export function play_glove_dk3(position: number, motors: Int32Array, playtimes: Int32Array, shapes: Int32Array, frequency: number, repeat_count: number): Promise<number>;
+/**
 * @param {string} event
 * @returns {Promise<void>}
 */
@@ -194,50 +97,164 @@ export function stop_by_event_name(event_name: string): Promise<void>;
 * @returns {Promise<void>}
 */
 export function stop_all(): Promise<void>;
+/**
+* @returns {Promise<boolean>}
+*/
+export function is_bhaptics_player_installed(): Promise<boolean>;
+/**
+* @param {boolean} try_launch
+* @returns {Promise<boolean>}
+*/
+export function run_bhaptics_player(try_launch: boolean): Promise<boolean>;
+/**
+* 반환값은 **첫 시도** 결과다(true = 즉시 연결/초기화 성공). connect 후에는 초기
+* 연결 실패면 백그라운드 재시도 루프가, 연결됐다 끊기면 transport onclose →
+* on_disconnect 가 자동 재연결을 처리하므로, 호출자는 이후 is_connected() 로 연결
+* 여부를 확인하면 된다.
+* @param {string} app_id
+* @param {string} api_key
+* @param {string} init_json_string
+* @returns {Promise<boolean>}
+*/
+export function registry_and_initialize(app_id: string, api_key: string, init_json_string: string): Promise<boolean>;
+/**
+* @returns {Promise<void>}
+*/
+export function ping_all(): Promise<void>;
+/**
+* @param {string} event_name
+* @returns {Promise<number>}
+*/
+export function get_event_time(event_name: string): Promise<number>;
+/**
+* @returns {Promise<string>}
+*/
+export function get_device_info_json(): Promise<string>;
+/**
+* @returns {Promise<string>}
+*/
+export function get_haptic_mappings_json(): Promise<string>;
+/**
+* @returns {Promise<boolean>}
+*/
+export function is_playing_event(): Promise<boolean>;
+/**
+* @param {number} request_id
+* @returns {Promise<boolean>}
+*/
+export function is_playing_event_by_request_id(request_id: number): Promise<boolean>;
+/**
+* @param {string} event_id
+* @returns {Promise<boolean>}
+*/
+export function is_playing_event_by_event_id(event_id: string): Promise<boolean>;
+/**
+* @param {string} event_name
+* @param {number} device_index
+* @returns {Promise<number>}
+*/
+export function play_event(event_name: string, device_index: number): Promise<number>;
+/**
+* @param {string} key
+* @param {number} start_millis
+* @param {number} intensity
+* @param {number} duration_ratio
+* @param {number} angle_x
+* @param {number} offset_y
+* @param {number} device_index
+* @returns {Promise<number>}
+*/
+export function play_with_start_time(key: string, start_millis: number, intensity: number, duration_ratio: number, angle_x: number, offset_y: number, device_index: number): Promise<number>;
+/**
+* 반환값 시맨틱은 [`registry_and_initialize`] 와 동일하다(첫 시도 결과 + 초기 실패
+* 재시도 + onclose 기반 드롭 후 재연결).
+* @param {string} host
+* @param {string} app_id
+* @param {string} api_key
+* @param {string} init_json_string
+* @returns {Promise<boolean>}
+*/
+export function remote_registry_and_initialize(host: string, app_id: string, api_key: string, init_json_string: string): Promise<boolean>;
+/**
+* @param {string} app_id
+* @param {string} api_key
+* @returns {Promise<void>}
+*/
+export function retry_initialize(app_id: string, api_key: string): Promise<void>;
+/**
+* @returns {Promise<boolean>}
+*/
+export function is_connected(): Promise<boolean>;
+/**
+* @returns {Promise<void>}
+*/
+export function close(): Promise<void>;
+/**
+* @param {string} address
+* @param {number} vsm
+* @returns {Promise<void>}
+*/
+export function set_device_vsm(address: string, vsm: number): Promise<void>;
+/**
+* @param {string} address
+* @returns {Promise<void>}
+*/
+export function swap_position(address: string): Promise<void>;
+/**
+* @param {number} position
+* @returns {Promise<boolean>}
+*/
+export function is_bhaptics_device_connected(position: number): Promise<boolean>;
+/**
+* @param {string} address
+* @returns {Promise<void>}
+*/
+export function ping(address: string): Promise<void>;
 
 export type InitInput = RequestInfo | URL | Response | BufferSource | WebAssembly.Module;
 
 export interface InitOutput {
   readonly memory: WebAssembly.Memory;
-  readonly is_bhaptics_player_running: () => number;
-  readonly is_bhaptics_player_installed: () => number;
-  readonly run_bhaptics_player: (a: number) => number;
-  readonly registry_and_initialize: (a: number, b: number, c: number, d: number, e: number, f: number) => number;
-  readonly remote_registry_and_initialize: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number) => number;
-  readonly retry_initialize: (a: number, b: number, c: number, d: number) => number;
-  readonly is_connected: () => number;
   readonly close: () => number;
-  readonly set_device_vsm: (a: number, b: number, c: number) => number;
-  readonly swap_position: (a: number, b: number) => number;
+  readonly get_device_info_json: () => number;
+  readonly get_event_time: (a: number, b: number) => number;
+  readonly get_haptic_mappings_json: () => number;
   readonly is_bhaptics_device_connected: (a: number) => number;
+  readonly is_bhaptics_player_installed: () => number;
+  readonly is_bhaptics_player_running: () => number;
+  readonly is_connected: () => number;
+  readonly is_playing_event: () => number;
+  readonly is_playing_event_by_event_id: (a: number, b: number) => number;
+  readonly is_playing_event_by_request_id: (a: number) => number;
+  readonly pause: (a: number, b: number) => number;
   readonly ping: (a: number, b: number) => number;
   readonly ping_all: () => number;
-  readonly get_event_time: (a: number, b: number) => number;
-  readonly get_device_info_json: () => number;
-  readonly get_haptic_mappings_json: () => number;
-  readonly is_playing_event: () => number;
-  readonly is_playing_event_by_request_id: (a: number) => number;
-  readonly is_playing_event_by_event_id: (a: number, b: number) => number;
+  readonly play_dot: (a: number, b: number, c: number, d: number, e: number) => number;
   readonly play_event: (a: number, b: number, c: number) => number;
+  readonly play_glove: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number) => number;
+  readonly play_glove_dk3: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number, i: number) => number;
+  readonly play_loop: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number, i: number) => number;
+  readonly play_param: (a: number, b: number, c: number, d: number, e: number, f: number, g: number) => number;
+  readonly play_path: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number, i: number) => number;
   readonly play_with_start_time: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number) => number;
   readonly play_without_result: (a: number, b: number, c: number, d: number, e: number, f: number, g: number) => number;
-  readonly play_param: (a: number, b: number, c: number, d: number, e: number, f: number, g: number) => number;
-  readonly play_loop: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number, i: number) => number;
-  readonly play_dot: (a: number, b: number, c: number, d: number, e: number) => number;
-  readonly play_path: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number, i: number) => number;
-  readonly play_glove: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number) => number;
-  readonly pause: (a: number, b: number) => number;
+  readonly registry_and_initialize: (a: number, b: number, c: number, d: number, e: number, f: number) => number;
+  readonly remote_registry_and_initialize: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number) => number;
   readonly resume: (a: number, b: number) => number;
-  readonly stop_by_request_id: (a: number) => number;
-  readonly stop_by_event_name: (a: number, b: number) => number;
+  readonly retry_initialize: (a: number, b: number, c: number, d: number) => number;
+  readonly run_bhaptics_player: (a: number) => number;
+  readonly set_device_vsm: (a: number, b: number, c: number) => number;
   readonly stop_all: () => number;
+  readonly stop_by_event_name: (a: number, b: number) => number;
+  readonly stop_by_request_id: (a: number) => number;
+  readonly swap_position: (a: number, b: number) => number;
   readonly __wbindgen_malloc: (a: number, b: number) => number;
   readonly __wbindgen_realloc: (a: number, b: number, c: number, d: number) => number;
   readonly __wbindgen_export_2: WebAssembly.Table;
-  readonly _dyn_core__ops__function__FnMut__A____Output___R_as_wasm_bindgen__closure__WasmClosure___describe__invoke__h39ffd099e3b9af6c: (a: number, b: number, c: number) => void;
-  readonly _dyn_core__ops__function__FnMut__A____Output___R_as_wasm_bindgen__closure__WasmClosure___describe__invoke__h9de4dfc5842d2ae3: (a: number, b: number, c: number) => void;
+  readonly _dyn_core_9b3796e30d99ddb7___ops__function__FnMut_______Output______as_wasm_bindgen_6a2d80d24f517486___closure__WasmClosure___describe__invoke___web_sys_cdcf5dcc636feea5___features__gen_CloseEvent__CloseEvent_____: (a: number, b: number, c: number) => void;
+  readonly _dyn_core_9b3796e30d99ddb7___ops__function__FnMut_______Output______as_wasm_bindgen_6a2d80d24f517486___closure__WasmClosure___describe__invoke___wasm_bindgen_6a2d80d24f517486___JsValue_____: (a: number, b: number, c: number) => void;
   readonly __wbindgen_exn_store: (a: number) => void;
-  readonly wasm_bindgen__convert__closures__invoke2_mut__h0616af040bff7ca8: (a: number, b: number, c: number, d: number) => void;
+  readonly wasm_bindgen_6a2d80d24f517486___convert__closures__invoke2_mut___wasm_bindgen_6a2d80d24f517486___JsValue__wasm_bindgen_6a2d80d24f517486___JsValue_____: (a: number, b: number, c: number, d: number) => void;
 }
 
 export type SyncInitInput = BufferSource | WebAssembly.Module;

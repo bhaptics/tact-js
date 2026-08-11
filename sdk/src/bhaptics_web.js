@@ -4,18 +4,9 @@ const heap = new Array(128).fill(undefined);
 
 heap.push(undefined, null, true, false);
 
-let heap_next = heap.length;
-
-function addHeapObject(obj) {
-    if (heap_next === heap.length) heap.push(heap.length + 1);
-    const idx = heap_next;
-    heap_next = heap[idx];
-
-    heap[idx] = obj;
-    return idx;
-}
-
 function getObject(idx) { return heap[idx]; }
+
+let heap_next = heap.length;
 
 function dropObject(idx) {
     if (idx < 132) return;
@@ -27,6 +18,15 @@ function takeObject(idx) {
     const ret = getObject(idx);
     dropObject(idx);
     return ret;
+}
+
+function addHeapObject(obj) {
+    if (heap_next === heap.length) heap.push(heap.length + 1);
+    const idx = heap_next;
+    heap_next = heap[idx];
+
+    heap[idx] = obj;
+    return idx;
 }
 
 const cachedTextDecoder = (typeof TextDecoder !== 'undefined' ? new TextDecoder('utf-8', { ignoreBOM: true, fatal: true }) : { decode: () => { throw Error('TextDecoder not available') } } );
@@ -212,11 +212,11 @@ function makeMutClosure(arg0, arg1, dtor, f) {
     return real;
 }
 function __wbg_adapter_28(arg0, arg1, arg2) {
-    wasm._dyn_core__ops__function__FnMut__A____Output___R_as_wasm_bindgen__closure__WasmClosure___describe__invoke__h39ffd099e3b9af6c(arg0, arg1, addHeapObject(arg2));
+    wasm._dyn_core_9b3796e30d99ddb7___ops__function__FnMut_______Output______as_wasm_bindgen_6a2d80d24f517486___closure__WasmClosure___describe__invoke___web_sys_cdcf5dcc636feea5___features__gen_CloseEvent__CloseEvent_____(arg0, arg1, addHeapObject(arg2));
 }
 
 function __wbg_adapter_35(arg0, arg1, arg2) {
-    wasm._dyn_core__ops__function__FnMut__A____Output___R_as_wasm_bindgen__closure__WasmClosure___describe__invoke__h9de4dfc5842d2ae3(arg0, arg1, addHeapObject(arg2));
+    wasm._dyn_core_9b3796e30d99ddb7___ops__function__FnMut_______Output______as_wasm_bindgen_6a2d80d24f517486___closure__WasmClosure___describe__invoke___wasm_bindgen_6a2d80d24f517486___JsValue_____(arg0, arg1, addHeapObject(arg2));
 }
 
 /**
@@ -224,225 +224,6 @@ function __wbg_adapter_35(arg0, arg1, arg2) {
 */
 export function is_bhaptics_player_running() {
     const ret = wasm.is_bhaptics_player_running();
-    return takeObject(ret);
-}
-
-/**
-* @returns {Promise<boolean>}
-*/
-export function is_bhaptics_player_installed() {
-    const ret = wasm.is_bhaptics_player_installed();
-    return takeObject(ret);
-}
-
-/**
-* @param {boolean} try_launch
-* @returns {Promise<boolean>}
-*/
-export function run_bhaptics_player(try_launch) {
-    const ret = wasm.run_bhaptics_player(try_launch);
-    return takeObject(ret);
-}
-
-/**
-* @param {string} app_id
-* @param {string} api_key
-* @param {string} init_json_string
-* @returns {Promise<boolean>}
-*/
-export function registry_and_initialize(app_id, api_key, init_json_string) {
-    const ptr0 = passStringToWasm0(app_id, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
-    const len0 = WASM_VECTOR_LEN;
-    const ptr1 = passStringToWasm0(api_key, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
-    const len1 = WASM_VECTOR_LEN;
-    const ptr2 = passStringToWasm0(init_json_string, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
-    const len2 = WASM_VECTOR_LEN;
-    const ret = wasm.registry_and_initialize(ptr0, len0, ptr1, len1, ptr2, len2);
-    return takeObject(ret);
-}
-
-/**
-* @param {string} host
-* @param {string} app_id
-* @param {string} api_key
-* @param {string} init_json_string
-* @returns {Promise<boolean>}
-*/
-export function remote_registry_and_initialize(host, app_id, api_key, init_json_string) {
-    const ptr0 = passStringToWasm0(host, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
-    const len0 = WASM_VECTOR_LEN;
-    const ptr1 = passStringToWasm0(app_id, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
-    const len1 = WASM_VECTOR_LEN;
-    const ptr2 = passStringToWasm0(api_key, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
-    const len2 = WASM_VECTOR_LEN;
-    const ptr3 = passStringToWasm0(init_json_string, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
-    const len3 = WASM_VECTOR_LEN;
-    const ret = wasm.remote_registry_and_initialize(ptr0, len0, ptr1, len1, ptr2, len2, ptr3, len3);
-    return takeObject(ret);
-}
-
-/**
-* @param {string} app_id
-* @param {string} api_key
-* @returns {Promise<void>}
-*/
-export function retry_initialize(app_id, api_key) {
-    const ptr0 = passStringToWasm0(app_id, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
-    const len0 = WASM_VECTOR_LEN;
-    const ptr1 = passStringToWasm0(api_key, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
-    const len1 = WASM_VECTOR_LEN;
-    const ret = wasm.retry_initialize(ptr0, len0, ptr1, len1);
-    return takeObject(ret);
-}
-
-/**
-* @returns {Promise<boolean>}
-*/
-export function is_connected() {
-    const ret = wasm.is_connected();
-    return takeObject(ret);
-}
-
-/**
-* @returns {Promise<void>}
-*/
-export function close() {
-    const ret = wasm.close();
-    return takeObject(ret);
-}
-
-/**
-* @param {string} address
-* @param {number} vsm
-* @returns {Promise<void>}
-*/
-export function set_device_vsm(address, vsm) {
-    const ptr0 = passStringToWasm0(address, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
-    const len0 = WASM_VECTOR_LEN;
-    const ret = wasm.set_device_vsm(ptr0, len0, vsm);
-    return takeObject(ret);
-}
-
-/**
-* @param {string} address
-* @returns {Promise<void>}
-*/
-export function swap_position(address) {
-    const ptr0 = passStringToWasm0(address, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
-    const len0 = WASM_VECTOR_LEN;
-    const ret = wasm.swap_position(ptr0, len0);
-    return takeObject(ret);
-}
-
-/**
-* @param {number} position
-* @returns {Promise<boolean>}
-*/
-export function is_bhaptics_device_connected(position) {
-    const ret = wasm.is_bhaptics_device_connected(position);
-    return takeObject(ret);
-}
-
-/**
-* @param {string} address
-* @returns {Promise<void>}
-*/
-export function ping(address) {
-    const ptr0 = passStringToWasm0(address, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
-    const len0 = WASM_VECTOR_LEN;
-    const ret = wasm.ping(ptr0, len0);
-    return takeObject(ret);
-}
-
-/**
-* @returns {Promise<void>}
-*/
-export function ping_all() {
-    const ret = wasm.ping_all();
-    return takeObject(ret);
-}
-
-/**
-* @param {string} event_name
-* @returns {Promise<number>}
-*/
-export function get_event_time(event_name) {
-    const ptr0 = passStringToWasm0(event_name, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
-    const len0 = WASM_VECTOR_LEN;
-    const ret = wasm.get_event_time(ptr0, len0);
-    return takeObject(ret);
-}
-
-/**
-* @returns {Promise<string>}
-*/
-export function get_device_info_json() {
-    const ret = wasm.get_device_info_json();
-    return takeObject(ret);
-}
-
-/**
-* @returns {Promise<string>}
-*/
-export function get_haptic_mappings_json() {
-    const ret = wasm.get_haptic_mappings_json();
-    return takeObject(ret);
-}
-
-/**
-* @returns {Promise<boolean>}
-*/
-export function is_playing_event() {
-    const ret = wasm.is_playing_event();
-    return takeObject(ret);
-}
-
-/**
-* @param {number} request_id
-* @returns {Promise<boolean>}
-*/
-export function is_playing_event_by_request_id(request_id) {
-    const ret = wasm.is_playing_event_by_request_id(request_id);
-    return takeObject(ret);
-}
-
-/**
-* @param {string} event_id
-* @returns {Promise<boolean>}
-*/
-export function is_playing_event_by_event_id(event_id) {
-    const ptr0 = passStringToWasm0(event_id, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
-    const len0 = WASM_VECTOR_LEN;
-    const ret = wasm.is_playing_event_by_event_id(ptr0, len0);
-    return takeObject(ret);
-}
-
-/**
-* @param {string} event_name
-* @param {number} device_index
-* @returns {Promise<number>}
-*/
-export function play_event(event_name, device_index) {
-    const ptr0 = passStringToWasm0(event_name, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
-    const len0 = WASM_VECTOR_LEN;
-    const ret = wasm.play_event(ptr0, len0, device_index);
-    return takeObject(ret);
-}
-
-/**
-* @param {string} key
-* @param {number} start_millis
-* @param {number} intensity
-* @param {number} duration_ratio
-* @param {number} angle_x
-* @param {number} offset_y
-* @param {number} device_index
-* @returns {Promise<number>}
-*/
-export function play_with_start_time(key, start_millis, intensity, duration_ratio, angle_x, offset_y, device_index) {
-    const ptr0 = passStringToWasm0(key, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
-    const len0 = WASM_VECTOR_LEN;
-    const ret = wasm.play_with_start_time(ptr0, len0, start_millis, intensity, duration_ratio, angle_x, offset_y, device_index);
     return takeObject(ret);
 }
 
@@ -580,6 +361,26 @@ export function play_glove(position, motors, playtimes, shapes, repeat_count) {
 }
 
 /**
+* @param {number} position
+* @param {Int32Array} motors
+* @param {Int32Array} playtimes
+* @param {Int32Array} shapes
+* @param {number} frequency
+* @param {number} repeat_count
+* @returns {Promise<number>}
+*/
+export function play_glove_dk3(position, motors, playtimes, shapes, frequency, repeat_count) {
+    const ptr0 = passArray32ToWasm0(motors, wasm.__wbindgen_malloc);
+    const len0 = WASM_VECTOR_LEN;
+    const ptr1 = passArray32ToWasm0(playtimes, wasm.__wbindgen_malloc);
+    const len1 = WASM_VECTOR_LEN;
+    const ptr2 = passArray32ToWasm0(shapes, wasm.__wbindgen_malloc);
+    const len2 = WASM_VECTOR_LEN;
+    const ret = wasm.play_glove_dk3(position, ptr0, len0, ptr1, len1, ptr2, len2, frequency, repeat_count);
+    return takeObject(ret);
+}
+
+/**
 * @param {string} event
 * @returns {Promise<void>}
 */
@@ -629,6 +430,231 @@ export function stop_all() {
     return takeObject(ret);
 }
 
+/**
+* @returns {Promise<boolean>}
+*/
+export function is_bhaptics_player_installed() {
+    const ret = wasm.is_bhaptics_player_installed();
+    return takeObject(ret);
+}
+
+/**
+* @param {boolean} try_launch
+* @returns {Promise<boolean>}
+*/
+export function run_bhaptics_player(try_launch) {
+    const ret = wasm.run_bhaptics_player(try_launch);
+    return takeObject(ret);
+}
+
+/**
+* 반환값은 **첫 시도** 결과다(true = 즉시 연결/초기화 성공). connect 후에는 초기
+* 연결 실패면 백그라운드 재시도 루프가, 연결됐다 끊기면 transport onclose →
+* on_disconnect 가 자동 재연결을 처리하므로, 호출자는 이후 is_connected() 로 연결
+* 여부를 확인하면 된다.
+* @param {string} app_id
+* @param {string} api_key
+* @param {string} init_json_string
+* @returns {Promise<boolean>}
+*/
+export function registry_and_initialize(app_id, api_key, init_json_string) {
+    const ptr0 = passStringToWasm0(app_id, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+    const len0 = WASM_VECTOR_LEN;
+    const ptr1 = passStringToWasm0(api_key, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+    const len1 = WASM_VECTOR_LEN;
+    const ptr2 = passStringToWasm0(init_json_string, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+    const len2 = WASM_VECTOR_LEN;
+    const ret = wasm.registry_and_initialize(ptr0, len0, ptr1, len1, ptr2, len2);
+    return takeObject(ret);
+}
+
+/**
+* @returns {Promise<void>}
+*/
+export function ping_all() {
+    const ret = wasm.ping_all();
+    return takeObject(ret);
+}
+
+/**
+* @param {string} event_name
+* @returns {Promise<number>}
+*/
+export function get_event_time(event_name) {
+    const ptr0 = passStringToWasm0(event_name, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+    const len0 = WASM_VECTOR_LEN;
+    const ret = wasm.get_event_time(ptr0, len0);
+    return takeObject(ret);
+}
+
+/**
+* @returns {Promise<string>}
+*/
+export function get_device_info_json() {
+    const ret = wasm.get_device_info_json();
+    return takeObject(ret);
+}
+
+/**
+* @returns {Promise<string>}
+*/
+export function get_haptic_mappings_json() {
+    const ret = wasm.get_haptic_mappings_json();
+    return takeObject(ret);
+}
+
+/**
+* @returns {Promise<boolean>}
+*/
+export function is_playing_event() {
+    const ret = wasm.is_playing_event();
+    return takeObject(ret);
+}
+
+/**
+* @param {number} request_id
+* @returns {Promise<boolean>}
+*/
+export function is_playing_event_by_request_id(request_id) {
+    const ret = wasm.is_playing_event_by_request_id(request_id);
+    return takeObject(ret);
+}
+
+/**
+* @param {string} event_id
+* @returns {Promise<boolean>}
+*/
+export function is_playing_event_by_event_id(event_id) {
+    const ptr0 = passStringToWasm0(event_id, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+    const len0 = WASM_VECTOR_LEN;
+    const ret = wasm.is_playing_event_by_event_id(ptr0, len0);
+    return takeObject(ret);
+}
+
+/**
+* @param {string} event_name
+* @param {number} device_index
+* @returns {Promise<number>}
+*/
+export function play_event(event_name, device_index) {
+    const ptr0 = passStringToWasm0(event_name, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+    const len0 = WASM_VECTOR_LEN;
+    const ret = wasm.play_event(ptr0, len0, device_index);
+    return takeObject(ret);
+}
+
+/**
+* @param {string} key
+* @param {number} start_millis
+* @param {number} intensity
+* @param {number} duration_ratio
+* @param {number} angle_x
+* @param {number} offset_y
+* @param {number} device_index
+* @returns {Promise<number>}
+*/
+export function play_with_start_time(key, start_millis, intensity, duration_ratio, angle_x, offset_y, device_index) {
+    const ptr0 = passStringToWasm0(key, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+    const len0 = WASM_VECTOR_LEN;
+    const ret = wasm.play_with_start_time(ptr0, len0, start_millis, intensity, duration_ratio, angle_x, offset_y, device_index);
+    return takeObject(ret);
+}
+
+/**
+* 반환값 시맨틱은 [`registry_and_initialize`] 와 동일하다(첫 시도 결과 + 초기 실패
+* 재시도 + onclose 기반 드롭 후 재연결).
+* @param {string} host
+* @param {string} app_id
+* @param {string} api_key
+* @param {string} init_json_string
+* @returns {Promise<boolean>}
+*/
+export function remote_registry_and_initialize(host, app_id, api_key, init_json_string) {
+    const ptr0 = passStringToWasm0(host, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+    const len0 = WASM_VECTOR_LEN;
+    const ptr1 = passStringToWasm0(app_id, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+    const len1 = WASM_VECTOR_LEN;
+    const ptr2 = passStringToWasm0(api_key, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+    const len2 = WASM_VECTOR_LEN;
+    const ptr3 = passStringToWasm0(init_json_string, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+    const len3 = WASM_VECTOR_LEN;
+    const ret = wasm.remote_registry_and_initialize(ptr0, len0, ptr1, len1, ptr2, len2, ptr3, len3);
+    return takeObject(ret);
+}
+
+/**
+* @param {string} app_id
+* @param {string} api_key
+* @returns {Promise<void>}
+*/
+export function retry_initialize(app_id, api_key) {
+    const ptr0 = passStringToWasm0(app_id, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+    const len0 = WASM_VECTOR_LEN;
+    const ptr1 = passStringToWasm0(api_key, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+    const len1 = WASM_VECTOR_LEN;
+    const ret = wasm.retry_initialize(ptr0, len0, ptr1, len1);
+    return takeObject(ret);
+}
+
+/**
+* @returns {Promise<boolean>}
+*/
+export function is_connected() {
+    const ret = wasm.is_connected();
+    return takeObject(ret);
+}
+
+/**
+* @returns {Promise<void>}
+*/
+export function close() {
+    const ret = wasm.close();
+    return takeObject(ret);
+}
+
+/**
+* @param {string} address
+* @param {number} vsm
+* @returns {Promise<void>}
+*/
+export function set_device_vsm(address, vsm) {
+    const ptr0 = passStringToWasm0(address, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+    const len0 = WASM_VECTOR_LEN;
+    const ret = wasm.set_device_vsm(ptr0, len0, vsm);
+    return takeObject(ret);
+}
+
+/**
+* @param {string} address
+* @returns {Promise<void>}
+*/
+export function swap_position(address) {
+    const ptr0 = passStringToWasm0(address, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+    const len0 = WASM_VECTOR_LEN;
+    const ret = wasm.swap_position(ptr0, len0);
+    return takeObject(ret);
+}
+
+/**
+* @param {number} position
+* @returns {Promise<boolean>}
+*/
+export function is_bhaptics_device_connected(position) {
+    const ret = wasm.is_bhaptics_device_connected(position);
+    return takeObject(ret);
+}
+
+/**
+* @param {string} address
+* @returns {Promise<void>}
+*/
+export function ping(address) {
+    const ptr0 = passStringToWasm0(address, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+    const len0 = WASM_VECTOR_LEN;
+    const ret = wasm.ping(ptr0, len0);
+    return takeObject(ret);
+}
+
 function handleError(f, args) {
     try {
         return f.apply(this, args);
@@ -636,8 +662,13 @@ function handleError(f, args) {
         wasm.__wbindgen_exn_store(addHeapObject(e));
     }
 }
-function __wbg_adapter_118(arg0, arg1, arg2, arg3) {
-    wasm.wasm_bindgen__convert__closures__invoke2_mut__h0616af040bff7ca8(arg0, arg1, addHeapObject(arg2), addHeapObject(arg3));
+
+function getArrayU8FromWasm0(ptr, len) {
+    ptr = ptr >>> 0;
+    return getUint8ArrayMemory0().subarray(ptr / 1, ptr / 1 + len);
+}
+function __wbg_adapter_127(arg0, arg1, arg2, arg3) {
+    wasm.wasm_bindgen_6a2d80d24f517486___convert__closures__invoke2_mut___wasm_bindgen_6a2d80d24f517486___JsValue__wasm_bindgen_6a2d80d24f517486___JsValue_____(arg0, arg1, addHeapObject(arg2), addHeapObject(arg3));
 }
 
 async function __wbg_load(module, imports) {
@@ -674,24 +705,16 @@ async function __wbg_load(module, imports) {
 function __wbg_get_imports() {
     const imports = {};
     imports.wbg = {};
+    imports.wbg.__wbindgen_object_drop_ref = function(arg0) {
+        takeObject(arg0);
+    };
     imports.wbg.__wbindgen_number_new = function(arg0) {
         const ret = arg0;
         return addHeapObject(ret);
     };
-    imports.wbg.__wbindgen_object_drop_ref = function(arg0) {
-        takeObject(arg0);
-    };
     imports.wbg.__wbindgen_string_new = function(arg0, arg1) {
         const ret = getStringFromWasm0(arg0, arg1);
         return addHeapObject(ret);
-    };
-    imports.wbg.__wbindgen_string_get = function(arg0, arg1) {
-        const obj = getObject(arg1);
-        const ret = typeof(obj) === 'string' ? obj : undefined;
-        var ptr1 = isLikeNone(ret) ? 0 : passStringToWasm0(ret, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
-        var len1 = WASM_VECTOR_LEN;
-        getDataViewMemory0().setInt32(arg0 + 4 * 1, len1, true);
-        getDataViewMemory0().setInt32(arg0 + 4 * 0, ptr1, true);
     };
     imports.wbg.__wbg_crypto_1d1f22824a6a080c = function(arg0) {
         const ret = getObject(arg0).crypto;
@@ -736,6 +759,14 @@ function __wbg_get_imports() {
     imports.wbg.__wbg_getRandomValues_3aa56aa6edec874c = function() { return handleError(function (arg0, arg1) {
         getObject(arg0).getRandomValues(getObject(arg1));
     }, arguments) };
+    imports.wbg.__wbindgen_string_get = function(arg0, arg1) {
+        const obj = getObject(arg1);
+        const ret = typeof(obj) === 'string' ? obj : undefined;
+        var ptr1 = isLikeNone(ret) ? 0 : passStringToWasm0(ret, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        var len1 = WASM_VECTOR_LEN;
+        getDataViewMemory0().setInt32(arg0 + 4 * 1, len1, true);
+        getDataViewMemory0().setInt32(arg0 + 4 * 0, ptr1, true);
+    };
     imports.wbg.__wbindgen_cb_drop = function(arg0) {
         const obj = takeObject(arg0).original;
         if (obj.cnt-- == 1) {
@@ -745,13 +776,10 @@ function __wbg_get_imports() {
         const ret = false;
         return ret;
     };
-    imports.wbg.__wbg_queueMicrotask_12a30234db4045d3 = function(arg0) {
-        queueMicrotask(getObject(arg0));
-    };
-    imports.wbg.__wbg_queueMicrotask_48421b3cc9052b68 = function(arg0) {
-        const ret = getObject(arg0).queueMicrotask;
-        return addHeapObject(ret);
-    };
+    imports.wbg.__wbg_setTimeout_73b734ca971c19f4 = function() { return handleError(function (arg0, arg1, arg2) {
+        const ret = getObject(arg0).setTimeout(getObject(arg1), arg2);
+        return ret;
+    }, arguments) };
     imports.wbg.__wbg_instanceof_Window_5012736c80a01584 = function(arg0) {
         let result;
         try {
@@ -761,20 +789,6 @@ function __wbg_get_imports() {
         }
         const ret = result;
         return ret;
-    };
-    imports.wbg.__wbg_setTimeout_73b734ca971c19f4 = function() { return handleError(function (arg0, arg1, arg2) {
-        const ret = getObject(arg0).setTimeout(getObject(arg1), arg2);
-        return ret;
-    }, arguments) };
-    imports.wbg.__wbg_data_5c47a6985fefc490 = function(arg0) {
-        const ret = getObject(arg0).data;
-        return addHeapObject(ret);
-    };
-    imports.wbg.__wbg_error_09480e4aadca50ad = function(arg0) {
-        console.error(getObject(arg0));
-    };
-    imports.wbg.__wbg_log_b103404cc5920657 = function(arg0) {
-        console.log(getObject(arg0));
     };
     imports.wbg.__wbg_setonopen_7e770c87269cae90 = function(arg0, arg1) {
         getObject(arg0).onopen = getObject(arg1);
@@ -798,42 +812,75 @@ function __wbg_get_imports() {
     imports.wbg.__wbg_send_82b52e2f9f8946d9 = function() { return handleError(function (arg0, arg1, arg2) {
         getObject(arg0).send(getStringFromWasm0(arg1, arg2));
     }, arguments) };
-    imports.wbg.__wbg_newnoargs_76313bd6ff35d0f2 = function(arg0, arg1) {
-        const ret = new Function(getStringFromWasm0(arg0, arg1));
+    imports.wbg.__wbg_send_1b333b26681a902d = function() { return handleError(function (arg0, arg1, arg2) {
+        getObject(arg0).send(getArrayU8FromWasm0(arg1, arg2));
+    }, arguments) };
+    imports.wbg.__wbg_log_b103404cc5920657 = function(arg0) {
+        console.log(getObject(arg0));
+    };
+    imports.wbg.__wbg_error_09480e4aadca50ad = function(arg0) {
+        console.error(getObject(arg0));
+    };
+    imports.wbg.__wbg_setTimeout_36657c408b0951b6 = function() { return handleError(function (arg0, arg1, arg2) {
+        const ret = getObject(arg0).setTimeout(getObject(arg1), arg2);
+        return ret;
+    }, arguments) };
+    imports.wbg.__wbg_instanceof_WorkerGlobalScope_e34c8a505711a78e = function(arg0) {
+        let result;
+        try {
+            result = getObject(arg0) instanceof WorkerGlobalScope;
+        } catch (_) {
+            result = false;
+        }
+        const ret = result;
+        return ret;
+    };
+    imports.wbg.__wbg_data_5c47a6985fefc490 = function(arg0) {
+        const ret = getObject(arg0).data;
+        return addHeapObject(ret);
+    };
+    imports.wbg.__wbg_queueMicrotask_48421b3cc9052b68 = function(arg0) {
+        const ret = getObject(arg0).queueMicrotask;
+        return addHeapObject(ret);
+    };
+    imports.wbg.__wbg_queueMicrotask_12a30234db4045d3 = function(arg0) {
+        queueMicrotask(getObject(arg0));
+    };
+    imports.wbg.__wbindgen_object_clone_ref = function(arg0) {
+        const ret = getObject(arg0);
         return addHeapObject(ret);
     };
     imports.wbg.__wbg_call_1084a111329e68ce = function() { return handleError(function (arg0, arg1) {
         const ret = getObject(arg0).call(getObject(arg1));
         return addHeapObject(ret);
     }, arguments) };
-    imports.wbg.__wbindgen_object_clone_ref = function(arg0) {
-        const ret = getObject(arg0);
+    imports.wbg.__wbg_newnoargs_76313bd6ff35d0f2 = function(arg0, arg1) {
+        const ret = new Function(getStringFromWasm0(arg0, arg1));
         return addHeapObject(ret);
-    };
-    imports.wbg.__wbg_self_3093d5d1f7bcb682 = function() { return handleError(function () {
-        const ret = self.self;
-        return addHeapObject(ret);
-    }, arguments) };
-    imports.wbg.__wbg_window_3bcfc4d31bc012f8 = function() { return handleError(function () {
-        const ret = window.window;
-        return addHeapObject(ret);
-    }, arguments) };
-    imports.wbg.__wbg_globalThis_86b222e13bdf32ed = function() { return handleError(function () {
-        const ret = globalThis.globalThis;
-        return addHeapObject(ret);
-    }, arguments) };
-    imports.wbg.__wbg_global_e5a3fe56f8be9485 = function() { return handleError(function () {
-        const ret = global.global;
-        return addHeapObject(ret);
-    }, arguments) };
-    imports.wbg.__wbindgen_is_undefined = function(arg0) {
-        const ret = getObject(arg0) === undefined;
-        return ret;
     };
     imports.wbg.__wbg_call_89af060b4e1523f2 = function() { return handleError(function (arg0, arg1, arg2) {
         const ret = getObject(arg0).call(getObject(arg1), getObject(arg2));
         return addHeapObject(ret);
     }, arguments) };
+    imports.wbg.__wbg_now_b7a162010a9e75b4 = function() {
+        const ret = Date.now();
+        return ret;
+    };
+    imports.wbg.__wbg_buffer_b7b08af79b0b0974 = function(arg0) {
+        const ret = getObject(arg0).buffer;
+        return addHeapObject(ret);
+    };
+    imports.wbg.__wbg_newwithbyteoffsetandlength_8a2cb9ca96b27ec9 = function(arg0, arg1, arg2) {
+        const ret = new Uint8Array(getObject(arg0), arg1 >>> 0, arg2 >>> 0);
+        return addHeapObject(ret);
+    };
+    imports.wbg.__wbg_new_ea1883e1e5e86686 = function(arg0) {
+        const ret = new Uint8Array(getObject(arg0));
+        return addHeapObject(ret);
+    };
+    imports.wbg.__wbg_set_d1e79e2388520f18 = function(arg0, arg1, arg2) {
+        getObject(arg0).set(getObject(arg1), arg2 >>> 0);
+    };
     imports.wbg.__wbg_new_b85e72ed1bfd57f9 = function(arg0, arg1) {
         try {
             var state0 = {a: arg0, b: arg1};
@@ -841,7 +888,7 @@ function __wbg_get_imports() {
                 const a = state0.a;
                 state0.a = 0;
                 try {
-                    return __wbg_adapter_118(a, state0.b, arg0, arg1);
+                    return __wbg_adapter_127(a, state0.b, arg0, arg1);
                 } finally {
                     state0.a = a;
                 }
@@ -864,21 +911,6 @@ function __wbg_get_imports() {
         const ret = getObject(arg0).then(getObject(arg1), getObject(arg2));
         return addHeapObject(ret);
     };
-    imports.wbg.__wbg_buffer_b7b08af79b0b0974 = function(arg0) {
-        const ret = getObject(arg0).buffer;
-        return addHeapObject(ret);
-    };
-    imports.wbg.__wbg_newwithbyteoffsetandlength_8a2cb9ca96b27ec9 = function(arg0, arg1, arg2) {
-        const ret = new Uint8Array(getObject(arg0), arg1 >>> 0, arg2 >>> 0);
-        return addHeapObject(ret);
-    };
-    imports.wbg.__wbg_new_ea1883e1e5e86686 = function(arg0) {
-        const ret = new Uint8Array(getObject(arg0));
-        return addHeapObject(ret);
-    };
-    imports.wbg.__wbg_set_d1e79e2388520f18 = function(arg0, arg1, arg2) {
-        getObject(arg0).set(getObject(arg1), arg2 >>> 0);
-    };
     imports.wbg.__wbg_newwithlength_ec548f448387c968 = function(arg0) {
         const ret = new Uint8Array(arg0 >>> 0);
         return addHeapObject(ret);
@@ -887,6 +919,33 @@ function __wbg_get_imports() {
         const ret = getObject(arg0).subarray(arg1 >>> 0, arg2 >>> 0);
         return addHeapObject(ret);
     };
+    imports.wbg.__wbg_self_3093d5d1f7bcb682 = function() { return handleError(function () {
+        const ret = self.self;
+        return addHeapObject(ret);
+    }, arguments) };
+    imports.wbg.__wbg_window_3bcfc4d31bc012f8 = function() { return handleError(function () {
+        const ret = window.window;
+        return addHeapObject(ret);
+    }, arguments) };
+    imports.wbg.__wbg_globalThis_86b222e13bdf32ed = function() { return handleError(function () {
+        const ret = globalThis.globalThis;
+        return addHeapObject(ret);
+    }, arguments) };
+    imports.wbg.__wbg_global_e5a3fe56f8be9485 = function() { return handleError(function () {
+        const ret = global.global;
+        return addHeapObject(ret);
+    }, arguments) };
+    imports.wbg.__wbindgen_is_undefined = function(arg0) {
+        const ret = getObject(arg0) === undefined;
+        return ret;
+    };
+    imports.wbg.__wbindgen_memory = function() {
+        const ret = wasm.memory;
+        return addHeapObject(ret);
+    };
+    imports.wbg.__wbindgen_throw = function(arg0, arg1) {
+        throw new Error(getStringFromWasm0(arg0, arg1));
+    };
     imports.wbg.__wbindgen_debug_string = function(arg0, arg1) {
         const ret = debugString(getObject(arg1));
         const ptr1 = passStringToWasm0(ret, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
@@ -894,27 +953,20 @@ function __wbg_get_imports() {
         getDataViewMemory0().setInt32(arg0 + 4 * 1, len1, true);
         getDataViewMemory0().setInt32(arg0 + 4 * 0, ptr1, true);
     };
-    imports.wbg.__wbindgen_throw = function(arg0, arg1) {
-        throw new Error(getStringFromWasm0(arg0, arg1));
-    };
-    imports.wbg.__wbindgen_memory = function() {
-        const ret = wasm.memory;
+    imports.wbg.__wbindgen_closure_wrapper903 = function(arg0, arg1, arg2) {
+        const ret = makeMutClosure(arg0, arg1, 344, __wbg_adapter_28);
         return addHeapObject(ret);
     };
-    imports.wbg.__wbindgen_closure_wrapper271 = function(arg0, arg1, arg2) {
-        const ret = makeMutClosure(arg0, arg1, 179, __wbg_adapter_28);
+    imports.wbg.__wbindgen_closure_wrapper905 = function(arg0, arg1, arg2) {
+        const ret = makeMutClosure(arg0, arg1, 344, __wbg_adapter_28);
         return addHeapObject(ret);
     };
-    imports.wbg.__wbindgen_closure_wrapper273 = function(arg0, arg1, arg2) {
-        const ret = makeMutClosure(arg0, arg1, 179, __wbg_adapter_28);
+    imports.wbg.__wbindgen_closure_wrapper907 = function(arg0, arg1, arg2) {
+        const ret = makeMutClosure(arg0, arg1, 344, __wbg_adapter_28);
         return addHeapObject(ret);
     };
-    imports.wbg.__wbindgen_closure_wrapper275 = function(arg0, arg1, arg2) {
-        const ret = makeMutClosure(arg0, arg1, 179, __wbg_adapter_28);
-        return addHeapObject(ret);
-    };
-    imports.wbg.__wbindgen_closure_wrapper793 = function(arg0, arg1, arg2) {
-        const ret = makeMutClosure(arg0, arg1, 325, __wbg_adapter_35);
+    imports.wbg.__wbindgen_closure_wrapper1242 = function(arg0, arg1, arg2) {
+        const ret = makeMutClosure(arg0, arg1, 365, __wbg_adapter_35);
         return addHeapObject(ret);
     };
 
