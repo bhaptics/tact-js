@@ -7,6 +7,7 @@ import VideoSection from './components/VideoSection';
 import { Timer } from './utils/Timer';
 import DotModeSection from './components/DotModeSection';
 import PathModeSection from './components/PathModeSection';
+import NewPathModeSection from './components/NewPathModeSection';
 
 const APP_ID = '67d0055d69fb8c79a66b1cb6';
 const API_KEY = 'Sv3sOVOSeLFl8t8QTKpK';
@@ -49,6 +50,7 @@ export default function App() {
           <EventKeySection />
           <DotModeSection />
           <PathModeSection />
+          <NewPathModeSection />
           <VideoSection />
         </div>
       </div>

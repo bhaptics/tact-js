@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import HapticDriver, { PositionType } from 'tact-js';
 
-const motors = Array.from({ length: 40 }).map(() => 0);
+const motors = Array.from({ length: 32 }).map(() => 0);
 
 export default function DotModeSection() {
   const [intensity, setIntensity] = useState<number>(100);
   const [duration, setDuration] = useState<number>(1000);
 
   const handleClick = (index: number) => (front: boolean) => {
-    const offset = front ? 0 : 20;
+    const offset = front ? 0 : 16;
     const newMotors = [...motors];
     newMotors[index + offset] = intensity;
 
@@ -20,8 +20,10 @@ export default function DotModeSection() {
   };
 
   return (
-    <section className={`flex flex-col items-start gap-2 transition-opacity select-none`}>
-      <h3>3. Dot Mode Test</h3>
+    <section
+      className={`flex flex-col items-start gap-2 transition-opacity select-none`}
+    >
+      <h3 className="font-bold">Dot Mode Test</h3>
       <p className="">
         {`If you have a TactSuit connected, you can test the motors by clicking the buttons below.
         Each button will trigger a single motor for 1 second.`}
@@ -55,7 +57,8 @@ export default function DotModeSection() {
           {Array.from({ length: 16 }).map((_, index) => (
             <button
               className="cursor-pointer bg-gray-50 py-10  hover:bg-gray-100  text-gray-400 text-sm"
-              onClick={() => handleClick(index)(true)}>
+              onClick={() => handleClick(index)(true)}
+            >
               {index}
             </button>
           ))}
@@ -64,7 +67,8 @@ export default function DotModeSection() {
           {motors.slice(16, 32).map((_, index) => (
             <button
               className="cursor-pointer bg-gray-50 py-10  hover:bg-gray-100  text-gray-400 text-sm"
-              onClick={() => handleClick(index)(false)}>
+              onClick={() => handleClick(index)(false)}
+            >
               {index + 20}
             </button>
           ))}
